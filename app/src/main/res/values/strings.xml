@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Ewallet</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_a_title">Hello tab a</string>
+    <string name="tab_b_title">Hello tab b</string>
+    <string name="tab_c_title">Hello tab c</string>
+
+</resources>
