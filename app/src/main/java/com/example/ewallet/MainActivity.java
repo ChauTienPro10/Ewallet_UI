@@ -1,12 +1,18 @@
 package com.example.ewallet;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private TabLayout mtablayout;
@@ -25,5 +31,19 @@ public class MainActivity extends AppCompatActivity {
         });
         tabLayoutMediator.attach();
 
+    }
+
+    public void callApi(){
+                ApiService.apiService.check().enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+                        Toast.makeText(MainActivity.this,"call api success"+response.body(),Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                        Toast.makeText(MainActivity.this,"call api error",Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
