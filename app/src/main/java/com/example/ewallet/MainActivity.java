@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -21,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Chuyển sang trang LoginPage
+        Intent intent = new Intent(this, LoginPage.class);
+        startActivity(intent);
+        finish();
+
         mtablayout =findViewById(R.id.tabLayout);
         mviewpager=findViewById(R.id.viewPager);
         ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager(),getLifecycle());

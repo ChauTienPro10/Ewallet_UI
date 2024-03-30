@@ -37,62 +37,151 @@
                 android:textStyle="bold"
                 android:textColor="@color/purple"/>
 
-            <EditText
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="45dp"-->
+<!--                android:layout_marginTop="40dp"-->
+<!--                android:background="@drawable/custom_edittext"-->
+<!--                android:drawableStart="@drawable/person_solid"-->
+<!--                android:drawablePadding="8dp"-->
+<!--                android:id="@+id/fullNameEditText"-->
+<!--                android:hint="Enter fullName"-->
+<!--                android:padding="8dp"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textColorHighlight="@color/cardview_dark_background" />-->
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/custom_edittext"
-                android:drawableStart="@drawable/person_solid"
-                android:drawablePadding="8dp"
-                android:id="@+id/fullNameEditText"
-                android:hint="Fullname"
-                android:padding="8dp"
-                android:textColor="@color/black"
-                android:textColorHighlight="@color/cardview_dark_background" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="40dp">
+
+                <!-- EditText cho firstName -->
+                <EditText
+                    android:id="@+id/firstNameEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_edittext"
+                    android:drawableStart="@drawable/face_smile_solid"
+                    android:drawablePadding="8dp"
+                    android:hint="First Name"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/cardview_dark_background"
+                    android:layout_marginRight="5dp"/>
+
+                <!-- EditText cho lastName -->
+                <EditText
+                    android:id="@+id/lNameEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_edittext"
+                    android:drawableStart="@drawable/face_smile_regular"
+                    android:drawablePadding="8dp"
+                    android:hint="Last Name"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/cardview_dark_background"
+                    android:layout_marginLeft="5dp"/>
+
+            </LinearLayout>
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:id="@+id/emailEditText"
                 android:background="@drawable/custom_edittext"
                 android:drawableStart="@drawable/envelope_solid"
                 android:drawablePadding="8dp"
-                android:hint="Email"
+                android:hint="Enter email"
                 android:padding="8dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/cardview_dark_background"
-                android:layout_marginTop="35dp"/>
+                android:layout_marginTop="20dp"/>
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:id="@+id/usernameEditText"
                 android:background="@drawable/custom_edittext"
-                android:drawableStart="@drawable/user_solid"
+                android:drawableStart="@drawable/circle_user_solid"
                 android:drawablePadding="8dp"
-                android:hint="Username"
+                android:hint="Enter username"
                 android:padding="8dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/cardview_dark_background"
-                android:layout_marginTop="35dp"/>
+                android:layout_marginTop="20dp"/>
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:id="@+id/passwordEditText"
                 android:background="@drawable/custom_edittext"
                 android:drawableStart="@drawable/lock_solid"
                 android:drawablePadding="8dp"
-                android:hint="Password"
+                android:hint="Enter password"
                 android:padding="8dp"
                 android:inputType="textPassword"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/cardview_dark_background"
-                android:layout_marginTop="35dp"/>
+                android:layout_marginTop="20dp"/>
+
+
+            <EditText
+                android:id="@+id/rePasswordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableStart="@drawable/check_to_slot_solid"
+                android:drawablePadding="8dp"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/cardview_dark_background" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:orientation="horizontal"
+                android:background="@drawable/custom_edittext"
+                android:layout_marginTop="20dp">
+
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/contryCodePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+                <EditText
+                    android:id="@+id/phone_number_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone Number"
+                    android:inputType="phone"/>
+
+            </LinearLayout>
+
+
+            <!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="45dp"-->
+<!--                android:id="@+id/countryEditText"-->
+<!--                android:background="@drawable/custom_edittext"-->
+<!--                android:drawableStart="@drawable/globe_solid"-->
+<!--                android:drawablePadding="8dp"-->
+<!--                android:hint="Enter Country"-->
+<!--                android:padding="8dp"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textColorHighlight="@color/cardview_dark_background"-->
+<!--                android:layout_marginTop="20dp"/>-->
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="45dp"
                 android:id="@+id/signUpButton"
                 android:text="SignUp"
                 android:textSize="18sp"
@@ -111,7 +200,7 @@
         android:text="Already have an account ? Login "
         android:textSize="14sp"
         android:textAlignment="center"
-        android:id="@+id/loginText"
+        android:id="@+id/loginTextView"
         android:textColor="@color/purple"
         android:layout_marginBottom="20dp"/>
 
