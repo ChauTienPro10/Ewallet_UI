@@ -40,17 +40,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void callApi(){
-                ApiService.apiService.check().enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
-                        Toast.makeText(MainActivity.this,"call api success"+response.body(),Toast.LENGTH_SHORT).show();
-                    }
 
-                    @Override
-                    public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-                        Toast.makeText(MainActivity.this,"call api error",Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
 }

@@ -78,25 +78,13 @@ public class tab_a extends Fragment {
             public void onClick(View v) {
 //                Intent intent=new Intent(getActivity(), LoginPage.class );
 //                startActivity(intent);
-                callApi();
+
             }
         });
         return rootView;
     }
 
-    public void callApi(){
-        ApiService.apiService.check().enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
-                Toast.makeText(getActivity(),"call api success"+response.body(),Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-                Toast.makeText(getActivity(),"call api error",Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
 
 }
