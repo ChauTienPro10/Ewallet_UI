@@ -33,7 +33,7 @@ android {
 
 dependencies {
 
-    // add
+    // add CCP
     implementation("com.hbb20:ccp:2.5.4")
 
     implementation("androidx.appcompat:appcompat:1.6.1")
