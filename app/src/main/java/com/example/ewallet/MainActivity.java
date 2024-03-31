@@ -23,9 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Chuyển sang trang LoginPage
-        Intent intent = new Intent(this, LoginPage.class);
-        startActivity(intent);
+
         finish();
 
         mtablayout =findViewById(R.id.tabLayout);
