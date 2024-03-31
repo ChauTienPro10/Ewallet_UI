@@ -6,12 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-<<<<<<< HEAD
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-=======
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,7 +20,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
->>>>>>> 1954ef50065ce3b4c50406c8a1ee238e24e0c011
 
 public class LoginPage extends AppCompatActivity {
     EditText mUsername;
@@ -37,16 +30,6 @@ public class LoginPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
-<<<<<<< HEAD
-
-        TextView signUpText = findViewById(R.id.signupText);
-        signUpText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Chuyển sang trang SignUpPage khi nhấn vào "Not yet registered? SignUp Now"
-                Intent intent = new Intent(LoginPage.this, SignUpPage.class);
-                startActivity(intent);
-=======
         mUsername=findViewById(R.id.username);
         mPassword=findViewById(R.id.password);
         mSubmit=findViewById(R.id.loginButton);
@@ -86,7 +69,7 @@ public class LoginPage extends AppCompatActivity {
 
                     Toast.makeText(LoginPage.this, "login success !"+loginResponse.getUsername(), Toast.LENGTH_SHORT).show();
                     Intent intent=new Intent(LoginPage.this, MainActivity.class );
-                     startActivity(intent);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(LoginPage.this, "Username or password incorrect!", Toast.LENGTH_SHORT).show();
                 }
@@ -98,7 +81,6 @@ public class LoginPage extends AppCompatActivity {
                 Toast.makeText(LoginPage.this, "API call failure", Toast.LENGTH_SHORT).show();
                 // Xử lý lỗi kết nối hoặc yêu cầu không thành công
                 progressBar.setVisibility(View.GONE);
->>>>>>> 1954ef50065ce3b4c50406c8a1ee238e24e0c011
             }
         });
     }
