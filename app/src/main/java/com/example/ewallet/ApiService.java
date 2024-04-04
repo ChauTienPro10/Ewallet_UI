@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 
 import Entities.LoginRequest;
 import Entities.LoginResponse;
+import Entities.Member;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -20,7 +21,7 @@ public interface ApiService {
             .setLenient()
             .create();
     ApiService apiService=new Retrofit.Builder()
-            .baseUrl("http://10.0.23.252:9001")
+            .baseUrl("http://10.0.23.146:9001")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build().create(ApiService.class);
 
@@ -29,4 +30,7 @@ public interface ApiService {
 
     @POST("/test/login")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
+
+    @POST("/test/register")
+    Call<ResponseBody> register(@Body Member member);
 }

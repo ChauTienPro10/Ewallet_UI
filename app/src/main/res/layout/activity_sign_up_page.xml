@@ -203,5 +203,10 @@
         android:id="@+id/loginTextView"
         android:textColor="@color/purple"
         android:layout_marginBottom="20dp"/>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
 </LinearLayout>

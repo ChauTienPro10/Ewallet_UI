@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class LoginPage extends AppCompatActivity {
     EditText mUsername;
     EditText mPassword;
     Button mSubmit;
+    TextView signupText;
     private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class LoginPage extends AppCompatActivity {
         mSubmit=findViewById(R.id.loginButton);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
+        signupText = findViewById(R.id.signupText);
 
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +56,14 @@ public class LoginPage extends AppCompatActivity {
 
                 }
 
+            }
+        });
+
+        signupText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(LoginPage.this, SignUpPage.class );
+                startActivity(intent);
             }
         });
 
