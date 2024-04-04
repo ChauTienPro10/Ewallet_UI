@@ -16,27 +16,29 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-    private TabLayout mtablayout;
-    private ViewPager2 mviewpager;
+//    private TabLayout mtablayout;
+//    private ViewPager2 mviewpager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         // Chuyển sang trang LoginPage
-        Intent intent = new Intent(this, LoginPage.class);
-        startActivity(intent);
-        finish();
-
-        mtablayout =findViewById(R.id.tabLayout);
-        mviewpager=findViewById(R.id.viewPager);
-        ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager(),getLifecycle());
-        mviewpager.setAdapter(viewPagerAdapter);
-        TabLayoutMediator tabLayoutMediator=new TabLayoutMediator(mtablayout,mviewpager,(tab, position) -> {
-
-            tab.setText("Tab " + (position + 1));
-        });
-        tabLayoutMediator.attach();
+//        Intent intent = new Intent(this, LoginPage.class);
+//        startActivity(intent);
+//        finish();
+//
+//        mtablayout =findViewById(R.id.tabLayout);
+//        mviewpager=findViewById(R.id.viewPager);
+//        ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager(),getLifecycle());
+//        mviewpager.setAdapter(viewPagerAdapter);
+//        TabLayoutMediator tabLayoutMediator=new TabLayoutMediator(mtablayout,mviewpager,(tab, position) -> {
+//
+//            tab.setText("Tab " + (position + 1));
+//        });
+//        tabLayoutMediator.attach();
 
     }
 
