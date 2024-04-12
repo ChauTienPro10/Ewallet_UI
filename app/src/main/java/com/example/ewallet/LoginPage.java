@@ -2,6 +2,8 @@ package com.example.ewallet;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricManager;
+import androidx.biometric.BiometricPrompt;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +30,13 @@ public class LoginPage extends AppCompatActivity {
     Button mSubmit;
     TextView signupText;
     private ProgressBar progressBar;
+
+    TextView mFingerprint;
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +47,7 @@ public class LoginPage extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
         signupText = findViewById(R.id.signupText);
+        mFingerprint=findViewById(R.id.Fingerprint);
 
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +77,28 @@ public class LoginPage extends AppCompatActivity {
             }
         });
 
+        mFingerprint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FingerPrint fingerPrint = new FingerPrint(LoginPage.this);
+                AuthenticationCallback authenticationCallback=new AuthenticationCallback() {
+                    @Override
+                    public void onAuthenticationSuccess() {
+                        Toast.makeText(LoginPage.this, "login success !", Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(LoginPage.this, MainActivity.class );
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onAuthenticationFailure() {
+                        Toast.makeText(LoginPage.this, "login failure !", Toast.LENGTH_SHORT).show();
+                    }
+                };
+                fingerPrint.Authenticate(authenticationCallback);
+
+            }
+        });
+
     }
     public void callApiLogin(String username, String password) {
 
@@ -90,7 +122,7 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
                 Toast.makeText(LoginPage.this, "API call failure", Toast.LENGTH_SHORT).show();
-                // Xử lý lỗi kết nối hoặc yêu cầu không thành công
+             
                 progressBar.setVisibility(View.GONE);
             }
         });
