@@ -49,7 +49,11 @@ dependencies {
 //    implementation ("com.google.android.material:material:1.3.0-alpha03")
     implementation ("com.google.android.material:material:1.11.0")
 
+// Qrcode dependencies
+    implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
+    coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:2.0.4")
 
+    implementation ("androidx.multidex:multidex:2.0.1")
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
