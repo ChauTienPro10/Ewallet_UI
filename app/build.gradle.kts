@@ -53,19 +53,19 @@ dependencies {
     implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
     coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:2.0.4")
 
-<<<<<<< HEAD
-    implementation ("androidx.multidex:multidex:2.0.1")
-=======
 
->>>>>>> 5b6f39af234d130f5e8d51c39c1ef4c5e146beb0
+    implementation ("androidx.multidex:multidex:2.0.1")
+
+
+
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
 
     // QR scan
-//    implementation ("com.journeyapps:zxing-android-embedded:4.1.0")
-//    implementation ("com.google.zxing:core:3.3.3")
+    implementation ("com.journeyapps:zxing-android-embedded:4.1.0")
+    implementation ("com.google.zxing:core:3.3.3")
     implementation ("com.journeyapps:zxing-android-embedded:4.1.0@aar")
     implementation ("com.google.zxing:core:3.4.0")
     implementation ("com.google.android.gms:play-services-vision:20.1.3")

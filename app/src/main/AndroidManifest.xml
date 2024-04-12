@@ -21,7 +21,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
             android:name=".generate_qr_code"
             android:exported="true">
                         <intent-filter>
@@ -33,15 +32,7 @@
         <activity
             android:name=".profilePage"
             android:exported="false" />
-=======
-            android:name=".ScanQR"
-            android:screenOrientation="portrait"
-            android:stateNotNeeded="true"
-            android:theme="@style/zxing_CaptureTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:exported="false"
-             />
->>>>>>> 5b6f39af234d130f5e8d51c39c1ef4c5e146beb0
+
         <activity
             android:name=".SignUpPage"
             android:exported="false" />
@@ -53,19 +44,10 @@
         <!-- android:label="@string/title_activity_loginpage" -->
         <!-- android:theme="@style/Theme.Ewallet" /> -->
         <activity
-<<<<<<< HEAD
             android:name=".MainActivity"
             android:exported="true">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
-=======
-            android:name=".LoginPage"
-            android:exported="true"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
->>>>>>> 5b6f39af234d130f5e8d51c39c1ef4c5e146beb0
-
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
