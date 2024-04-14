@@ -3,44 +3,110 @@ package com.example.ewallet;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+
+import Entities.LoginResponse;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class generate_qr_code extends AppCompatActivity {
+    ImageView imageView;
+    final DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_qr_code);
 
-        EditText editText =findViewById(R.id.number_text);
-        Button button = findViewById(R.id.generateButton);
-        ImageView imageView = findViewById(R.id.idIVQRCode);
+        EditText editText_amount =findViewById(R.id.number_text);
+        Button submit = findViewById(R.id.generateButton);
+        imageView = findViewById(R.id.idIVQRCode);
 
-        button.setOnClickListener(new View.OnClickListener() {
+
+        editText_amount.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                MultiFormatWriter multiFormatWriter =new MultiFormatWriter();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                editText_amount.removeTextChangedListener(this);
 
                 try {
-                    BitMatrix bitMatrix =multiFormatWriter.encode(editText.getText().toString(), BarcodeFormat.QR_CODE,300,300);
+                    String originalString = s.toString().replaceAll(",", "");
 
-                    BarcodeEncoder barcodeEncoder =new BarcodeEncoder();
-                    Bitmap bitmap =barcodeEncoder.createBitmap(bitMatrix);
+                    double value = decimalFormat.parse(originalString).doubleValue();
 
-                    imageView.setImageBitmap(bitmap);
-                }catch (WriterException e){
-                    throw new RuntimeException(e);
+                    String formattedString = decimalFormat.format(value);
+                    editText_amount.setText(formattedString);
+                    editText_amount.setSelection(formattedString.length());
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
+
+                editText_amount.addTextChangedListener(this);
+            }
+        });
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String amount =editText_amount.getText().toString();
+                JsonObject json = new JsonObject();
+                json.addProperty("amount", amount);
+                ApiService apiService = ApiService.ApiUtils.getApiService(generate_qr_code.this);
+                apiService.createQR(json).enqueue(new Callback<ResponseBody>(){
+
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        String responseBody;
+                        try {
+                            responseBody = response.body().string();
+                            byte[] imageBytes = Base64.decode(responseBody, Base64.DEFAULT);
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+                            imageView.setImageBitmap(bitmap);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        Toast.makeText(generate_qr_code.this, "Succsess" , Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(generate_qr_code.this, "incorrect!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
             }
         });
     }

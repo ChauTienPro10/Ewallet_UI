@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -103,14 +105,20 @@ public class LoginPage extends AppCompatActivity {
     public void callApiLogin(String username, String password) {
 
         LoginRequest loginRequest = new LoginRequest(username, password);
-        ApiService.apiService.login(loginRequest).enqueue(new Callback<LoginResponse>() {
+        ApiService apiService = ApiService.ApiUtils.getApiService(this);
+        apiService.login(loginRequest).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
                 if (response.isSuccessful()) {
 
                     LoginResponse loginResponse=response.body();
-
+                    SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("jwt",loginResponse.getJwt() );
+                    editor.putInt("user_id", (int) loginResponse.getId());
+                    editor.apply();
                     Toast.makeText(LoginPage.this, "login success !"+loginResponse.getUsername(), Toast.LENGTH_SHORT).show();
+
                     Intent intent=new Intent(LoginPage.this, MainActivity.class );
                     startActivity(intent);
                 } else {

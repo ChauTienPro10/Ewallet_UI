@@ -30,10 +30,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-//    private TabLayout mtablayout;
-//    private ViewPager2 mviewpager;
+
         private ImageView OpenForm;
     FloatingActionButton scanqr;
+
+    androidx.constraintlayout.widget.ConstraintLayout mReceiver;
     Gson gson = new Gson();
     @SuppressLint("MissingInflatedId")
     @Override
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         scanqr=findViewById(R.id.scanQR);
         OpenForm = findViewById(R.id.createQR);
+        mReceiver=findViewById(R.id.qr_getmoney);
         OpenForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,37 +54,34 @@ public class MainActivity extends AppCompatActivity {
         scanqr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent=new Intent(MainActivity.this, ScanQR.class );
-//                startActivity(intent);
-                IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
-                integrator.setPrompt("Scan a barcode");
-                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
-                integrator.setCameraId(0); // Use a specific camera of the device
-                integrator.setOrientationLocked(true);
-                integrator.setBeepEnabled(true);
-                integrator.setCaptureActivity(ScanQR.class);
-                integrator.initiateScan();
+                try{
+                    IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
+                    integrator.setPrompt("Scan a barcode");
+                    integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+                    integrator.setCameraId(0); // Use a specific camera of the device
+                    integrator.setOrientationLocked(true);
+                    integrator.setBeepEnabled(true);
+                    integrator.setCaptureActivity(ScanQR.class);
+                    integrator.initiateScan();
+                }
+                catch (Exception e){
 
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        mReceiver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, generate_qr_code.class);
+                startActivity(intent);
             }
         });
 
 
 
 
-        // Chuyển sang trang LoginPage
-//        Intent intent = new Intent(this, LoginPage.class);
-//        startActivity(intent);
-//        finish();
-//
-//        mtablayout =findViewById(R.id.tabLayout);
-//        mviewpager=findViewById(R.id.viewPager);
-//        ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager(),getLifecycle());
-//        mviewpager.setAdapter(viewPagerAdapter);
-//        TabLayoutMediator tabLayoutMediator=new TabLayoutMediator(mtablayout,mviewpager,(tab, position) -> {
-//
-//            tab.setText("Tab " + (position + 1));
-//        });
-//        tabLayoutMediator.attach();
 
     }
 
@@ -123,7 +122,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Scan cancelled", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-                ApiService.apiService.sendQrData(result.getContents()).enqueue(new Callback<ResponseBody>() {
+                ApiService apiService = ApiService.ApiUtils.getApiService(MainActivity.this);
+                apiService.sendQrData(result.getContents()).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         Toast.makeText(MainActivity.this, "send success !"+response.body(), Toast.LENGTH_SHORT).show();

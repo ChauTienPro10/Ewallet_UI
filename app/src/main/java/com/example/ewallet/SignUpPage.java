@@ -108,7 +108,8 @@ public class SignUpPage extends AppCompatActivity {
     }
 
     private void signup(Member member){
-        ApiService.apiService.register(member).enqueue(new Callback<ResponseBody>() {
+        ApiService apiService = ApiService.ApiUtils.getApiService(SignUpPage.this);
+        apiService.register(member).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {

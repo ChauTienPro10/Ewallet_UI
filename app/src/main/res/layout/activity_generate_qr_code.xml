@@ -47,7 +47,7 @@
             android:id="@+id/idIVQRCode"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:background="@color/white" />
+            android:background="#00FFFFFF" />
     </FrameLayout>
 
     <TextView
@@ -67,7 +67,8 @@
         android:layout_below="@+id/textView3"
         android:layout_marginTop="10dp"
         android:background="@drawable/custom_edittext"
-        android:gravity="center"/>
+        android:gravity="center"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/generateButton"
