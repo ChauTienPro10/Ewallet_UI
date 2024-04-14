@@ -3,6 +3,8 @@ package com.example.ewallet;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
@@ -24,6 +26,8 @@ import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.ArrayList;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,58 +35,65 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-        private ImageView OpenForm;
-    FloatingActionButton scanqr;
 
-    androidx.constraintlayout.widget.ConstraintLayout mReceiver;
+    private RecyclerView.Adapter adapterContact;
+    private RecyclerView recyclerViewConatact;
+
+    private ImageView getMoney;
+    FloatingActionButton scanqr;
     Gson gson = new Gson();
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Contact list
+
+        initRecyclerView();
+
+
         scanqr=findViewById(R.id.scanQR);
-        OpenForm = findViewById(R.id.createQR);
-        mReceiver=findViewById(R.id.qr_getmoney);
-        OpenForm.setOnClickListener(new View.OnClickListener() {
+        getMoney=findViewById(R.id.get_money);
+        getMoney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFormDialog();
-            }
-        });
-
-        scanqr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try{
-                    IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
-                    integrator.setPrompt("Scan a barcode");
-                    integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
-                    integrator.setCameraId(0); // Use a specific camera of the device
-                    integrator.setOrientationLocked(true);
-                    integrator.setBeepEnabled(true);
-                    integrator.setCaptureActivity(ScanQR.class);
-                    integrator.initiateScan();
-                }
-                catch (Exception e){
-
-                    e.printStackTrace();
-                }
-
-            }
-        });
-        mReceiver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, generate_qr_code.class);
+                Intent intent=new Intent(MainActivity.this, generate_qr_code.class );
                 startActivity(intent);
             }
         });
 
 
+        scanqr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
+                integrator.setPrompt("Scan a barcode");
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+                integrator.setCameraId(0); // Use a specific camera of the device
+                integrator.setOrientationLocked(true);
+                integrator.setBeepEnabled(true);
+                integrator.setCaptureActivity(ScanQR.class);
+                integrator.initiateScan();
 
+            }
+        });
+    }
 
+    private void initRecyclerView() {
+        ArrayList<ContactsDomain> items=new ArrayList<>();
+        items.add(new ContactsDomain("David","user_1"));
+        items.add(new ContactsDomain("Alice","user_2"));
+        items.add(new ContactsDomain("Rose","user_3"));
+        items.add(new ContactsDomain("Sara","user_4"));
+        items.add(new ContactsDomain("David","user_5"));
+
+        recyclerViewConatact=findViewById(R.id.viewList);
+        recyclerViewConatact.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+
+        adapterContact=new ContactsAdapter(items);
+        recyclerViewConatact.setAdapter(adapterContact);
     }
 
 
@@ -122,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Scan cancelled", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-                ApiService apiService = ApiService.ApiUtils.getApiService(MainActivity.this);
+                ApiService apiService = ApiService.ApiUtils.getApiService(this);
                 apiService.sendQrData(result.getContents()).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
