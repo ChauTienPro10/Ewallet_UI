@@ -1,9 +1,6 @@
 plugins {
     id("com.android.application")
 }
-
-group = ("com.github.majorkik")
-
 android {
     namespace = "com.example.ewallet"
     compileSdk = 34
@@ -70,5 +67,7 @@ dependencies {
     implementation ("com.google.zxing:core:3.4.1")
     implementation ("com.google.android.gms:play-services-vision:20.1.3")
     implementation ("androidx.biometric:biometric:1.1.0")
+
+    implementation("com.github.bumptech.glide:glide:4.14.2")
 
 }

@@ -3,6 +3,8 @@ package com.example.ewallet;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
@@ -24,6 +26,8 @@ import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.ArrayList;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +36,12 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 //    private TabLayout mtablayout;
 //    private ViewPager2 mviewpager;
-        private ImageView OpenForm;
+
+    // Contact list
+    private RecyclerView.Adapter adapterContact;
+    private RecyclerView recyclerViewConatact;
+
+    private ImageView OpenForm;
     FloatingActionButton scanqr;
     Gson gson = new Gson();
     @SuppressLint("MissingInflatedId")
@@ -40,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+    //Contact list
+
+        initRecyclerView();
+
+
         scanqr=findViewById(R.id.scanQR);
         OpenForm = findViewById(R.id.createQR);
         OpenForm.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +99,21 @@ public class MainActivity extends AppCompatActivity {
 //        });
 //        tabLayoutMediator.attach();
 
+    }
+
+    private void initRecyclerView() {
+        ArrayList<ContactsDomain> items=new ArrayList<>();
+        items.add(new ContactsDomain("David","user_1"));
+        items.add(new ContactsDomain("Alice","user_2"));
+        items.add(new ContactsDomain("Rose","user_3"));
+        items.add(new ContactsDomain("Sara","user_4"));
+        items.add(new ContactsDomain("David","user_5"));
+
+        recyclerViewConatact=findViewById(R.id.viewList);
+        recyclerViewConatact.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+
+        adapterContact=new ContactsAdapter(items);
+        recyclerViewConatact.setAdapter(adapterContact);
     }
 
 
