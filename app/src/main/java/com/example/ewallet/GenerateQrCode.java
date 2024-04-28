@@ -15,24 +15,17 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 
-import Entities.LoginResponse;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class generate_qr_code extends AppCompatActivity {
+public class GenerateQrCode extends AppCompatActivity {
     ImageView imageView;
     final DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
 
@@ -83,7 +76,7 @@ public class generate_qr_code extends AppCompatActivity {
                 String amount =editText_amount.getText().toString();
                 JsonObject json = new JsonObject();
                 json.addProperty("amount", amount);
-                ApiService apiService = ApiService.ApiUtils.getApiService(generate_qr_code.this);
+                ApiService apiService = ApiService.ApiUtils.getApiService(GenerateQrCode.this);
                 apiService.createQR(json).enqueue(new Callback<ResponseBody>(){
 
                     @Override
@@ -97,12 +90,12 @@ public class generate_qr_code extends AppCompatActivity {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                        Toast.makeText(generate_qr_code.this, "Succsess" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GenerateQrCode.this, "Succsess" , Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(generate_qr_code.this, "incorrect!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GenerateQrCode.this, "incorrect!", Toast.LENGTH_SHORT).show();
                     }
                 });
 
