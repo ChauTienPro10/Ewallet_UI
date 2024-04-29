@@ -22,35 +22,39 @@
         android:theme="@style/Theme.Ewallet"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".Successful_money_transfer"
+            android:exported="true">
 
-        <activity android:name=".TransactionPage"
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity
+            android:name=".TransactionPage"
             android:exported="false" />
-
         <activity
             android:name=".GenerateQrCode"
             android:exported="false" />
-
-
         <activity
             android:name=".ProfilePage"
             android:exported="false" />
-
         <activity
             android:name=".SignUpPage"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
+            android:exported="false">
+           <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
-        <!--        <activity-->
-        <!--            android:name=".MainActivity"-->
-        <!--            android:exported="true"/>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity> <!-- <activity -->
+        <!-- android:name=".MainActivity" -->
+        <!-- android:exported="true"/> -->
         <activity
             android:name=".ScanQR"
             android:exported="true" />
