@@ -8,13 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 
 public class ProfilePage extends AppCompatActivity {
-
+    private ConstraintLayout btnBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
 
-        ConstraintLayout btnBack = findViewById(R.id.btn_back);
+        btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

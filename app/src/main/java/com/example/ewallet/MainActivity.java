@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView.Adapter adapterContact;
     private RecyclerView recyclerViewConatact;
+    private ConstraintLayout btn_Transaction;
 
     private ImageView getMoney;
     FloatingActionButton scanqr;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         scanqr=findViewById(R.id.scanQR);
         getMoney=findViewById(R.id.get_money);
 
-        ConstraintLayout btn_Transaction = findViewById(R.id.btn_Transaction);
+        btn_Transaction = findViewById(R.id.btn_Transaction);
         ImageView imageProfile = findViewById(R.id.imageProfile);
 
 
