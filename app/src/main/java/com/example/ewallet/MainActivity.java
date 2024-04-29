@@ -2,6 +2,7 @@ package com.example.ewallet;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,6 +50,19 @@ public class MainActivity extends AppCompatActivity {
 
         scanqr=findViewById(R.id.scanQR);
         getMoney=findViewById(R.id.get_money);
+
+        ConstraintLayout btn_Transaction = findViewById(R.id.btn_Transaction);
+        ImageView imageProfile = findViewById(R.id.imageProfile);
+
+
+        imageProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ProfilePage.class);
+                startActivity(intent);
+            }
+        });
+
         getMoney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageView imageView = findViewById(R.id.imageTransaction);
-        imageView.setOnClickListener(new View.OnClickListener() {
+
+        btn_Transaction.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
