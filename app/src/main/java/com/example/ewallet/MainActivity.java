@@ -57,7 +57,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ImageView imageView = findViewById(R.id.imageTransaction);
+        imageView.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                // Chuyển đến TransactionPageActivity
+                Intent intent = new Intent(MainActivity.this,TransactionPage.class);
+                startActivity(intent);
+            }
+        });
         scanqr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
 
 
 }
