@@ -23,6 +23,8 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/deposit_card"
             android:layout_width="match_parent"
@@ -104,7 +106,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
-                android:id="@+id/deposit"
+                android:id="@+id/amount_text"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginStart="16dp"
@@ -233,7 +235,7 @@
 
 
         <Button
-            android:id="@+id/button_withdraw"
+            android:id="@+id/deposit_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -244,5 +246,6 @@
 
     </LinearLayout>
     </ScrollView>
+
 
 </FrameLayout>
