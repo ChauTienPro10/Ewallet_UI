@@ -23,15 +23,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".TranferMoney"
+            android:exported="false" />
+        <activity
             android:name=".Successful_money_transfer"
-            android:exported="true">
-
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".TransactionPage"
             android:exported="false" />
@@ -46,12 +42,12 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-           <!-- <intent-filter>
+            android:exported="true">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity> <!-- <activity -->
         <!-- android:name=".MainActivity" -->
         <!-- android:exported="true"/> -->

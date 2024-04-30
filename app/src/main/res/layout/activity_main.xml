@@ -213,7 +213,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="get_money"
+                            android:text="Get Money"
                             android:textAlignment="center"
                             android:textColor="#E2FFFFFF"
                             android:textSize="14sp"
@@ -434,8 +434,8 @@
                         android:text="Home"
                         android:textStyle="bold"
                         android:textAlignment="center"
-                        android:textColor="#9695ce"
-                        android:textSize="12sp" />
+                        android:textColor="#BFFFFFFF"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -461,8 +461,8 @@
                         android:text="Profile"
                         android:textStyle="bold"
                         android:textAlignment="center"
-                        android:textColor="#9695ce"
-                        android:textSize="12sp" />
+                        android:textColor="#BFFFFFFF"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -515,8 +515,8 @@
                         android:text="History"
                         android:textStyle="bold"
                         android:textAlignment="center"
-                        android:textColor="#9695ce"
-                        android:textSize="12sp" />
+                        android:textColor="#BFFFFFFF"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -542,8 +542,8 @@
                         android:text="Setting"
                         android:textStyle="bold"
                         android:textAlignment="center"
-                        android:textColor="#9695ce"
-                        android:textSize="12sp" />
+                        android:textColor="#BFFFFFFF"
+                        android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.bottomappbar.BottomAppBar>
