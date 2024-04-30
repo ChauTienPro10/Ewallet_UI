@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView getMoney;
     private ImageView toDeposit;
 
-    private ImageView sendMoney;
+    private ConstraintLayout sendMoney;
     FloatingActionButton scanqr;
     Gson gson = new Gson();
     @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
