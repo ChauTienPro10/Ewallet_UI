@@ -35,6 +35,8 @@ public interface ApiService {
 
     @POST("/transaction/createQR")
     Call<ResponseBody> createQR(@Body JsonObject requestBody);
+    @POST("/transaction/deposit")
+    Call<ResponseBody> depositSer(@Body JsonObject object);
 
     class ApiUtils {
         public static ApiService getApiService(Context context) {

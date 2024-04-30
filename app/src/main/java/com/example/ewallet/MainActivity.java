@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,9 +35,10 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerViewConatact;
 
     private ImageView getMoney;
+    private ImageView toDeposit;
     FloatingActionButton scanqr;
     Gson gson = new Gson();
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +47,19 @@ public class MainActivity extends AppCompatActivity {
         //Contact list
 
         initRecyclerView();
+        toDeposit=findViewById(R.id.DepositImg);
+        toDeposit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this, TransactionPage.class );
+                startActivity(intent);
+            }
+        });
 
 
         scanqr=findViewById(R.id.scanQR);
         getMoney=findViewById(R.id.get_money);
+
         getMoney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
