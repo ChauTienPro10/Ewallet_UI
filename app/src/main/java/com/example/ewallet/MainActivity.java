@@ -2,6 +2,7 @@ package com.example.ewallet;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView.Adapter adapterContact;
     private RecyclerView recyclerViewConatact;
+    private ConstraintLayout btn_Transaction;
 
     private ImageView getMoney;
     private ImageView toDeposit;
@@ -60,6 +62,20 @@ public class MainActivity extends AppCompatActivity {
         scanqr=findViewById(R.id.scanQR);
         getMoney=findViewById(R.id.get_money);
 
+
+        btn_Transaction = findViewById(R.id.btn_Transaction);
+        ImageView imageProfile = findViewById(R.id.imageProfile);
+
+
+        imageProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ProfilePage.class);
+                startActivity(intent);
+            }
+        });
+
+
         getMoney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +85,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        btn_Transaction.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // Chuyển đến TransactionPageActivity
+                Intent intent = new Intent(MainActivity.this,TransactionPage.class);
+                startActivity(intent);
+            }
+        });
         scanqr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
 
 
 }

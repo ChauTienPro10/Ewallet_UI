@@ -1,5 +1,6 @@
 package com.example.ewallet;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -72,6 +73,7 @@ public class DepositFragment extends Fragment {
 //        return inflater.inflate(R.layout.fragment_deposit, container, false);
 //    }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_deposit, container, false);

@@ -118,6 +118,7 @@
                         android:orientation="vertical">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/btn_Transaction"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_gravity="center"
@@ -444,7 +445,7 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/imageView7"
+                        android:id="@+id/imageProfile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
@@ -511,7 +512,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="4dp"
                         android:layout_weight="1"
-                        android:text="Wallet"
+                        android:text="History"
                         android:textStyle="bold"
                         android:textAlignment="center"
                         android:textColor="#9695ce"
@@ -553,9 +554,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/todos"
-            app:backgroundTint="@color/teal_200"
+            app:backgroundTint="#7D4ECB"
             app:layout_anchor="@id/app_bar"
             app:maxImageSize="30dp" />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
