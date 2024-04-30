@@ -159,55 +159,120 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp">
 
+                <!--                <TextView-->
+<!--                    android:id="@+id/textView26"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="100$"-->
+<!--                    android:textSize="36dp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/plusCartBtn"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/plusCartBtn" />-->
+
                 <TextView
-                    android:id="@+id/textView39"
+                    android:id="@+id/plusCartBtn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="64dp"
                     android:background="@drawable/white_background"
                     android:gravity="center"
                     android:text="+"
                     android:textColor="@color/black"
                     android:textSize="24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textView30"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-
                 <TextView
-                    android:id="@+id/textView30"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="32dp"
-                    android:text="100$"
-                    android:textSize="32dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView38"
-                    app:layout_constraintEnd_toStartOf="@+id/textView38"
-                    app:layout_constraintTop_toTopOf="@+id/textView38" />
-
-                <TextView
-                    android:id="@+id/textView38"
+                    android:id="@+id/minusCartBtn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_marginStart="64dp"
                     android:background="@drawable/white_background"
                     android:gravity="center"
                     android:text="-"
                     android:textColor="@color/black"
                     android:textSize="24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-
-
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInput1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@id/plusCartBtn"
+                    app:layout_constraintStart_toEndOf="@id/minusCartBtn"
+                    tools:ignore="MissingConstraints">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="100$"
+                        android:textSize="36dp"
+                        android:textStyle="bold"
+                        android:background="@drawable/custom_input"
+                        app:layout_constraintBottom_toBottomOf="@+id/plusCartBtn"
+                        app:layout_constraintTop_toTopOf="@+id/plusCartBtn" />
+                </com.google.android.material.textfield.TextInputLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:text="SEND MONEY TO"
+                    android:textColor="@color/gray"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/viewList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp" />
+            
+            <LinearLayout
+                android:id="@+id/button1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="150dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:background="@drawable/button_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="SEND MONEY"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/gray"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+
         </LinearLayout>
+
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

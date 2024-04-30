@@ -128,7 +128,7 @@
                     app:layout_constraintVertical_bias="0.521" />
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/imageSend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/arrow_pro"

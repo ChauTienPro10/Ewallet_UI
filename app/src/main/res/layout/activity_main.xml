@@ -155,6 +155,7 @@
                         android:orientation="vertical">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/imageSend"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_gravity="center"
@@ -162,7 +163,7 @@
                             android:background="@drawable/top_button_main">
 
                             <ImageView
-                                android:id="@+id/imageView2"
+
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/btn_2"

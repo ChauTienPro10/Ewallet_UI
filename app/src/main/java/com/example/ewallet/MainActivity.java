@@ -35,9 +35,10 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapterContact;
     private RecyclerView recyclerViewConatact;
     private ConstraintLayout btn_Transaction;
-
     private ImageView getMoney;
     private ImageView toDeposit;
+
+    private ImageView sendMoney;
     FloatingActionButton scanqr;
     Gson gson = new Gson();
     @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
@@ -58,15 +59,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        sendMoney = findViewById(R.id.imageSend);
+        sendMoney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,TranferMoney.class);
+                startActivity(intent);
+            }
+        });
 
         scanqr=findViewById(R.id.scanQR);
         getMoney=findViewById(R.id.get_money);
-
-
         btn_Transaction = findViewById(R.id.btn_Transaction);
+
         ImageView imageProfile = findViewById(R.id.imageProfile);
-
-
         imageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
