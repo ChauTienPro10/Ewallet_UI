@@ -51,8 +51,16 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+<<<<<<< HEAD
             android:exported="false">
            <!-- <intent-filter>
+=======
+            android:exported="false" />
+        <activity
+            android:name=".LoginPage"
+            android:exported="true">
+           <intent-filter>
+>>>>>>> fe7e3c72c990ee73d8157681f5e7107c0e8c8817
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
