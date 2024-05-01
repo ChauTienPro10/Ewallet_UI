@@ -156,7 +156,7 @@
                     tools:ignore="DuplicateIds" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/edit_information"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"

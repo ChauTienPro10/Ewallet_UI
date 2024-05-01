@@ -1,10 +1,14 @@
 package com.example.ewallet;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -12,6 +16,7 @@ public class EditInformation extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private ConstraintLayout btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,5 +30,14 @@ public class EditInformation extends AppCompatActivity {
         ViewPagerAdapterInformation viewPagerAdapterInformation = new ViewPagerAdapterInformation(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT );
         viewPager.setAdapter(viewPagerAdapterInformation);
         tabLayout.setupWithViewPager(viewPager);
+
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditInformation.this,ProfilePage.class);
+                startActivity(intent);
+            }
+        });
     }
 }
