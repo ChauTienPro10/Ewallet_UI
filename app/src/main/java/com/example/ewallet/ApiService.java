@@ -37,6 +37,8 @@ public interface ApiService {
     Call<ResponseBody> createQR(@Body JsonObject requestBody);
     @POST("/transaction/deposit")
     Call<ResponseBody> depositSer(@Body JsonObject object);
+    @POST("/test/authen_pincode")
+    Call<Boolean> authenPin(@Body JsonObject obj);
 
     class ApiUtils {
         public static ApiService getApiService(Context context) {
@@ -50,7 +52,7 @@ public interface ApiService {
                     .create();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://10.0.20.149:9001")
+                    .baseUrl("http://192.168.1.7:9005")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();
