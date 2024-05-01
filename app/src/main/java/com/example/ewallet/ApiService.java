@@ -39,6 +39,11 @@ public interface ApiService {
     Call<ResponseBody> depositSer(@Body JsonObject object);
     @POST("/test/authen_pincode")
     Call<Boolean> authenPin(@Body JsonObject obj);
+    @GET("/check/getInfor")
+    Call<Member> getMember();
+
+    @GET("/transaction/check_balance")
+    Call<String> getBalance();
 
     class ApiUtils {
         public static ApiService getApiService(Context context) {

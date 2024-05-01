@@ -2,73 +2,56 @@ package Entities;
 
 public class Member {
     private int member_id;
-    private String first_name;
-    private String last_name;
-    private String email_address;
+    private String fname;
+    private String lname;
+    private String email    ;
     private String country;
-    private String contact_number;
+    private String phone;
     private String username;
     private String password;
     int account_status;
 
-    public int getMember_id() {
-        return member_id;
-    }
+    String avatar;
 
-    public String getFirst_name() {
-        return first_name;
-    }
 
-    public String getLast_name() {
-        return last_name;
-    }
 
-    public String getEmail_address() {
-        return email_address;
-    }
+    public Member(){}
 
-    public String getCountry() {
-        return country;
-    }
+    public Member( String fname, String lname, String email, String country, String phone, String username, String password, int account_status) {
 
-    public String getContact_number() {
-        return contact_number;
-    }
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.country = country;
+        this.phone = phone;
+        this.username = username;
+        this.password = password;
+        this.account_status = account_status;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public int getAccount_status() {
-        return account_status;
     }
 
     public void setMember_id(int member_id) {
         this.member_id = member_id;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFname(String fname) {
+        this.fname = fname;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 
-    public void setEmail_address(String email_address) {
-        this.email_address = email_address;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setCountry(String country) {
         this.country = country;
     }
 
-    public void setContact_number(String contact_number) {
-        this.contact_number = contact_number;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public void setUsername(String username) {
@@ -83,16 +66,47 @@ public class Member {
         this.account_status = account_status;
     }
 
-    public Member(String first_name, String last_name, String email_address, String country, String contact_number, String username, String password, int account_status) {
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.email_address = email_address;
-        this.country = country;
-        this.contact_number = contact_number;
-        this.username = username;
-        this.password = password;
-        this.account_status = account_status;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
-    public Member(){}
+    public int getMember_id() {
+        return member_id;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public int getAccount_status() {
+        return account_status;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
 }

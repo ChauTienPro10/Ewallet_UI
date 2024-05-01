@@ -15,6 +15,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,8 +24,11 @@ import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 
+import Entities.Member;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout btn_Transaction;
     private ImageView getMoney;
     private ImageView toDeposit;
+    private TextView mName;
+    TextView mBalance;
 
     private ConstraintLayout sendMoney;
     FloatingActionButton scanqr;
@@ -46,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mName=findViewById(R.id.nameMember);
+        mBalance=findViewById(R.id.textView);
+        
+
+
 
         //Contact list
 
@@ -185,6 +197,38 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+
+    private void getMember(){
+        ApiService apiService=ApiService.ApiUtils.getApiService(MainActivity.this);
+        apiService.getMember().enqueue(new Callback<Member>() {
+            @Override
+            public void onResponse(Call<Member> call, Response<Member> response) {
+                Member mem=response.body();
+                mName.setText(mem.getFname().toString()+" "+mem.getLname().toString());
+            }
+
+            @Override
+            public void onFailure(Call<Member> call, Throwable t) {
+
+            }
+        });
+        apiService.getBalance().enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                String responseBody;
+                responseBody = response.body();
+                mBalance.setText(responseBody);
+
+
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
     }
 
 
