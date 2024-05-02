@@ -16,6 +16,7 @@
             android:orientation="vertical">
 
 
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -62,6 +63,20 @@
                     app:layout_constraintStart_toEndOf="@+id/imageView1"
                     app:layout_constraintTop_toBottomOf="@+id/textView1" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:inputType="text"
+                android:background="@drawable/custom_input_1"
+                android:layout_margin="16dp"
+                android:textColor="@color/gray"
+                android:drawableStart="@drawable/magnifying_glass_solid"
+                android:padding="12dp"
+                android:hint="Search "
+                android:drawablePadding="8dp"
+                />
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
@@ -215,6 +230,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="100$"
+                        android:inputType="numberDecimal"
                         android:textSize="36dp"
                         android:textStyle="bold"
                         android:background="@drawable/custom_input"
