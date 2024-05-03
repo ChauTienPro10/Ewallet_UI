@@ -17,6 +17,7 @@ public class EditInformation extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ConstraintLayout btnBack;
+//    androidx.constraintlayout.widget.ConstraintLayout mToEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class EditInformation extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
+//        mToEdit.findViewById(R.id.toEditpage);
 
 
         ViewPagerAdapterInformation viewPagerAdapterInformation = new ViewPagerAdapterInformation(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT );

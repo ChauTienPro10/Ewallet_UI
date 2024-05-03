@@ -19,6 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface ApiService {
     @GET("test/hello")
@@ -44,6 +45,12 @@ public interface ApiService {
 
     @GET("/transaction/check_balance")
     Call<String> getBalance();
+
+    @POST("/profile/change_email")
+    Call<ResponseBody> changeEmail(@Body JsonObject jsonObj);
+
+    @POST("/profile/change_phone")
+    Call<ResponseBody> changePhone(@Body JsonObject jsonObj);
 
     class ApiUtils {
         public static ApiService getApiService(Context context) {

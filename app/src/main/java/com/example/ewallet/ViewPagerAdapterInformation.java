@@ -23,6 +23,7 @@ public class ViewPagerAdapterInformation extends FragmentStatePagerAdapter {
                 return new EditPhone();
             default:
                 return new EditEmail();
+
         }
     }
 
