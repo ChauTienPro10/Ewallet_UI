@@ -57,10 +57,14 @@
                 android:layout_marginTop="40dp">
 
                 <!-- EditText cho firstName -->
+
+                <!-- EditText cho lastName -->
+
                 <EditText
                     android:id="@+id/firstNameEditText"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/custom_edittext"
                     android:drawableStart="@drawable/face_smile_solid"
@@ -69,9 +73,9 @@
                     android:padding="8dp"
                     android:textColor="@color/black"
                     android:textColorHighlight="@color/cardview_dark_background"
-                    android:layout_marginRight="5dp"/>
+                    android:textSize="16sp"
+                    tools:ignore="TouchTargetSizeCheck" />
 
-                <!-- EditText cho lastName -->
                 <EditText
                     android:id="@+id/lNameEditText"
                     android:layout_width="0dp"
@@ -83,6 +87,7 @@
                     android:hint="Last Name"
                     android:padding="8dp"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
                     android:textColorHighlight="@color/cardview_dark_background"
                     android:layout_marginLeft="5dp"/>
 
@@ -98,6 +103,7 @@
                 android:hint="Enter email"
                 android:padding="8dp"
                 android:textColor="@color/black"
+                android:textSize="16sp"
                 android:textColorHighlight="@color/cardview_dark_background"
                 android:layout_marginTop="20dp"/>
 
@@ -111,6 +117,7 @@
                 android:hint="Enter username"
                 android:padding="8dp"
                 android:textColor="@color/black"
+                android:textSize="16sp"
                 android:textColorHighlight="@color/cardview_dark_background"
                 android:layout_marginTop="20dp"/>
 
@@ -124,6 +131,7 @@
                 android:hint="Enter password"
                 android:padding="8dp"
                 android:inputType="textPassword"
+                android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/cardview_dark_background"
                 android:layout_marginTop="20dp"/>
@@ -137,6 +145,7 @@
                 android:background="@drawable/custom_edittext"
                 android:drawableStart="@drawable/check_to_slot_solid"
                 android:drawablePadding="8dp"
+                android:textSize="16sp"
                 android:hint="Confirm Password"
                 android:inputType="textPassword"
                 android:padding="8dp"
@@ -161,6 +170,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Phone Number"
+                    android:textSize="16sp"
                     android:inputType="phone"/>
 
             </LinearLayout>
@@ -197,8 +207,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="Already have an account ? Login "
-        android:textSize="14sp"
+        android:text="Already have an account ? Login !"
+        android:textSize="16sp"
         android:textAlignment="center"
         android:id="@+id/loginTextView"
         android:textColor="@color/purple"
