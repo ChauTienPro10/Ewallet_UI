@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -165,6 +166,7 @@ public class DepositFragment extends Fragment implements pindialogAdapter.PinDia
 
     @Override
     public void onPinEntered(String pin) {
+        Log.d("pincode", "onPinEntered: "+pin);
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("pincode", pin);
         ApiService apiService=ApiService.ApiUtils.getApiService(DepositFragment.this.requireContext());

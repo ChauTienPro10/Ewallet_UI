@@ -185,7 +185,11 @@ public class pindialogAdapter extends DialogFragment {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String pin = String.valueOf(numbers_list);
+                        StringBuilder sb = new StringBuilder();
+                        for (String number : numbers_list) {
+                            sb.append(number);
+                        }
+                        String pin = sb.toString();
                         mListener.onPinEntered(pin);
                     }
                 })
