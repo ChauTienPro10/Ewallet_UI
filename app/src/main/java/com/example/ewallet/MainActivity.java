@@ -390,6 +390,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
+
+
+
+
+
+
+
+
     private void getMember(){
         ApiService apiService=ApiService.ApiUtils.getApiService(MainActivity.this);
         apiService.getMember().enqueue(new Callback<Member>() {

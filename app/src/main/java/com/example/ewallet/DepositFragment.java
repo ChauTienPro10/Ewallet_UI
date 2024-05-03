@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ewallet.adapter.PinDialogFragment;
+import com.example.ewallet.adapter.pindialogAdapter;
 import com.google.android.gms.common.api.Api;
 import com.google.gson.JsonObject;
 
@@ -188,7 +189,7 @@ public class DepositFragment extends Fragment implements PinDialogFragment.PinDi
     }
 
     private void showPinDialog() {
-        PinDialogFragment dialogFragment = new PinDialogFragment();
+        pindialogAdapter dialogFragment = new pindialogAdapter();
         dialogFragment.setTargetFragment(this, 0);
         dialogFragment.show(getFragmentManager(), "pin_dialog");
     }
