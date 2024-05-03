@@ -21,8 +21,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:background="@color/background_infor"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/background_infor">
 
                 <LinearLayout
                     android:id="@+id/linearLayout7"
@@ -36,13 +36,13 @@
                         android:id="@+id/textView44"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textSize="28sp"
-                        android:textStyle="bold"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="24dp"
-                        android:text="Email" />
+                        android:text="Email"
+                        android:textColor="@color/black"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/edit_email"
@@ -54,16 +54,16 @@
                         android:hint="Enter your email"
                         android:inputType="textEmailAddress"
                         android:padding="16dp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textColorHint="@color/white" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayout6"
+                    android:id="@+id/update_email"
                     android:layout_width="250dp"
                     android:layout_height="55dp"
                     android:layout_marginTop="30dp"
-                    android:background="@drawable/button_background"
+                    android:background="@drawable/card_background"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
