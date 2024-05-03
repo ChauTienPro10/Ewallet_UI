@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
 
-            android:background="@color/background_infor">
+            android:background="@color/purple">
 
             <ImageView
                 android:id="@+id/imageProfile"
@@ -79,10 +79,12 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
-android:background="@color/background_tab"
-            app:tabSelectedTextColor="@color/purple"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="@color/purple"
+            app:tabIndicatorColor="@android:color/white"
+            app:tabSelectedTextColor="@color/white"
+           />
         
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"

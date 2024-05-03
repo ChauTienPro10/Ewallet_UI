@@ -14,9 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.ewallet.adapter.PinDialogFragment;
 import com.example.ewallet.adapter.pindialogAdapter;
-import com.google.android.gms.common.api.Api;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
@@ -33,7 +31,7 @@ import retrofit2.Response;
  * Use the {@link DepositFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DepositFragment extends Fragment implements PinDialogFragment.PinDialogListener{
+public class DepositFragment extends Fragment implements pindialogAdapter.PinDialogListener{
 
     private EditText inputtAmount;
     private Button deposit;

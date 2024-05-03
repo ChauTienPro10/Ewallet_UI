@@ -42,14 +42,14 @@ public class pindialogAdapter extends DialogFragment {
         void onPinEntered(String pin);
     }
 
-    private PinDialogFragment.PinDialogListener mListener;
+    private pindialogAdapter.PinDialogListener mListener;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         Fragment targetFragment = getTargetFragment();
-        if (targetFragment != null && targetFragment instanceof PinDialogFragment.PinDialogListener) {
-            mListener = (PinDialogFragment.PinDialogListener) targetFragment;
+        if (targetFragment != null && targetFragment instanceof pindialogAdapter.PinDialogListener) {
+            mListener = (pindialogAdapter.PinDialogListener) targetFragment;
         } else {
             Log.d("kkk", "null" + " must implement PinDialogListener");
             throw new ClassCastException(targetFragment != null ? targetFragment.getClass().getSimpleName() : "null" + " must implement PinDialogListener");
