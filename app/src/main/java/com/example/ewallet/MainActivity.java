@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ConstraintLayout sendMoney;
     FloatingActionButton scanqr;
+    LinearLayout mToProfile;
 
 
     Gson gson = new Gson();
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        mToProfile=findViewById(R.id.toProfile);
 
         sendMoney = findViewById(R.id.imageSend);
         sendMoney.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         btn_Transaction = findViewById(R.id.btn_Transaction);
 
         ImageView imageProfile = findViewById(R.id.imageProfile);
-        imageProfile.setOnClickListener(new View.OnClickListener() {
+        mToProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ProfilePage.class);

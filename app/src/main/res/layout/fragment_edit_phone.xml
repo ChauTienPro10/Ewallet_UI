@@ -43,6 +43,13 @@
                         android:textColor="@color/black"
                         android:textSize="28sp"
                         android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+                        android:text="Your New Phone: "
+                        android:layout_marginLeft="30dp"
+                        android:textColor="@color/black"/>
 
                     <EditText
                         android:id="@+id/edit_phone"
@@ -53,6 +60,37 @@
                         android:ems="10"
                         android:hint="Enter your phonenumber"
                         android:inputType="phone"
+                        android:padding="16dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/white"
+                        />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/warning"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:layout_marginLeft="30dp"
+                        android:textColor="@color/red"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+                        android:text="Your Password: "
+                        android:layout_marginLeft="30dp"
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/background_information"
+                        android:ems="10"
+                        android:hint="Enter your phonenumber"
+                        android:inputType="textPassword"
                         android:padding="16dp"
                         android:textColor="@color/black"
                         android:textColorHint="@color/white"

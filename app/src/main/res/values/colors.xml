@@ -14,5 +14,6 @@
     <color name="background_infor">#E5E5E5</color>
     <color name="background_tab">#030E1E</color>
     <color name="background_dialog">#FDD835</color>
+    <color name="red">#E81708</color>
 
 </resources>
