@@ -23,13 +23,17 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".DialogPassWord"
+            android:exported="false" />
+        <activity
             android:name=".EditInformation"
-            android:exported="false" >
-      <!--  <intent-filter>
+            android:exported="true">
+
+        <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>-->
+        </intent-filter>
         </activity>
         <activity
             android:name=".TranferMoney"
@@ -45,27 +49,25 @@
             android:exported="false" />
         <activity
             android:name=".ProfilePage"
-            android:exported="false"/>
-
-
+            android:exported="false" />
         <activity
             android:name=".SignUpPage"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".LoginPage"
-            android:exported="true">
-          <intent-filter>
+            android:exported="false">
+          <!--  <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity
             android:name=".ScanQR"
             android:exported="true" />
-
     </application>
 
 </manifest>
