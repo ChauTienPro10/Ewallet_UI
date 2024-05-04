@@ -17,14 +17,20 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import com.example.ewallet.AuthenticationCallback;
+import com.example.ewallet.FingerPrint;
+import com.example.ewallet.LoginPage;
 import com.example.ewallet.MainActivity;
 import com.example.ewallet.R;
 
@@ -34,12 +40,17 @@ import java.util.Objects;
 public class pindialogAdapter extends DialogFragment {
 
 
-
+    private TextView mTofingerPrint;
     View view1, view2, view3, view4, view5, view6;
     String passCode ="";
     String num_01,num_02,num_03,num_04,num_05,num_06;
+
+
+
+
     public interface PinDialogListener {
         void onPinEntered(String pin);
+        void onAuthentication();
     }
 
     private pindialogAdapter.PinDialogListener mListener;
@@ -65,8 +76,30 @@ public class pindialogAdapter extends DialogFragment {
         @SuppressLint("InflateParams") View dialogView = inflater.inflate(R.layout.pincode, null);
         ImageView closeBottomSheet;
         ConstraintLayout btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_9, btn_0, btn_X;
+//        xac thuc van tay
+        mTofingerPrint=dialogView.findViewById(R.id.toFingerprint);
 
 
+        mTofingerPrint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FingerPrint fingerPrint = new FingerPrint((AppCompatActivity) pindialogAdapter.this.requireActivity());
+                AuthenticationCallback authenticationCallback=new AuthenticationCallback() {
+                    @Override
+                    public void onAuthenticationSuccess() {
+                        mListener.onAuthentication();
+
+                    }
+
+                    @Override
+                    public void onAuthenticationFailure() {
+                        Toast.makeText(pindialogAdapter.this.requireContext(), "authenticate failure !", Toast.LENGTH_SHORT).show();
+                    }
+                };
+                fingerPrint.Authenticate(authenticationCallback);
+            }
+        });
+//        ket thuc xac thuc van tay
 
         ArrayList<String> numbers_list = new ArrayList<>();
         closeBottomSheet = dialogView.findViewById(R.id.closeBottomSheet);

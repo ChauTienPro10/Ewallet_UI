@@ -35,6 +35,7 @@ import retrofit2.Response;
 public class DepositFragment extends Fragment implements pindialogAdapter.PinDialogListener{
 
     private EditText inputtAmount;
+    pindialogAdapter dialogFragment = new pindialogAdapter();
     private Button deposit;
     final DecimalFormat decimalFormat = new DecimalFormat("#,###");
     // TODO: Rename parameter arguments, choose names that match
@@ -188,10 +189,42 @@ public class DepositFragment extends Fragment implements pindialogAdapter.PinDia
         });
     }
 
+    @Override
+    public void onAuthentication() {
+        getPincode();
+        dialogFragment.dismiss();
+        Toast.makeText(DepositFragment.this.requireContext(), "authenticate success !", Toast.LENGTH_SHORT).show();
+    }
+
+
     private void showPinDialog() {
-        pindialogAdapter dialogFragment = new pindialogAdapter();
+
         dialogFragment.setTargetFragment(this, 0);
         dialogFragment.show(getFragmentManager(), "pin_dialog");
+    }
+//    nhan ma pin sau khi xac thuc van tay thanh cong
+    private void getPincode(){
+
+        ApiService apiService=ApiService.ApiUtils.getApiService(DepositFragment.this.requireContext());
+        apiService.getPin().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String pin=response.body().string();
+                    if(!pin.equals("can't authentication")){
+                        onPinEntered(pin);
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
     }
 
 

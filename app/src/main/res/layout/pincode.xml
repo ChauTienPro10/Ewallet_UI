@@ -133,6 +133,7 @@
             android:src="@drawable/fingerprint_solid"
             />
         <TextView
+            android:id="@+id/toFingerprint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Authentication by fingerprint"

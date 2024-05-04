@@ -48,6 +48,8 @@ public interface ApiService {
 
     @POST("/profile/change_email")
     Call<ResponseBody> changeEmail(@Body JsonObject jsonObj);
+    @GET("/test/getPincode")
+    Call<ResponseBody> getPin();
 
     @POST("/profile/change_phone")
     Call<ResponseBody> changePhone(@Body JsonObject jsonObj);
@@ -64,7 +66,7 @@ public interface ApiService {
                     .create();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://10.0.21.236:9005")
+                    .baseUrl("http://172.16.3.110:9005")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();
