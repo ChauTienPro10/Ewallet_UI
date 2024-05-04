@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     Gson gson = new Gson();
-    @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         getMoney=findViewById(R.id.get_money);
         btn_Transaction = findViewById(R.id.btn_Transaction);
 
-        ImageView imageProfile = findViewById(R.id.imageProfile);
+
         mToProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -4,19 +4,33 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
 public class TranferMoney extends AppCompatActivity {
     private RecyclerView.Adapter adapterContact;
     private RecyclerView recyclerViewConatact;
+
+    private LinearLayout btnSendMoney;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tranfer_money);
 
         initRecyclerView();
+
+        btnSendMoney=findViewById(R.id.buttonSendMoney);
+        btnSendMoney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TranferMoney.this, PaymentProcessing.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initRecyclerView() {
@@ -33,4 +47,5 @@ public class TranferMoney extends AppCompatActivity {
         adapterContact=new ContactsAdapter(items);
         recyclerViewConatact.setAdapter(adapterContact);
     }
+
 }
