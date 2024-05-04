@@ -1,4 +1,4 @@
-package com.example.ewallet.Adapter;
+package com.example.ewallet.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;

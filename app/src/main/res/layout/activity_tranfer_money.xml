@@ -175,7 +175,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="16dp">
 
 
                 <TextView
@@ -208,21 +208,21 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInput1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toStartOf="@id/plusCartBtn"
                     app:layout_constraintStart_toEndOf="@id/minusCartBtn"
                     tools:ignore="MissingConstraints">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="wrap_content"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="0"
-                        android:inputType="numberDecimal"
-                        android:textSize="36dp"
-                        android:textStyle="bold"
+                        android:gravity="center"
                         android:background="@drawable/custom_input"
+                        android:inputType="numberDecimal"
+                        android:text="0"
+                        android:textSize="32dp"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/plusCartBtn"
                         app:layout_constraintTop_toTopOf="@+id/plusCartBtn" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -253,26 +253,35 @@
                 android:clipToPadding="false"
                 android:paddingStart="24dp"
                 android:paddingEnd="24dp" />
-            
-            <LinearLayout
-                android:id="@+id/buttonSendMoney"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="150dp"
-                android:layout_marginStart="100dp"
-                android:layout_marginEnd="100dp"
-                android:layout_marginBottom="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:background="@drawable/button_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="SEND MONEY"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/gray"
-                    android:gravity="center"/>
-            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <LinearLayout
+            android:id="@+id/buttonSendMoney"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+            <TextView
+                android:background="@drawable/button_1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="SEND MONEY"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/gray"
+                android:gravity="center"/>
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

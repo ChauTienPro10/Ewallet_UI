@@ -369,13 +369,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="@drawable/card_background"
+                android:gravity="center"
 
-                android:gravity="center">
+                android:orientation="horizontal">
 
 
                 <ImageView
@@ -384,12 +385,13 @@
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:src="@drawable/lock_solid" />
+
                 <TextView
                     android:id="@+id/textConfirm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Confirm"
                     android:padding="8dp"
+                    android:text="Confirm"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
