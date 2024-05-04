@@ -266,7 +266,7 @@
                 android:paddingEnd="24dp" />
             
             <LinearLayout
-                android:id="@+id/button1"
+                android:id="@+id/buttonSendMoney"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="150dp"
@@ -283,12 +283,7 @@
                     android:textStyle="bold"
                     android:textColor="@color/gray"
                     android:gravity="center"/>
-
             </LinearLayout>
-
-
         </LinearLayout>
-
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
