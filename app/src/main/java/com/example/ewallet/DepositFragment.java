@@ -1,6 +1,8 @@
 package com.example.ewallet;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -98,7 +100,18 @@ public class DepositFragment extends Fragment implements pindialogAdapter.PinDia
         deposit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPinDialog();
+                if(!inputtAmount.getText().toString().equals("")){
+                    showPinDialog();
+                }
+                else{
+                    GradientDrawable borderDrawable = new GradientDrawable();
+                    borderDrawable.setStroke(2, Color.RED); // Đặt độ dày và màu sắc cho border
+                    borderDrawable.setColor(Color.WHITE); // Đặt màu nền cho EditText
+                    inputtAmount.setBackground(borderDrawable);
+                    inputtAmount.setHint("Please enter amount");
+
+                }
+
             }
         });
 
