@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.ewallet.Adapter.BankAdapters;
+import com.example.ewallet.adapter.BankAdapters;
 
 import java.util.ArrayList;
 

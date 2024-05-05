@@ -7,11 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 
-import com.example.ewallet.Adapter.HistoryAdapters;
+import com.example.ewallet.adapter.HistoryAdapters;
 
 import java.util.ArrayList;
 
