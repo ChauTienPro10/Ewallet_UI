@@ -1,4 +1,4 @@
-package com.example.ewallet.adapter;
+package com.example.ewallet.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
