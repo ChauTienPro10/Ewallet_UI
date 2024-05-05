@@ -1,22 +1,16 @@
-package com.example.ewallet.adapter;
+package com.example.ewallet.Adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,12 +24,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.ewallet.AuthenticationCallback;
 import com.example.ewallet.FingerPrint;
-import com.example.ewallet.LoginPage;
-import com.example.ewallet.MainActivity;
 import com.example.ewallet.R;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class pindialogAdapter extends DialogFragment {
 

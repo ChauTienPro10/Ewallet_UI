@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.ewallet.adapter.pindialogAdapter;
+import com.example.ewallet.Adapter.pindialogAdapter;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;

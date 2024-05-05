@@ -53,22 +53,23 @@ public class MainActivity extends AppCompatActivity {
     private ImageView toDeposit;
     private TextView mName;
     TextView mBalance;
-
     private ConstraintLayout sendMoney;
     FloatingActionButton scanqr;
-    LinearLayout mToProfile;
+    LinearLayout mToProfile,btn_history;
 
 
     Gson gson = new Gson();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mName=findViewById(R.id.nameMember);
         mBalance=findViewById(R.id.textView);
-        
 
+
+        //button history transaction
+        btn_history=findViewById(R.id.btnHistory);
+        btn_history.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,HistoryTransactionPage.class)));
         // Test Auth
 
 
@@ -150,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
         items.add(new ContactsDomain("Alice","user_2"));
         items.add(new ContactsDomain("Rose","user_3"));
         items.add(new ContactsDomain("Sara","user_4"));
-        items.add(new ContactsDomain("David","user_5"));
 
         recyclerViewConatact=findViewById(R.id.viewList);
         recyclerViewConatact.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
