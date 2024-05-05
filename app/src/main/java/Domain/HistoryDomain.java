@@ -1,20 +1,22 @@
 package Domain;
 
+import java.math.BigDecimal;
+
 public class HistoryDomain {
     private String type;
     private  String time;
     private String content;
     private  String receiver;
-    private double amount;
+    private BigDecimal amount;
     private  String picPath;
 
-    public HistoryDomain(String type, String time, String content, String receiver, double amount, String picPath) {
+    public HistoryDomain(String type, String time, String content, String receiver, BigDecimal amount) {
         this.type = type;
         this.time = time;
         this.content = content;
         this.receiver = receiver;
         this.amount = amount;
-        this.picPath = picPath;
+        this.picPath="bitcoin";
     }
 
     public String getType() {
@@ -49,11 +51,11 @@ public class HistoryDomain {
         this.receiver = receiver;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

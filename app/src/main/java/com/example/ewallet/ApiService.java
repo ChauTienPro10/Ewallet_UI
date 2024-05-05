@@ -7,6 +7,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import Domain.HistoryDomain;
 import Entities.LoginRequest;
 import Entities.LoginResponse;
 import Entities.Member;
@@ -57,6 +61,8 @@ public interface ApiService {
     Call<ResponseBody> changePhone(@Body JsonObject jsonObj);
     @POST("/profile/change_password")
     Call<ResponseBody> changePass(@Body JsonObject jsonObj);
+    @GET("/check/history")
+    Call<ArrayList<HistoryDomain>> getHistory();
 
     class ApiUtils {
         public static ApiService getApiService(Context context) {
@@ -70,7 +76,7 @@ public interface ApiService {
                     .create();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://172.16.3.110:9005")
+                    .baseUrl("http://10.0.248.181:9005")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();

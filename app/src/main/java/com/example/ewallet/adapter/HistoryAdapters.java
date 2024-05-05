@@ -1,6 +1,7 @@
 package com.example.ewallet.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,9 @@ public class HistoryAdapters extends RecyclerView.Adapter<HistoryAdapters.viewho
     Context context;
 
     public HistoryAdapters(ArrayList<HistoryDomain> items) {
+
         this.items = items;
+        Log.d("sizeT", "HistoryAdapters: "+this.items.size());
     }
 
     @NonNull
@@ -39,8 +42,8 @@ public class HistoryAdapters extends RecyclerView.Adapter<HistoryAdapters.viewho
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapters.viewholder holder, int position) {
         holder.contentTxt.setText(items.get(position).getContent());
-        holder.timeTxt.setText("Date: "+items.get(position).getTime());
-        holder.amountTxt.setText("-"+items.get(position).getAmount()+"$");
+        holder.timeTxt.setText(items.get(position).getTime());
+        holder.amountTxt.setText(items.get(position).getAmount().toString());
 
         int drawableResourceId = holder.itemView.getResources()
                 .getIdentifier(items.get(position).getPicPath(),"drawable",holder.itemView.getContext().getPackageName());
