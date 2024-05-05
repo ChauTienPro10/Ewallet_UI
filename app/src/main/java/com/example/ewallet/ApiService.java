@@ -38,6 +38,8 @@ public interface ApiService {
     Call<ResponseBody> createQR(@Body JsonObject requestBody);
     @POST("/transaction/deposit")
     Call<ResponseBody> depositSer(@Body JsonObject object);
+    @POST("/transaction/withdrawal")
+    Call<ResponseBody> withdrawSer(@Body JsonObject object);
     @POST("/test/authen_pincode")
     Call<Boolean> authenPin(@Body JsonObject obj);
     @GET("/check/getInfor")
@@ -53,6 +55,8 @@ public interface ApiService {
 
     @POST("/profile/change_phone")
     Call<ResponseBody> changePhone(@Body JsonObject jsonObj);
+    @POST("/profile/change_password")
+    Call<ResponseBody> changePass(@Body JsonObject jsonObj);
 
     class ApiUtils {
         public static ApiService getApiService(Context context) {

@@ -102,7 +102,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <EditText
-                    android:id="@+id/deposit"
+                    android:id="@+id/withdraw"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="16dp"

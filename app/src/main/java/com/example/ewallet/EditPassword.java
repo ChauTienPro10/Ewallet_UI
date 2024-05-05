@@ -1,8 +1,12 @@
 package com.example.ewallet;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,14 +18,26 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class EditPassword extends Fragment {
+    EditText mNewPass, mConfirmPass, mAuthenPass;
 
     private LinearLayout linearLayout;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -29,11 +45,31 @@ public class EditPassword extends Fragment {
         View view = inflater.inflate(R.layout.fragment_edit_password, container, false);
 
         linearLayout = view.findViewById(R.id.update_password);
+        mNewPass=view.findViewById(R.id.newPassInput);
+        mConfirmPass=view.findViewById(R.id.confirmPass);
+        mAuthenPass=view.findViewById(R.id.authenPass);
 
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog(Gravity.CENTER);
+                if(mNewPass.getText().toString().equals("")){
+                    GradientDrawable borderDrawable = new GradientDrawable();
+                    borderDrawable.setStroke(2, Color.RED); // Đặt độ dày và màu sắc cho border
+                    borderDrawable.setColor(Color.WHITE); // Đặt màu nền cho EditText
+                    mNewPass.setBackground(borderDrawable);
+                    mNewPass.setHint("Please enter new password");
+                }
+                else if(!mNewPass.getText().toString().equals(mConfirmPass.getText().toString())){
+                    GradientDrawable borderDrawable = new GradientDrawable();
+                    borderDrawable.setStroke(2, Color.RED); // Đặt độ dày và màu sắc cho border
+                    borderDrawable.setColor(Color.WHITE); // Đặt màu nền cho EditText
+                    mConfirmPass.setBackground(borderDrawable);
+                    mConfirmPass.setHint("password is incorrect");
+                }
+                else{
+                    openDialog(Gravity.CENTER);
+                }
+
             }
         });
 
@@ -77,9 +113,48 @@ public class EditPassword extends Fragment {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(requireContext(), "Edit Password", Toast.LENGTH_SHORT).show();
+                changePass();
             }
         });
         dialog.show();
+    }
+    private void changePass(){
+        ProgressDialog progressDialog = new ProgressDialog(EditPassword.this.requireContext());
+
+        progressDialog.setMessage("waiting...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+        JsonObject obj =new JsonObject();
+        obj.addProperty("newpassword", mNewPass.getText().toString());
+        obj.addProperty("password", mAuthenPass.getText().toString());
+        ApiService apiService=ApiService.ApiUtils.getApiService(EditPassword.this.requireContext());
+        apiService.changePass(obj).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String responString = null;
+                try {
+                    responString = response.body().string();
+                    if(responString.equals("change password success!")){
+                        Toast.makeText(requireContext(), responString, Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(EditPassword.this.requireContext(), ProfilePage.class);
+                        startActivity(intent);
+                    }
+                    else{
+                        Toast.makeText(requireContext(), responString, Toast.LENGTH_SHORT).show();
+
+
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                progressDialog.dismiss();
+            }
+        });
     }
 }

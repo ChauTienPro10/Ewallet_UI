@@ -1,6 +1,7 @@
 package com.example.ewallet;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.ewallet.Adapter.pindialogAdapter;
+import com.example.ewallet.adapter.pindialogAdapter;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
@@ -151,6 +152,10 @@ public class DepositFragment extends Fragment implements pindialogAdapter.PinDia
 
 
     private void setDeposit(ApiService apiService){
+        ProgressDialog progressDialog = new ProgressDialog(DepositFragment.this.requireContext());
+        progressDialog.setMessage("Processing...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("amount", inputtAmount.getText().toString());
         apiService.depositSer(jsonObject).enqueue(new Callback<ResponseBody>() {
@@ -169,11 +174,12 @@ public class DepositFragment extends Fragment implements pindialogAdapter.PinDia
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+                progressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                progressDialog.dismiss();
             }
         });
     }

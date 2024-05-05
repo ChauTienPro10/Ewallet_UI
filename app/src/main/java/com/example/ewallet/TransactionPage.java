@@ -49,12 +49,12 @@ public class TransactionPage extends AppCompatActivity {
                         tab.setIcon(R.drawable.receive);
 
 
-                        BadgeDrawable badgeDrawable= tab.getOrCreateBadge();
-                        badgeDrawable.setBackgroundColor(
-                                ContextCompat.getColor(getApplicationContext(),R.color.purple)
-                        );
-                        badgeDrawable.setVisible(true);
-                        badgeDrawable.setNumber(10);
+//                        BadgeDrawable badgeDrawable= tab.getOrCreateBadge();
+//                        badgeDrawable.setBackgroundColor(
+//                                ContextCompat.getColor(getApplicationContext(),R.color.purple)
+//                        );
+//                        badgeDrawable.setVisible(true);
+//                        badgeDrawable.setNumber(10);
                         break;
                     }
 

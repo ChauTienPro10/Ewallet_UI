@@ -162,71 +162,63 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView21" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/textView29"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="How much you would like to send?"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:layout_marginTop="20dp"/>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
 
 
-                <TextView
-                    android:id="@+id/plusCartBtn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="64dp"
-                    android:background="@drawable/white_background"
-                    android:gravity="center"
-                    android:text="+"
-                    android:textColor="@color/black"
-                    android:textSize="24dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="16dp">-->
 
-                <TextView
-                    android:id="@+id/minusCartBtn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="64dp"
-                    android:background="@drawable/white_background"
-                    android:gravity="center"
-                    android:text="-"
-                    android:textColor="@color/black"
-                    android:textSize="24dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInput1"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toStartOf="@id/plusCartBtn"
-                    app:layout_constraintStart_toEndOf="@id/minusCartBtn"
-                    tools:ignore="MissingConstraints">
+<!--                <TextView-->
+<!--                    android:id="@+id/plusCartBtn"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_marginEnd="64dp"-->
+<!--                    android:background="@drawable/white_background"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="+"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="24dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:background="@drawable/custom_input"
-                        android:inputType="numberDecimal"
-                        android:text="0"
-                        android:textSize="32dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/plusCartBtn"
-                        app:layout_constraintTop_toTopOf="@+id/plusCartBtn" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                <TextView-->
+<!--                    android:id="@+id/minusCartBtn"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_marginStart="64dp"-->
+<!--                    android:background="@drawable/white_background"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="-"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="24dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/textInput1"-->
+<!--                    android:layout_width="150dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintEnd_toStartOf="@id/plusCartBtn"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/minusCartBtn"-->
+<!--                    tools:ignore="MissingConstraints">-->
+
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:layout_width="150dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:background="@drawable/custom_input"-->
+<!--                        android:inputType="numberDecimal"-->
+<!--                        android:text="0"-->
+<!--                        android:textSize="32dp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/plusCartBtn"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/plusCartBtn" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
