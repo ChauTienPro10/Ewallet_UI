@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:alpha="0.5"
                 android:ems="10"
                 android:hint="O Đ"
@@ -144,6 +144,7 @@
                     android:layout_weight="1"
                     android:text="chuyển tiền cà phê"
                     android:textSize="8sp"
+
                     android:background="@drawable/bg_key_number"/>
                     />
 
@@ -153,6 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Trả nợ nha"
+                    android:layout_marginLeft="4dp"
                     android:textSize="8sp"
                     android:background="@drawable/bg_key_number"/>
                     />
@@ -176,6 +178,7 @@
                     android:layout_weight="1"
                     android:text="chuyển tiền ăn trưa"
                     android:textSize="8sp"
+                    android:layout_margin="4dp"
                     android:background="@drawable/bg_key_number"/>
                     />
 
@@ -186,6 +189,7 @@
                     android:layout_weight="1"
                     android:text="chuyển tiền tiêu vặt"
                     android:textSize="8sp"
+                    android:layout_margin="4dp"
                     android:background="@drawable/bg_key_number"/>
                     />
 
@@ -195,6 +199,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Chon Khac Di Di"
+                    android:layout_margin="4dp"
                     android:textSize="8sp"
                     android:background="@drawable/bg_key_number"/>
                     />
@@ -252,20 +257,18 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/buttonSendMoney"
+                    android:id="@+id/buttonConfirm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
-
+                    android:layout_marginBottom="16dp"
                     android:orientation="horizontal">
                     <TextView
                         android:background="@drawable/card_background"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:layout_marginBottom="50dp"
                         android:text="Confirm"
                         android:textSize="18dp"
                         android:textStyle="bold"

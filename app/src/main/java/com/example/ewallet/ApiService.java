@@ -8,14 +8,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import Domain.HistoryDomain;
+import com.example.ewallet.Domain.HistoryDomain;
 import Entities.LoginRequest;
 import Entities.LoginResponse;
 import Entities.Member;
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -23,7 +21,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 
 public interface ApiService {
     @GET("test/hello")

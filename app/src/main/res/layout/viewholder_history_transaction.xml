@@ -9,6 +9,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/reCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints">
@@ -21,7 +22,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:padding="10dp"
-            android:src="@drawable/bitcoin"
+            android:src="@drawable/money_bill_transfer_solid"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

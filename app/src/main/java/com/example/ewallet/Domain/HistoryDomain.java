@@ -1,4 +1,4 @@
-package Domain;
+package com.example.ewallet.Domain;
 
 import java.math.BigDecimal;
 
@@ -10,13 +10,13 @@ public class HistoryDomain {
     private BigDecimal amount;
     private  String picPath;
 
-    public HistoryDomain(String type, String time, String content, String receiver, BigDecimal amount) {
+    public HistoryDomain(String type, String time, String content, String receiver, BigDecimal amount, String picPath) {
         this.type = type;
         this.time = time;
         this.content = content;
         this.receiver = receiver;
         this.amount = amount;
-        this.picPath="bitcoin";
+        this.picPath=picPath;
     }
 
     public String getType() {

@@ -15,7 +15,7 @@ import com.example.ewallet.R;
 
 import java.util.ArrayList;
 
-import Domain.BankDomain;
+import com.example.ewallet.Domain.BankDomain;
 
 public class BankAdapters extends RecyclerView.Adapter<BankAdapters.viewholder> {
     ArrayList<BankDomain> items;

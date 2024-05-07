@@ -8,13 +8,14 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,15 +32,24 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:src="@drawable/arrow_left_solid"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_back_send_money"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/arrow_left_solid"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/textView1"
@@ -47,10 +57,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="Send Money"
-                    android:textStyle="bold"
                     android:textSize="20dp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView1"
+                    app:layout_constraintStart_toEndOf="@+id/btn_back_send_money"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -60,29 +70,31 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:text="Choose Account"
-                    app:layout_constraintStart_toEndOf="@+id/imageView1"
+                    app:layout_constraintStart_toEndOf="@+id/btn_back_send_money"
                     app:layout_constraintTop_toBottomOf="@+id/textView1" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <EditText
-                android:id="@+id/editText"
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:ems="10"
-                android:inputType="text"
-                android:background="@drawable/custom_input_1"
+                android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:background="@drawable/custom_input_1"
+                android:focusable="false"
+                android:inputType="text"
                 android:textColor="@color/gray"
-                android:drawableStart="@drawable/magnifying_glass_solid"
-                android:padding="12dp"
-                android:hint="Search "
-                android:drawablePadding="8dp"
-                />
+                app:closeIcon="@drawable/magnifying_glass_solid"
+                app:iconifiedByDefault="false"
+                app:queryHint="Search... "
+                app:searchHintIcon="@null"
+                app:searchIcon="@drawable/magnifying_glass_solid" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/card_background_1">
 
                 <ImageView
@@ -109,11 +121,11 @@
                     android:id="@+id/textView10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:text="9704 1800 0000 4845 467"
+                    android:textColor="@color/white"
                     android:textSize="26dp"
                     android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView4" />
@@ -124,9 +136,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="Name"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
                     android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textView10"
                     app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
@@ -145,9 +157,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Exp data"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
                     android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView19"
                     app:layout_constraintTop_toTopOf="@+id/textView19" />
@@ -163,62 +175,61 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+            <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="16dp">-->
 
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="16dp">-->
 
+            <!--                <TextView-->
+            <!--                    android:id="@+id/plusCartBtn"-->
+            <!--                    android:layout_width="40dp"-->
+            <!--                    android:layout_height="40dp"-->
+            <!--                    android:layout_marginEnd="64dp"-->
+            <!--                    android:background="@drawable/white_background"-->
+            <!--                    android:gravity="center"-->
+            <!--                    android:text="+"-->
+            <!--                    android:textColor="@color/black"-->
+            <!--                    android:textSize="24dp"-->
+            <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/plusCartBtn"-->
-<!--                    android:layout_width="40dp"-->
-<!--                    android:layout_height="40dp"-->
-<!--                    android:layout_marginEnd="64dp"-->
-<!--                    android:background="@drawable/white_background"-->
-<!--                    android:gravity="center"-->
-<!--                    android:text="+"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textSize="24dp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+            <!--                <TextView-->
+            <!--                    android:id="@+id/minusCartBtn"-->
+            <!--                    android:layout_width="40dp"-->
+            <!--                    android:layout_height="40dp"-->
+            <!--                    android:layout_marginStart="64dp"-->
+            <!--                    android:background="@drawable/white_background"-->
+            <!--                    android:gravity="center"-->
+            <!--                    android:text="-"-->
+            <!--                    android:textColor="@color/black"-->
+            <!--                    android:textSize="24dp"-->
+            <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                    app:layout_constraintStart_toStartOf="parent"-->
+            <!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/minusCartBtn"-->
-<!--                    android:layout_width="40dp"-->
-<!--                    android:layout_height="40dp"-->
-<!--                    android:layout_marginStart="64dp"-->
-<!--                    android:background="@drawable/white_background"-->
-<!--                    android:gravity="center"-->
-<!--                    android:text="-"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textSize="24dp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+            <!--                <com.google.android.material.textfield.TextInputLayout-->
+            <!--                    android:id="@+id/textInput1"-->
+            <!--                    android:layout_width="150dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    app:layout_constraintEnd_toStartOf="@id/plusCartBtn"-->
+            <!--                    app:layout_constraintStart_toEndOf="@id/minusCartBtn"-->
+            <!--                    tools:ignore="MissingConstraints">-->
 
-<!--                <com.google.android.material.textfield.TextInputLayout-->
-<!--                    android:id="@+id/textInput1"-->
-<!--                    android:layout_width="150dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:layout_constraintEnd_toStartOf="@id/plusCartBtn"-->
-<!--                    app:layout_constraintStart_toEndOf="@id/minusCartBtn"-->
-<!--                    tools:ignore="MissingConstraints">-->
-
-<!--                    <com.google.android.material.textfield.TextInputEditText-->
-<!--                        android:layout_width="150dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:gravity="center"-->
-<!--                        android:background="@drawable/custom_input"-->
-<!--                        android:inputType="numberDecimal"-->
-<!--                        android:text="0"-->
-<!--                        android:textSize="32dp"-->
-<!--                        android:textStyle="bold"-->
-<!--                        app:layout_constraintBottom_toBottomOf="@+id/plusCartBtn"-->
-<!--                        app:layout_constraintTop_toTopOf="@+id/plusCartBtn" />-->
-<!--                </com.google.android.material.textfield.TextInputLayout>-->
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+            <!--                    <com.google.android.material.textfield.TextInputEditText-->
+            <!--                        android:layout_width="150dp"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:gravity="center"-->
+            <!--                        android:background="@drawable/custom_input"-->
+            <!--                        android:inputType="numberDecimal"-->
+            <!--                        android:text="0"-->
+            <!--                        android:textSize="32dp"-->
+            <!--                        android:textStyle="bold"-->
+            <!--                        app:layout_constraintBottom_toBottomOf="@+id/plusCartBtn"-->
+            <!--                        app:layout_constraintTop_toTopOf="@+id/plusCartBtn" />-->
+            <!--                </com.google.android.material.textfield.TextInputLayout>-->
+            <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -248,6 +259,7 @@
 
         </LinearLayout>
     </ScrollView>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

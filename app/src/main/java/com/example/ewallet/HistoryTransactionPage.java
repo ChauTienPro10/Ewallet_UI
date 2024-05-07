@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 
@@ -16,9 +15,8 @@ import com.example.ewallet.adapter.HistoryAdapters;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
-import Domain.HistoryDomain;
+import com.example.ewallet.Domain.HistoryDomain;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,23 +35,19 @@ public class HistoryTransactionPage extends AppCompatActivity {
 
         setVariable();
 
-        getDtHistory();
-//        initRecycleView();
+        // getDtHistory();
+       initRecycleView();
 
     }
 
     private void initRecycleView() {
 
-        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien ransfer money to Phat Tien ransfer money to Phat Tien","", BigDecimal.valueOf(10)));
-        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10)));
-        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10)));
-        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10)));
-        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10)));
-        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10)));
-        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10)));
-        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10)));
-        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10)));
-        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10)));
+        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","", BigDecimal.valueOf(10),"money_bill_transfer_solid"));
+        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10),"money_bill_transfer_solid"));
+        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10),"btn_1"));
+        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10),"btn_2"));
+        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10),"btn_1"));
+        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10),"btn_2"));
 
         recyclerView = findViewById(R.id.viewListTransHistory);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
@@ -82,7 +76,7 @@ public class HistoryTransactionPage extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<HistoryDomain>> call, Response<ArrayList<HistoryDomain>> response) {
                 for(HistoryDomain item: response.body()){
-                    items.add(new HistoryDomain(item.getType(),item.getTime(),item.getContent(),item.getReceiver(),item.getAmount()));
+                    items.add(new HistoryDomain(item.getType(),item.getTime(),item.getContent(),item.getReceiver(),item.getAmount(),null));
                 }
                 progressDialog.dismiss();
                 Toast.makeText(HistoryTransactionPage.this, "thanh cong"+ items.size(), Toast.LENGTH_SHORT).show();

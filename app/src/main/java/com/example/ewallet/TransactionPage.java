@@ -1,15 +1,14 @@
 package com.example.ewallet;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.google.android.material.badge.BadgeDrawable;
+import com.example.ewallet.adapter.TransactionAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -20,8 +19,8 @@ public class TransactionPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_page);
 
-        ImageView imageBack = findViewById(R.id.imageBack);
-        imageBack.setOnClickListener(new View.OnClickListener() {
+        ConstraintLayout btn_back_dep_with = findViewById(R.id.btn_back_dep_with);
+        btn_back_dep_with.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //back homePage
