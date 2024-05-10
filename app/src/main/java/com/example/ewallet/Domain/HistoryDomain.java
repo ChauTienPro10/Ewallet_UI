@@ -8,9 +8,9 @@ public class HistoryDomain {
     private String content;
     private  String receiver;
     private BigDecimal amount;
-    private  String picPath;
+    private  int picPath;
 
-    public HistoryDomain(String type, String time, String content, String receiver, BigDecimal amount, String picPath) {
+    public HistoryDomain(String type, String time, String content, String receiver, BigDecimal amount, int picPath) {
         this.type = type;
         this.time = time;
         this.content = content;
@@ -59,11 +59,11 @@ public class HistoryDomain {
         this.amount = amount;
     }
 
-    public String getPicPath() {
+    public int getPicPath() {
         return picPath;
     }
 
-    public void setPicPath(String picPath) {
+    public void setPicPath(int picPath) {
         this.picPath = picPath;
     }
 }

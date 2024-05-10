@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.example.ewallet.HistoryTransactionDetail;
 import com.example.ewallet.R;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import com.example.ewallet.Domain.HistoryDomain;
@@ -25,7 +26,8 @@ public class HistoryAdapters extends RecyclerView.Adapter<HistoryAdapters.viewho
     ArrayList<HistoryDomain> items;
     Context context;
 
-    public HistoryAdapters(ArrayList<HistoryDomain> items) {
+    public HistoryAdapters(ArrayList<HistoryDomain> items,  Context context) {
+        this.context=context;
         this.items = items;
     }
 
@@ -42,29 +44,41 @@ public class HistoryAdapters extends RecyclerView.Adapter<HistoryAdapters.viewho
 
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapters.viewholder holder, int position) {
+
+        BigDecimal amount = items.get(position).getAmount();
+        String amountString = amount.toString();
         holder.contentTxt.setText(items.get(position).getContent());
         holder.timeTxt.setText("Date"+items.get(position).getTime());
-        holder.amountTxt.setText(items.get(position).getAmount().toString()+"$");
+        holder.amountTxt.setText("-"+amountString+"$");
+        holder.pic_2.setImageResource(items.get(position).getPicPath());
 
 
-
-        int drawableResourceId = holder.itemView.getResources()
-                .getIdentifier(items.get(position).getPicPath(),"drawable",holder.itemView.getContext().getPackageName());
-
-        Glide.with(context)
-                .load(drawableResourceId)
-                .into(holder.pic_2);
+//        int drawableResourceId = holder.itemView.getResources()
+//                .getIdentifier(items.get(position).getPicPath(),"drawable",holder.itemView.getContext().getPackageName());
+//
+//        Glide.with(context)
+//                .load(drawableResourceId)
+//                .into(holder.pic_2);
 
         holder.reCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, HistoryTransactionDetail.class);
-                intent.putExtra("image",items.get(holder.getAdapterPosition()).getPicPath());
-                intent.putExtra("content",items.get(holder.getAdapterPosition()).getContent());
-                intent.putExtra("time",items.get(holder.getAdapterPosition()).getTime());
-                intent.putExtra("amount",items.get(holder.getAdapterPosition()).getAmount());
-
-                context.startActivity(intent);
+                int position = holder.getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    HistoryDomain selectedItem = items.get(position);
+                    if (selectedItem != null) {
+                        Intent intent = new Intent(context, HistoryTransactionDetail.class);
+                        intent.putExtra("Image", selectedItem.getPicPath());
+                        intent.putExtra("Content", selectedItem.getContent());
+                        intent.putExtra("Time", selectedItem.getTime());
+                        intent.putExtra("Amount", (selectedItem.getAmount()).toString()+"$");
+                        context.startActivity(intent);
+                    } else {
+                        Log.d("HistoryAdapters", "Selected item is null at position: " + position);
+                    }
+                } else {
+                    Log.d("HistoryAdapters", "Invalid position");
+                }
             }
         });
 

@@ -64,7 +64,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/reCard"
+                android:id="@+id/reCard_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -79,7 +79,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:padding="10dp"
-                    android:src="@drawable/money_bill_transfer_solid"
+                    android:src="@drawable/btn_1"
                     android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:text="Content"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -113,9 +113,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Amount"
-                    android:layout_marginTop="8dp"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/detailContent"
                     app:layout_constraintTop_toBottomOf="@+id/detailContent" />
@@ -125,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="20dp"
                 app:layout_constraintTop_toBottomOf="@+id/textView41">
 
@@ -285,7 +284,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="20dp"
                 app:layout_constraintTop_toBottomOf="@+id/textView41">
 
@@ -370,7 +369,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Le Tat Thang"
+                            android:text="Chau Duong Phat Tien"
                             android:textAlignment="viewEnd"
                             android:textColor="@color/purple"
                             android:textSize="16sp"
@@ -424,7 +423,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="chuyen tien cho thang"
+                            android:text="chuyen tien cho tien"
                             android:textAlignment="viewEnd"
                             android:textColor="@color/purple"
                             android:textSize="16sp"
@@ -440,26 +439,26 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:id="@+id/buttonTranMore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp">
+
             <TextView
-                android:background="@drawable/background_button_success"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:background="@drawable/background_button_success"
+                android:gravity="center"
                 android:text="TRANFER MORE"
-                android:textSize="18dp"
-                android:textStyle="bold"
                 android:textColor="@color/gray"
-                android:gravity="center"/>
+                android:textSize="18dp"
+                android:textStyle="bold" />
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

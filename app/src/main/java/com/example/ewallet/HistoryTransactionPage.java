@@ -42,17 +42,17 @@ public class HistoryTransactionPage extends AppCompatActivity {
 
     private void initRecycleView() {
 
-        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","", BigDecimal.valueOf(10),"money_bill_transfer_solid"));
-        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10),"money_bill_transfer_solid"));
-        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10),"btn_1"));
-        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10),"btn_2"));
-        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10),"btn_1"));
-        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10),"btn_2"));
+        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","", BigDecimal.valueOf(10), R.drawable.money_bill_transfer_solid));
+        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10),R.drawable.money_bill_transfer_solid));
+        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10),R.drawable.btn_1));
+        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10),R.drawable.btn_2));
+        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10),R.drawable.btn_1));
+        items.add(new HistoryDomain("","00:00-05/05/2024","Transfer money to Phat Tien","",BigDecimal.valueOf(10),R.drawable.btn_2));
 
         recyclerView = findViewById(R.id.viewListTransHistory);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
 
-        adapterTransaction = new HistoryAdapters(items);
+        adapterTransaction = new HistoryAdapters(items,HistoryTransactionPage.this);
 
             recyclerView.setAdapter(adapterTransaction);
 
@@ -76,13 +76,13 @@ public class HistoryTransactionPage extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<HistoryDomain>> call, Response<ArrayList<HistoryDomain>> response) {
                 for(HistoryDomain item: response.body()){
-                    items.add(new HistoryDomain(item.getType(),item.getTime(),item.getContent(),item.getReceiver(),item.getAmount(),null));
+                    items.add(new HistoryDomain(item.getType(),item.getTime(),item.getContent(),item.getReceiver(),item.getAmount(),0));
                 }
                 progressDialog.dismiss();
                 Toast.makeText(HistoryTransactionPage.this, "thanh cong"+ items.size(), Toast.LENGTH_SHORT).show();
                 recyclerView = findViewById(R.id.viewListTransHistory);
                 recyclerView.setLayoutManager(new LinearLayoutManager(HistoryTransactionPage.this,LinearLayoutManager.VERTICAL,false));
-                adapterTransaction = new HistoryAdapters(items);
+                adapterTransaction = new HistoryAdapters(items,HistoryTransactionPage.this);
                 recyclerView.setAdapter(adapterTransaction);
             }
 
