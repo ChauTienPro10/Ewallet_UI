@@ -73,7 +73,7 @@ public interface ApiService {
                     .create();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://10.0.248.181:9005")
+                    .baseUrl("http://10.0.241.27:9005")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();
