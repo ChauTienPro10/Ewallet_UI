@@ -35,8 +35,8 @@ public class HistoryTransactionPage extends AppCompatActivity {
 
         setVariable();
 
-        // getDtHistory();
-       initRecycleView();
+        getDtHistory();
+//       initRecycleView();
 
     }
 

@@ -1,5 +1,7 @@
 package com.example.ewallet.Domain;
 
+import com.example.ewallet.R;
+
 import java.math.BigDecimal;
 
 public class HistoryDomain {
@@ -16,7 +18,24 @@ public class HistoryDomain {
         this.content = content;
         this.receiver = receiver;
         this.amount = amount;
-        this.picPath=picPath;
+        switch (type){
+            case "withdraw":
+                this.picPath= R.drawable.btn_2;
+                break;
+            case "deposit":
+                this.picPath= R.drawable.btn_1;
+                break;
+            case "transfer":
+                this.picPath=R.drawable.money_bill_transfer_solid;
+                break;
+            case "recharge telephone":
+                this.picPath=R.drawable.btn_2;
+                break;
+
+            default: break;
+
+        }
+
     }
 
     public String getType() {
