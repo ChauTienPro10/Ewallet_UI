@@ -23,13 +23,26 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".LinkAcount"
+            android:exported="false" >
+
+       <!--  <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+
+             <category android:name="android.intent.category.LAUNCHER" />
+         </intent-filter>-->
+        </activity>
+        <activity
             android:name=".InforTranfer"
-            android:exported="true" >
-            <intent-filter>
+            android:exported="false">
+
+            <!--
+           <intent-filter>
                <action android:name="android.intent.action.MAIN" />
 
                <category android:name="android.intent.category.LAUNCHER" />
            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".PaymentProcessing"
@@ -60,15 +73,24 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="false">
+
+            <!--
+       <intent-filter>
+           <action android:name="android.intent.action.MAIN" />
+
+           <category android:name="android.intent.category.LAUNCHER" />
+       </intent-filter>
+            -->
+        </activity>
         <activity
             android:name=".LoginPage"
-            android:exported="false">
-            <!--<intent-filter>
+            android:exported="true">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
         <activity
             android:name=".ScanQR"
