@@ -40,19 +40,22 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/searchView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@drawable/custom_input_1"
-                    android:focusable="false"
-                    android:textColor="@color/gray"
-                    app:closeIcon="@drawable/magnifying_glass_solid"
-                    app:iconifiedByDefault="false"
-                    app:queryHint="Search... "
-                    app:searchHintIcon="@null"
-                    app:searchIcon="@drawable/magnifying_glass_solid" />
+
+                    <androidx.appcompat.widget.SearchView
+                        android:id="@+id/searchView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/custom_input_1"
+                        android:focusable="false"
+                        android:textColor="@color/gray"
+                        app:closeIcon="@drawable/magnifying_glass_solid"
+                        app:iconifiedByDefault="false"
+                        app:queryHint="Search... "
+                        app:searchHintIcon="@null"
+                        />
+
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

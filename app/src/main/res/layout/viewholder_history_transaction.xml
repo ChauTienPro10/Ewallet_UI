@@ -43,10 +43,11 @@
 
         <TextView
             android:id="@+id/timeTxt"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="Date"
             android:textSize="12sp"
+            android:inputType="textMultiLine"
             android:textColor="@color/black"
             android:layout_marginTop="6dp"
             app:layout_constraintStart_toStartOf="@+id/contentTxt"

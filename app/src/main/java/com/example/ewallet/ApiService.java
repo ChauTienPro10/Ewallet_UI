@@ -10,6 +10,8 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 
 import com.example.ewallet.Domain.HistoryDomain;
+
+import Entities.Card;
 import Entities.LoginRequest;
 import Entities.LoginResponse;
 import Entities.Member;
@@ -60,6 +62,13 @@ public interface ApiService {
     Call<ResponseBody> changePass(@Body JsonObject jsonObj);
     @GET("/check/history")
     Call<ArrayList<HistoryDomain>> getHistory();
+    @POST("/check/findHistory")
+    Call<ArrayList<HistoryDomain>> findHistory(@Body JsonObject jsonObj);
+
+    @GET("/profile/getCard")
+    Call<Card> getCard();
+    @POST("check/find_member")
+    Call<Member> searhMember(@Body JsonObject jsonOb);
 
     class ApiUtils {
         public static ApiService getApiService(Context context) {
@@ -73,7 +82,7 @@ public interface ApiService {
                     .create();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://10.0.241.27:9005")
+                    .baseUrl("http://10.0.230.183:9005")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();

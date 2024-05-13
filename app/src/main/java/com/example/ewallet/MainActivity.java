@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -33,8 +35,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-
-
     private RecyclerView.Adapter adapterContact;
     private RecyclerView recyclerViewConatact;
     private ConstraintLayout btn_Transaction;
@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout sendMoney;
     FloatingActionButton scanqr;
     LinearLayout mToProfile,btn_history;
-
-
     Gson gson = new Gson();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +52,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mName=findViewById(R.id.nameMember);
         mBalance=findViewById(R.id.textView);
-
-
         //button history transaction
         btn_history=findViewById(R.id.btnHistory);
         btn_history.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,HistoryTransactionPage.class)));
         // Test Auth
-
-
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        mName.setText(sharedPreferences.getString("fullName", ""));
+        getMember();
         //Contact list
         initRecyclerView();
         toDeposit=findViewById(R.id.DepositImg);
@@ -73,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mToProfile=findViewById(R.id.toProfile);
-
         sendMoney = findViewById(R.id.imageSend);
         sendMoney.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,12 +78,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         scanqr=findViewById(R.id.scanQR);
         getMoney=findViewById(R.id.get_money);
         btn_Transaction = findViewById(R.id.btn_Transaction);
-
-
         mToProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,8 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
         getMoney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,10 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
         btn_Transaction.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 // Chuyển đến TransactionPageActivity
@@ -131,32 +119,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
     private void initRecyclerView() {
         ArrayList<ContactsDomain> items=new ArrayList<>();
         items.add(new ContactsDomain("David","user_1"));
         items.add(new ContactsDomain("Alice","user_2"));
         items.add(new ContactsDomain("Rose","user_3"));
         items.add(new ContactsDomain("Sara","user_4"));
-
         recyclerViewConatact=findViewById(R.id.viewList);
         recyclerViewConatact.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-
         adapterContact=new ContactsAdapter(items);
         recyclerViewConatact.setAdapter(adapterContact);
     }
-
-
     private void openFormDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter Data");
-
         // Inflate the layout for the dialog
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_qr_form, null);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final EditText etName = view.findViewById(R.id.et_name);
-
         builder.setView(view);
         builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
             @Override
@@ -166,14 +145,12 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
         });
-
         AlertDialog dialog = builder.create();
         dialog.show();
     }
@@ -202,49 +179,32 @@ public class MainActivity extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
     private void getMember(){
         ApiService apiService=ApiService.ApiUtils.getApiService(MainActivity.this);
-        apiService.getMember().enqueue(new Callback<Member>() {
-            @Override
-            public void onResponse(Call<Member> call, Response<Member> response) {
-                Member mem=response.body();
-                mName.setText(mem.getFname().toString()+" "+mem.getLname().toString());
-            }
-
-            @Override
-            public void onFailure(Call<Member> call, Throwable t) {
-
-            }
-        });
+//        apiService.getMember().enqueue(new Callback<Member>() {
+//            @Override
+//            public void onResponse(Call<Member> call, Response<Member> response) {
+//                Member mem=response.body();
+//                mName.setText(mem.getFname().toString()+" "+mem.getLname().toString());
+//                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                editor.putString("fullName",mem.getFname().toString()+" "+mem.getLname().toString());
+//                editor.apply();
+//            }
+//            @Override
+//            public void onFailure(Call<Member> call, Throwable t) {
+//            }
+//        });
         apiService.getBalance().enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 String responseBody;
                 responseBody = response.body();
                 mBalance.setText(responseBody);
-
-
             }
-
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-
             }
         });
     }
-
-
-
 }

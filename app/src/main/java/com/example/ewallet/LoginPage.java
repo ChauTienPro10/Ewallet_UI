@@ -21,6 +21,7 @@ import java.io.IOException;
 
 import Entities.LoginRequest;
 import Entities.LoginResponse;
+import Entities.Member;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -117,10 +118,25 @@ public class LoginPage extends AppCompatActivity {
                     editor.putString("jwt",loginResponse.getJwt() );
                     editor.putInt("user_id", (int) loginResponse.getId());
                     editor.apply();
-                    Toast.makeText(LoginPage.this, "login success !"+loginResponse.getUsername(), Toast.LENGTH_SHORT).show();
+                    apiService.getMember().enqueue(new Callback<Member>() {
+                        @Override
+                        public void onResponse(Call<Member> call, Response<Member> response) {
+                            Member mem=response.body();
+                            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("fullName",mem.getFname().toString()+" "+mem.getLname().toString());
+                            editor.apply();
+                            Toast.makeText(LoginPage.this, "login success !"+loginResponse.getUsername(), Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent(LoginPage.this, MainActivity.class );
+                            startActivity(intent);
+                        }
 
-                    Intent intent=new Intent(LoginPage.this, MainActivity.class );
-                    startActivity(intent);
+                        @Override
+                        public void onFailure(Call<Member> call, Throwable t) {
+
+                        }
+                    });
+
                 } else {
                     Toast.makeText(LoginPage.this, "Username or password incorrect!", Toast.LENGTH_SHORT).show();
                 }
