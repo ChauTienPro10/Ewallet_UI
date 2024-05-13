@@ -70,6 +70,9 @@ public interface ApiService {
     @POST("check/find_member")
     Call<Member> searhMember(@Body JsonObject jsonOb);
 
+    @POST("/transaction/transfer")
+    Call<ResponseBody> transfer(@Body JsonObject obj);
+
     class ApiUtils {
         public static ApiService getApiService(Context context) {
             SharedPreferences sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
@@ -82,7 +85,7 @@ public interface ApiService {
                     .create();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://10.0.230.183:9005")
+                    .baseUrl("http://172.16.2.145:9005")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();

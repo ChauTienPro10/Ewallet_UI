@@ -53,11 +53,14 @@ public class pindialogAdapter extends DialogFragment {
         if (targetFragment != null && targetFragment instanceof pindialogAdapter.PinDialogListener) {
             mListener = (pindialogAdapter.PinDialogListener) targetFragment;
         } else {
-            Log.d("kkk", "null" + " must implement PinDialogListener");
-            throw new ClassCastException(targetFragment != null ? targetFragment.getClass().getSimpleName() : "null" + " must implement PinDialogListener");
+            if (context instanceof pindialogAdapter.PinDialogListener) {
+                mListener = (pindialogAdapter.PinDialogListener) context;
+            } else {
+                Log.d("kkk", "null" + " must implement PinDialogListener");
+                throw new ClassCastException(context.getClass().getSimpleName() + " must implement PinDialogListener");
+            }
         }
     }
-
     @SuppressLint("MissingInflatedId")
     @NonNull
     @Override

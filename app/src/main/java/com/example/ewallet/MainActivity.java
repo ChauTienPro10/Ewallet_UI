@@ -55,10 +55,15 @@ public class MainActivity extends AppCompatActivity {
         //button history transaction
         btn_history=findViewById(R.id.btnHistory);
         btn_history.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,HistoryTransactionPage.class)));
+
         // Test Auth
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         mName.setText(sharedPreferences.getString("fullName", ""));
         getMember();
+        // Test ETH
+        LinearLayout testETH = findViewById(R.id.testETH);
+        testETH.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, ETH_Wallet.class)));
+
         //Contact list
         initRecyclerView();
         toDeposit=findViewById(R.id.DepositImg);
@@ -181,20 +186,6 @@ public class MainActivity extends AppCompatActivity {
     }
     private void getMember(){
         ApiService apiService=ApiService.ApiUtils.getApiService(MainActivity.this);
-//        apiService.getMember().enqueue(new Callback<Member>() {
-//            @Override
-//            public void onResponse(Call<Member> call, Response<Member> response) {
-//                Member mem=response.body();
-//                mName.setText(mem.getFname().toString()+" "+mem.getLname().toString());
-//                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                editor.putString("fullName",mem.getFname().toString()+" "+mem.getLname().toString());
-//                editor.apply();
-//            }
-//            @Override
-//            public void onFailure(Call<Member> call, Throwable t) {
-//            }
-//        });
         apiService.getBalance().enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {

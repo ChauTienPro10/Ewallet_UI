@@ -30,6 +30,7 @@ import retrofit2.Response;
 public class TranferMoney extends AppCompatActivity {
     private TextView mIdCard;
     private TextView mName;
+
     private RecyclerView.Adapter adapterContact;
     private RecyclerView recyclerViewConatact;
     private androidx.appcompat.widget.SearchView mSearch;
@@ -101,12 +102,16 @@ public class TranferMoney extends AppCompatActivity {
             public void onResponse(Call<Member> call, Response<Member> response) {
                 Member member=response.body();
                 if(member!=null){
-                    Toast.makeText(TranferMoney.this, mSearch.getQuery().toString(), Toast.LENGTH_SHORT).show();
                     Intent intent=new Intent(TranferMoney.this, InforTranfer.class );
                     intent.putExtra("name", member.getFname()+" "+member.getLname());
                     intent.putExtra("phone",member.getPhone());
+
                     progressDialog.dismiss();
                     startActivity(intent);
+                }
+                else{
+                    Toast.makeText(TranferMoney.this, "member don't exist!", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 }
             }
 
@@ -128,6 +133,7 @@ public class TranferMoney extends AppCompatActivity {
             public void onResponse(Call<Card> call, Response<Card> response) {
                 Card card=response.body();
                 if(card!=null){
+
                     mIdCard.setText(addSpaceEveryFourCharacters(card.getCard_number()));
                     SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                     mName.setText(sharedPreferences.getString("fullName",""));
