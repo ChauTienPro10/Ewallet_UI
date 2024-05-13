@@ -7,35 +7,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.content.Intent;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.example.ewallet.adapter.ContactsAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import Entities.Member;
 import okhttp3.ResponseBody;
@@ -53,23 +42,26 @@ public class MainActivity extends AppCompatActivity {
     private ImageView toDeposit;
     private TextView mName;
     TextView mBalance;
-
     private ConstraintLayout sendMoney;
     FloatingActionButton scanqr;
-    LinearLayout mToProfile;
+    LinearLayout mToProfile,btn_history;
 
 
     Gson gson = new Gson();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mName=findViewById(R.id.nameMember);
         mBalance=findViewById(R.id.textView);
-        
 
-        // Test Auth
+
+        //button history transaction
+        btn_history=findViewById(R.id.btnHistory);
+        btn_history.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,HistoryTransactionPage.class)));
+        // Test ETH
+        LinearLayout testETH = findViewById(R.id.testETH);
+        testETH.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, ETH_Wallet.class)));
 
 
         //Contact list
@@ -150,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
         items.add(new ContactsDomain("Alice","user_2"));
         items.add(new ContactsDomain("Rose","user_3"));
         items.add(new ContactsDomain("Sara","user_4"));
-        items.add(new ContactsDomain("David","user_5"));
 
         recyclerViewConatact=findViewById(R.id.viewList);
         recyclerViewConatact.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));

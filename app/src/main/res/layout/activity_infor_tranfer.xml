@@ -28,7 +28,7 @@
                 android:id="@+id/imageView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="20dp"
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -37,8 +37,8 @@
 
             <ImageView
                 android:id="@+id/image_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
@@ -86,15 +86,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:alpha="0.5"
                 android:ems="10"
-                android:hint="Ođ"
-                android:inputType="text"
+                android:hint="O Đ"
+                android:inputType="number"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
-                android:padding="8dp"
+                android:padding="14dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -112,11 +112,13 @@
                 android:id="@+id/editTextText2"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
+                android:padding="14dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/background_information"
                 android:ems="10"
+                android:textSize="14dp"
                 android:hint="Nhập hoặc chọn bên dưới"
                 android:inputType="text"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -141,7 +143,10 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:text="chuyển tiền cà phê"
-                    android:textSize="14sp" />
+                    android:textSize="8sp"
+
+                    android:background="@drawable/bg_key_number"/>
+                    />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_tra_no"
@@ -149,7 +154,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Trả nợ nha"
-                    android:textSize="14sp" />
+                    android:layout_marginLeft="4dp"
+                    android:textSize="8sp"
+                    android:background="@drawable/bg_key_number"/>
+                    />
 
 
             </LinearLayout>
@@ -169,7 +177,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="chuyển tiền ăn trưa"
-                    android:textSize="10sp" />
+                    android:textSize="8sp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/bg_key_number"/>
+                    />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_tieu_vat"
@@ -177,7 +188,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="chuyển tiền tiêu vặt"
-                    android:textSize="10sp" />
+                    android:textSize="8sp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/bg_key_number"/>
+                    />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_khac"
@@ -185,7 +199,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Chon Khac Di Di"
-                    android:textSize="10sp" />
+                    android:layout_margin="4dp"
+                    android:textSize="8sp"
+                    android:background="@drawable/bg_key_number"/>
+                    />
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -213,36 +230,50 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="77.000" />
+                        android:layout_margin="5dp"
+                        android:text="75.000"
+                        android:background="@drawable/bg_key_number"/>
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_price2"
+                        android:layout_margin="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="180.000" />
+                        android:text="180.000"
+                        android:background="@drawable/bg_key_number"/>
+                        />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_price3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="25.000" />
+                        android:layout_margin="5dp"
+                        android:text="25.000"
+                        android:background="@drawable/bg_key_number"/>
+                        />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/buttonConfirm"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_price_send"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Chuyển Tiền" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:background="@drawable/card_background"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:text="Confirm"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/gray"
+                        android:gravity="center"/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

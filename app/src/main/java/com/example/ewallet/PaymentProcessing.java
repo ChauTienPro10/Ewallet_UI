@@ -13,7 +13,7 @@ import com.example.ewallet.adapter.BankAdapters;
 
 import java.util.ArrayList;
 
-import Domain.BankDomain;
+import com.example.ewallet.Domain.BankDomain;
 
 public class PaymentProcessing extends AppCompatActivity {
     private RecyclerView.Adapter adapterBank;

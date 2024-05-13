@@ -1,4 +1,4 @@
-package com.example.ewallet;
+package com.example.ewallet.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.ewallet.ContactsDomain;
+import com.example.ewallet.R;
 
 import java.util.ArrayList;
 

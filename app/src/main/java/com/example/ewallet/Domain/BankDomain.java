@@ -1,4 +1,4 @@
-package Domain;
+package com.example.ewallet.Domain;
 
 public class BankDomain {
     private String name;

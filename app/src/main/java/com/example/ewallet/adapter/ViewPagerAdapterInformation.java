@@ -1,10 +1,14 @@
-package com.example.ewallet;
+package com.example.ewallet.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import com.example.ewallet.EditEmail;
+import com.example.ewallet.EditPassword;
+import com.example.ewallet.EditPhone;
 
 public class ViewPagerAdapterInformation extends FragmentStatePagerAdapter {
     public ViewPagerAdapterInformation(@NonNull FragmentManager fm, int behavior) {

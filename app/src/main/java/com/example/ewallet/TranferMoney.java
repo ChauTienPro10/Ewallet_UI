@@ -1,6 +1,7 @@
 package com.example.ewallet;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.example.ewallet.adapter.ContactsAdapter;
+
 import java.util.ArrayList;
 
 public class TranferMoney extends AppCompatActivity {
@@ -16,10 +19,14 @@ public class TranferMoney extends AppCompatActivity {
     private RecyclerView recyclerViewConatact;
 
     private LinearLayout btnSendMoney;
+    private ConstraintLayout btn_back_send_money;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tranfer_money);
+
+        btn_back_send_money=findViewById(R.id.btn_back_send_money);
+        btn_back_send_money.setOnClickListener(v -> startActivity(new Intent(TranferMoney.this, MainActivity.class)));
 
         initRecyclerView();
 
@@ -31,6 +38,8 @@ public class TranferMoney extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
     private void initRecyclerView() {

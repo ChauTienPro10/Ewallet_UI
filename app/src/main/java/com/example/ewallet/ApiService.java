@@ -7,11 +7,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
+
+import com.example.ewallet.Domain.HistoryDomain;
 import Entities.LoginRequest;
 import Entities.LoginResponse;
 import Entities.Member;
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -19,7 +21,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 
 public interface ApiService {
     @GET("test/hello")
@@ -57,6 +58,8 @@ public interface ApiService {
     Call<ResponseBody> changePhone(@Body JsonObject jsonObj);
     @POST("/profile/change_password")
     Call<ResponseBody> changePass(@Body JsonObject jsonObj);
+    @GET("/check/history")
+    Call<ArrayList<HistoryDomain>> getHistory();
 
     class ApiUtils {
         public static ApiService getApiService(Context context) {
@@ -70,7 +73,7 @@ public interface ApiService {
                     .create();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://172.16.3.110:9005")
+                    .baseUrl("http://10.0.241.27:9005")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();
