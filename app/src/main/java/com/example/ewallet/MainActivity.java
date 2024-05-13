@@ -59,7 +59,9 @@ public class MainActivity extends AppCompatActivity {
         //button history transaction
         btn_history=findViewById(R.id.btnHistory);
         btn_history.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,HistoryTransactionPage.class)));
-        // Test Auth
+        // Test ETH
+        LinearLayout testETH = findViewById(R.id.testETH);
+        testETH.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, ETH_Wallet.class)));
 
 
         //Contact list

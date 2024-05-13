@@ -23,6 +23,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ETH_Wallet"
+            android:exported="false" />
+        <activity
             android:name=".HistoryTransactionDetail"
             android:exported="false" />
         <activity

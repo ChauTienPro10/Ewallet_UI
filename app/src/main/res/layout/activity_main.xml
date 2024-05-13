@@ -526,7 +526,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/testAuth"
+                    android:id="@+id/testETH"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
