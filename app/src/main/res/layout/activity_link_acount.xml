@@ -28,17 +28,17 @@
                 android:id="@+id/edit_text_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nhập số tài khoản" />
+                android:hint="Account address" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_name"
+            android:id="@+id/key"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            android:hint="Chủ tài khoản">
+            android:hint="private key">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/acount_name"
@@ -60,10 +60,10 @@
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/Cmnd_Cccd"
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nhập CMND/CCCD" />
+                android:hint="pass word" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,7 +84,7 @@
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="0dp"
-                android:text="Bạn có chắc là muốn liên kết tài khoản?"
+                android:text="Agree with our cookie ?"
                 android:textSize="12sp"
                 android:layout_gravity="center_vertical"
                 android:textStyle="bold" />
@@ -96,7 +96,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/ethereum" />
-        </LinearLayout>
+    </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

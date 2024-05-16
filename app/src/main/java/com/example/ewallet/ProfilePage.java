@@ -12,10 +12,12 @@ import android.widget.TextView;
 
 public class ProfilePage extends AppCompatActivity {
     private ConstraintLayout btnBack;
+    private androidx.constraintlayout.widget.ConstraintLayout mToWallet;
     androidx.constraintlayout.widget.ConstraintLayout toInfor;
 
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +25,7 @@ public class ProfilePage extends AppCompatActivity {
 
         btnBack = findViewById(R.id.btn_back);
         toInfor=findViewById(R.id.toEditpage);
+        mToWallet=findViewById(R.id.toWallet);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,6 +39,14 @@ public class ProfilePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfilePage.this, EditInformation.class);
+                startActivity(intent);
+            }
+        });
+
+        mToWallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfilePage.this, ETH_Wallet.class);
                 startActivity(intent);
             }
         });

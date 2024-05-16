@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import com.example.ewallet.Domain.HistoryDomain;
 
 import Entities.Card;
+import Entities.EtherWallet;
 import Entities.LoginRequest;
 import Entities.LoginResponse;
 import Entities.Member;
@@ -73,6 +74,10 @@ public interface ApiService {
     @POST("/transaction/transfer")
     Call<ResponseBody> transfer(@Body JsonObject obj);
 
+    @GET("/ETH/getEth")
+    Call<EtherWallet> getInfEth();
+    @POST("/ETH/getEthBalance")
+    Call<ResponseBody> getbalanceETH(@Body JsonObject obj);
     class ApiUtils {
         public static ApiService getApiService(Context context) {
             SharedPreferences sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
@@ -85,7 +90,7 @@ public interface ApiService {
                     .create();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://172.16.2.145:9005")
+                    .baseUrl("http://172.16.3.157:9005")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();

@@ -2,6 +2,8 @@ package com.example.ewallet;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -26,6 +29,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 
+import Entities.Card;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +43,9 @@ import retrofit2.Response;
 public class DepositFragment extends Fragment implements pindialogAdapter.PinDialogListener{
 
     private EditText inputtAmount;
+    private TextView midcard;
+    private TextView mName;
+    private TextView mbalane;
     pindialogAdapter dialogFragment = new pindialogAdapter();
     private Button deposit;
     final DecimalFormat decimalFormat = new DecimalFormat("#,###");
@@ -99,6 +106,10 @@ public class DepositFragment extends Fragment implements pindialogAdapter.PinDia
 
         deposit=view.findViewById(R.id.deposit_button);
         inputtAmount=view.findViewById(R.id.amount_text);
+        midcard=view.findViewById(R.id.textView10);
+        mName=view.findViewById(R.id.textView20);
+        mbalane=view.findViewById(R.id.textView12);
+        init();
         deposit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -246,6 +257,47 @@ public class DepositFragment extends Fragment implements pindialogAdapter.PinDia
         });
 
     }
+    private void init(){
+        ProgressDialog progressDialog = new ProgressDialog(DepositFragment.this.requireContext());
+        progressDialog.setMessage("waiting...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+        ApiService apiService=ApiService.ApiUtils.getApiService(DepositFragment.this.requireContext());
+        apiService.getCard().enqueue(new Callback<Card>() {
+            @Override
+            public void onResponse(Call<Card> call, Response<Card> response) {
+                Card card=response.body();
+                if(card!=null){
 
+                    midcard.setText(addSpaceEveryFourCharacters(card.getCard_number()));
+                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                    mName.setText(sharedPreferences.getString("fullName",""));
+                    mbalane.setText(card.getBalance().toString());
+                }
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<Card> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public  String addSpaceEveryFourCharacters(String input) {
+        StringBuilder builder = new StringBuilder();
+        int count = 0;
+
+        for (int i = 0; i < input.length(); i++) {
+            if (count == 4) {
+                builder.append(' ');
+                count = 0;
+            }
+            builder.append(input.charAt(i));
+            count++;
+        }
+
+        return builder.toString();
+    }
 
 }

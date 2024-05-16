@@ -1,6 +1,8 @@
 package com.example.ewallet;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ewallet.adapter.pindialogAdapter;
@@ -23,6 +26,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 
+import Entities.Card;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +38,10 @@ import retrofit2.Response;
  * create an instance of this fragment.
  */
 public class WithdrawFragment extends Fragment implements pindialogAdapter.PinDialogListener{
+    private EditText mAmount;
+    private TextView mIdcard;
+    private TextView mName;
+    private TextView mbalance;
 
     private EditText mWithdawInput;
     private Button mSubmit;
@@ -87,6 +95,10 @@ public class WithdrawFragment extends Fragment implements pindialogAdapter.PinDi
         View view = inflater.inflate(R.layout.fragment_withdraw, container, false);
         mWithdawInput=view.findViewById(R.id.withdraw);
         mSubmit=view.findViewById(R.id.button_withdraw);
+        mbalance=view.findViewById(R.id.textView12);
+        mIdcard=view.findViewById(R.id.textView10);
+        mName=view.findViewById(R.id.textView20);
+        init();
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -228,4 +240,47 @@ public class WithdrawFragment extends Fragment implements pindialogAdapter.PinDi
         });
 
     }
+
+    private void init(){
+        ProgressDialog progressDialog = new ProgressDialog(WithdrawFragment.this.requireContext());
+        progressDialog.setMessage("waiting...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+        ApiService apiService=ApiService.ApiUtils.getApiService(WithdrawFragment.this.requireContext());
+        apiService.getCard().enqueue(new Callback<Card>() {
+            @Override
+            public void onResponse(Call<Card> call, Response<Card> response) {
+                Card card=response.body();
+                if(card!=null){
+
+                    mIdcard.setText(addSpaceEveryFourCharacters(card.getCard_number()));
+                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                    mName.setText(sharedPreferences.getString("fullName",""));
+                    mbalance.setText(card.getBalance().toString());
+                }
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<Card> call, Throwable t) {
+
+            }
+        });
+    }
+    public  String addSpaceEveryFourCharacters(String input) {
+        StringBuilder builder = new StringBuilder();
+        int count = 0;
+
+        for (int i = 0; i < input.length(); i++) {
+            if (count == 4) {
+                builder.append(' ');
+                count = 0;
+            }
+            builder.append(input.charAt(i));
+            count++;
+        }
+
+        return builder.toString();
+    }
+
 }

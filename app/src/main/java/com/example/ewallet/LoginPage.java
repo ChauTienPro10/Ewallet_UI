@@ -115,6 +115,7 @@ public class LoginPage extends AppCompatActivity {
                     LoginResponse loginResponse=response.body();
                     SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.clear();
                     editor.putString("jwt",loginResponse.getJwt() );
                     editor.putInt("user_id", (int) loginResponse.getId());
                     editor.apply();

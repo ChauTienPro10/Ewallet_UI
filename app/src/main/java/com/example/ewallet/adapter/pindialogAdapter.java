@@ -22,11 +22,19 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import com.example.ewallet.ApiService;
 import com.example.ewallet.AuthenticationCallback;
 import com.example.ewallet.FingerPrint;
+import com.example.ewallet.InforTranfer;
 import com.example.ewallet.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class pindialogAdapter extends DialogFragment {
 
@@ -279,4 +287,6 @@ public class pindialogAdapter extends DialogFragment {
         }
 
     }
+
+
 }
