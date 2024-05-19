@@ -2,6 +2,7 @@ package com.example.ewallet;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -158,7 +159,7 @@ public class WithdrawFragment extends Fragment implements pindialogAdapter.PinDi
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if(response.body()==true){
-                    setWithdraw(apiService);
+                    setWithdraw(apiService,pin);
                 }
                 else{
                     Toast.makeText(WithdrawFragment.this.requireContext(), "Failure!" , Toast.LENGTH_SHORT).show();
@@ -184,22 +185,25 @@ public class WithdrawFragment extends Fragment implements pindialogAdapter.PinDi
         dialogFragment.show(getFragmentManager(), "pin_dialog");
     }
 
-    private void setWithdraw(ApiService apiService){
+    private void setWithdraw(ApiService apiService,String pin){
         ProgressDialog progressDialog = new ProgressDialog(WithdrawFragment.this.requireContext());
         progressDialog.setMessage("Processing...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("amount", mWithdawInput.getText().toString());
+        jsonObject.addProperty("pin", pin);
         apiService.withdrawSer(jsonObject).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 String responString;
                 try {
                     responString = response.body().string();
-                    if(responString.contains("you was withdrawal ")){
+                    if(responString.contains("OK")){
                         Toast.makeText(WithdrawFragment.this.requireContext(), responString , Toast.LENGTH_SHORT).show();
                         mWithdawInput.setText("");
+                        Intent intent=new Intent(WithdrawFragment.this.requireContext(), TransactionPage.class );
+                        startActivity(intent);
                     }
                     else{
                         Toast.makeText(WithdrawFragment.this.requireContext(), responString , Toast.LENGTH_SHORT).show();

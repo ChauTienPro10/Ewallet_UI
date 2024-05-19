@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -119,6 +120,11 @@ public class LoginPage extends AppCompatActivity {
                     editor.putString("jwt",loginResponse.getJwt() );
                     editor.putInt("user_id", (int) loginResponse.getId());
                     editor.apply();
+                    ProgressDialog progressDialog = new ProgressDialog(LoginPage.this);
+                    progressDialog.setMessage("waiting...");
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progressDialog.show();
+
                     apiService.getMember().enqueue(new Callback<Member>() {
                         @Override
                         public void onResponse(Call<Member> call, Response<Member> response) {
@@ -126,15 +132,18 @@ public class LoginPage extends AppCompatActivity {
                             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("fullName",mem.getFname().toString()+" "+mem.getLname().toString());
+                            editor.putString("mailshare",mem.getEmail());
+
                             editor.apply();
                             Toast.makeText(LoginPage.this, "login success !"+loginResponse.getUsername(), Toast.LENGTH_SHORT).show();
                             Intent intent=new Intent(LoginPage.this, MainActivity.class );
+                            progressDialog.dismiss();
                             startActivity(intent);
                         }
 
                         @Override
                         public void onFailure(Call<Member> call, Throwable t) {
-
+                            progressDialog.dismiss();
                         }
                     });
 

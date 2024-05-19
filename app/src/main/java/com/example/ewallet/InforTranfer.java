@@ -53,7 +53,11 @@ public class InforTranfer extends AppCompatActivity implements pindialogAdapter.
         mSubmit=findViewById(R.id.buttonConfirm);
         mName.setText(name);
         mPhone.setText(phone);
+
         mAmount=findViewById(R.id.editTextText);
+        if(intent.getStringExtra("amountExtra")!=null){
+            mAmount.setText(intent.getStringExtra("amountExtra"));
+        }
         mNote=findViewById(R.id.editTextText2);
         mAmount.addTextChangedListener(new TextWatcher() {
             @Override

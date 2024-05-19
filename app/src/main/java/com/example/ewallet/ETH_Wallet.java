@@ -5,14 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -51,7 +57,7 @@ public class ETH_Wallet extends AppCompatActivity implements pindialogAdapter.Pi
         btn_back_eth.setOnClickListener(v -> startActivity(new Intent(ETH_Wallet.this, MainActivity.class)));
         if(!sharedPreferences.getString("AddETH", "").equals("")){
             mAddress.setText(sharedPreferences.getString("AddETH", "").substring(0,10)+"...");
-            mTotal.setText(sharedPreferences.getString("totalETH", "")+ " eth");
+
         }
         else{
             showPinDialog();
@@ -60,8 +66,16 @@ public class ETH_Wallet extends AppCompatActivity implements pindialogAdapter.Pi
         mLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ETH_Wallet.this, LinkAcount.class);
-                startActivity(intent);
+                if(mAddress.getText().toString().equals("not link")){
+                    Intent intent = new Intent(ETH_Wallet.this, LinkAcount.class);
+                    startActivity(intent);
+                }
+                else{
+                    openDialog(Gravity.CENTER);
+                }
+
+
+
             }
         });
 
@@ -107,7 +121,15 @@ public class ETH_Wallet extends AppCompatActivity implements pindialogAdapter.Pi
         apiService.authenPin(jsonObject).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                getInfETH();
+
+                if(response.body()==true){
+                    getInfETH();
+                }
+                else{
+                    Toast.makeText(ETH_Wallet.this, "Authen failure" , Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(ETH_Wallet.this, MainActivity.class );
+                    startActivity(intent);
+                }
             }
 
             @Override
@@ -120,6 +142,7 @@ public class ETH_Wallet extends AppCompatActivity implements pindialogAdapter.Pi
     @Override
     public void onAuthentication() {
         getPincode();
+        dialogFragment.dismiss();
     }
     private void showPinDialog() {
         try{
@@ -162,51 +185,61 @@ public class ETH_Wallet extends AppCompatActivity implements pindialogAdapter.Pi
 
     private void getbalance(ApiService apiService){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_authen_pass, null);
-        EditText editText = dialogView.findViewById(R.id.edit_text);
 
-        builder.setView(dialogView)
-                .setTitle("Enter Password")
-                .setPositiveButton("OK", (dialog, which) -> {
+    }
 
-                   String pass=editText.getText().toString();
-                   JsonObject jsonObject=new JsonObject();
-                   jsonObject.addProperty("password",pass);
-                    ProgressDialog progressDialog_getBalance = new ProgressDialog(ETH_Wallet.this);
-                    progressDialog_getBalance.setMessage("Processing...");
-                    progressDialog_getBalance.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                    progressDialog_getBalance.show();
-                   apiService.getbalanceETH(jsonObject).enqueue(new Callback<ResponseBody>() {
-                       @Override
-                       public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            String total=null;
-                           try {
-                               total=response.body().string();
-                               mTotal.setText(total+" eth");
-                               SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-                               SharedPreferences.Editor editor = sharedPreferences.edit();
-                               editor.putString("totalETH",total);
-                               editor.apply();
-                           } catch (IOException e) {
-                               throw new RuntimeException(e);
-                           }
-                           progressDialog_getBalance.dismiss();
-                       }
 
-                       @Override
-                       public void onFailure(Call<ResponseBody> call, Throwable t) {
-                           progressDialog_getBalance.dismiss();
-                       }
-                   });
+    public void openDialog(int gravity) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_dialog_notificaton);
 
-                })
-                .setNegativeButton("Cancel", (dialog, which) -> {
+        Window window = dialog.getWindow();
+        if(window == null) {
+            return;
+        }
 
-                });
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        AlertDialog dialog = builder.create();
+        WindowManager.LayoutParams windownAtribute = window.getAttributes();
+        windownAtribute.gravity = gravity;
+        window.setAttributes(windownAtribute);
+
+        if(Gravity.CENTER == gravity) {
+            dialog.setCancelable(true);
+
+        } else {
+            dialog.setCancelable(false);
+        }
+        TextView mTitle, mContent;
+        mTitle=dialog.findViewById(R.id.title);
+        mTitle.setText("Notify");
+        mContent=dialog.findViewById(R.id.content);
+        mContent.setText("You was linked to ETH");
+        Button cancel = dialog.findViewById(R.id.btn_cancel);
+        Button confirm = dialog.findViewById(R.id.btn_confirm);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                goLink();
+                dialog.dismiss();
+
+            }
+        });
+
         dialog.show();
+    }
+    private void goLink(){
+
     }
 }

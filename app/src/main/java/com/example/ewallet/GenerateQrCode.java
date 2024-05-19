@@ -27,7 +27,7 @@ import retrofit2.Response;
 
 public class GenerateQrCode extends AppCompatActivity {
     ImageView imageView;
-    final DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+    final DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

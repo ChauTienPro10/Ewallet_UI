@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapterContact;
     private RecyclerView recyclerViewConatact;
     private ConstraintLayout btn_Transaction;
-    private ImageView getMoney;
+    private ImageView getMoney,mtoOpenCard;
     private ImageView toDeposit;
     private TextView mName;
     TextView mBalance;
@@ -46,12 +47,21 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton scanqr;
     LinearLayout mToProfile,btn_history;
     Gson gson = new Gson();
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mName=findViewById(R.id.nameMember);
         mBalance=findViewById(R.id.textView);
+        mtoOpenCard=findViewById(R.id.toOpencard);
+        mtoOpenCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this, opencard.class );
+                startActivity(intent);
+            }
+        });
         //button history transaction
         btn_history=findViewById(R.id.btnHistory);
         btn_history.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,HistoryTransactionPage.class)));
@@ -159,6 +169,9 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+
+//    xu ly ma qr tai day
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -166,19 +179,29 @@ public class MainActivity extends AppCompatActivity {
             if (result.getContents() == null) {
                 Toast.makeText(this, "Scan cancelled", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-                ApiService apiService = ApiService.ApiUtils.getApiService(this);
-                apiService.sendQrData(result.getContents()).enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        Toast.makeText(MainActivity.this, "send success !"+response.body(), Toast.LENGTH_SHORT).show();
-                    }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(MainActivity.this, "incorrect!"+t.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                Log.d("chauduong", "onActivityResult: "+ result.getContents());
+                String[] parts = result.getContents().split("\n");
+                String name = parts[0];
+                String phone = parts[1];
+                String amountString = parts[2];
+                Intent intent=new Intent(MainActivity.this, InforTranfer.class );
+                intent.putExtra("name", name);
+                intent.putExtra("phone",phone);
+                intent.putExtra("amountExtra",amountString);
+                startActivity(intent);
+//                ApiService apiService = ApiService.ApiUtils.getApiService(this);
+//                apiService.sendQrData(result.getContents()).enqueue(new Callback<ResponseBody>() {
+//                    @Override
+//                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                        Toast.makeText(MainActivity.this, "send success !"+response.body(), Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                        Toast.makeText(MainActivity.this, "incorrect!"+t.toString(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

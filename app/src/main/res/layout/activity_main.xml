@@ -227,6 +227,7 @@
                         android:orientation="vertical">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_gravity="center"
@@ -234,7 +235,7 @@
                             android:background="@drawable/top_button_main">
 
                             <ImageView
-                                android:id="@+id/createQR"
+                                android:id="@+id/toOpencard"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/btn_4"
@@ -249,7 +250,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="View All"
+                            android:text="Open Card"
                             android:textAlignment="center"
                             android:textColor="#E2FFFFFF"
                             android:textSize="14sp"

@@ -23,17 +23,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-
+            android:name=".opencard"
+            android:exported="false" />
+        <activity
             android:name=".LinkAcount"
-            android:exported="false" >
-
-
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".InforTranfer"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".ETH_Wallet"
             android:exported="false" />
@@ -43,11 +40,10 @@
         <activity
             android:name=".HistoryTransactionPage"
             android:exported="false" />
-
-
         <activity
             android:name=".PaymentProcessing"
             android:exported="false" />
+
         <activity
             android:name=".DialogPassWord"
             android:exported="false" />
@@ -74,10 +70,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".LoginPage"
             android:exported="true">

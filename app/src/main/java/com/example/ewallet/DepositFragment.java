@@ -3,6 +3,7 @@ package com.example.ewallet;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -163,22 +164,25 @@ public class DepositFragment extends Fragment implements pindialogAdapter.PinDia
     }
 
 
-    private void setDeposit(ApiService apiService){
+    private void setDeposit(ApiService apiService,String pin){
         ProgressDialog progressDialog = new ProgressDialog(DepositFragment.this.requireContext());
         progressDialog.setMessage("Processing...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("amount", inputtAmount.getText().toString());
+        jsonObject.addProperty("pin", pin);
         apiService.depositSer(jsonObject).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 String responString;
                 try {
                     responString = response.body().string();
-                    if(responString.contains("you was deposit")){
+                    if(responString.contains("OK")){
                         Toast.makeText(DepositFragment.this.requireContext(), responString , Toast.LENGTH_SHORT).show();
                         inputtAmount.setText("");
+                        Intent intent=new Intent(DepositFragment.this.requireContext(), TransactionPage.class );
+                        startActivity(intent);
                     }
                     else{
                         Toast.makeText(DepositFragment.this.requireContext(), responString , Toast.LENGTH_SHORT).show();
@@ -187,13 +191,17 @@ public class DepositFragment extends Fragment implements pindialogAdapter.PinDia
                     throw new RuntimeException(e);
                 }
                 progressDialog.dismiss();
+
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 progressDialog.dismiss();
             }
+
         });
+
+
     }
 
     @Override
@@ -206,7 +214,7 @@ public class DepositFragment extends Fragment implements pindialogAdapter.PinDia
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if(response.body()==true){
-                    setDeposit(apiService);
+                    setDeposit(apiService,pin);
                 }
                 else{
                     Toast.makeText(DepositFragment.this.requireContext(), "that bai" , Toast.LENGTH_SHORT).show();
