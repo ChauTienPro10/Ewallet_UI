@@ -94,6 +94,10 @@ public interface ApiService {
     Call<ResponseBody> linktoETH(@Body JsonObject json);
     @POST("/transaction/AcceptCard")
     Call<ResponseBody>openCard(@Body JsonObject jsonObject);
+    @POST("/profile/get_new_pass")
+    Call<ResponseBody> getCode(@Body JsonObject js);
+    @POST("/profile/authenCode_change_pass")
+    Call<ResponseBody> authen_changepassword(@Body JsonObject js);
 
 //    class ApiUtils {
 //        public static ApiService getApiService(Context context) {
@@ -165,7 +169,7 @@ public interface ApiService {
                     .create();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("https://172.16.3.72:9005")
+                    .baseUrl("https://172.16.1.131:9005")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();

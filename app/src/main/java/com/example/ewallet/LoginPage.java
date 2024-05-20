@@ -35,7 +35,7 @@ public class LoginPage extends AppCompatActivity {
     TextView signupText;
     private ProgressBar progressBar;
 
-    TextView mFingerprint;
+    TextView mForgest;
 
 
 
@@ -51,7 +51,7 @@ public class LoginPage extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
         signupText = findViewById(R.id.signupText);
-        mFingerprint=findViewById(R.id.Fingerprint);
+        mForgest=findViewById(R.id.Fingerprint);
 
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
@@ -81,24 +81,11 @@ public class LoginPage extends AppCompatActivity {
             }
         });
 
-        mFingerprint.setOnClickListener(new View.OnClickListener() {
+        mForgest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FingerPrint fingerPrint = new FingerPrint(LoginPage.this);
-                AuthenticationCallback authenticationCallback=new AuthenticationCallback() {
-                    @Override
-                    public void onAuthenticationSuccess() {
-                        Toast.makeText(LoginPage.this, "login success !", Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(LoginPage.this, MainActivity.class );
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onAuthenticationFailure() {
-                        Toast.makeText(LoginPage.this, "login failure !", Toast.LENGTH_SHORT).show();
-                    }
-                };
-                fingerPrint.Authenticate(authenticationCallback);
+                Intent intent=new Intent(LoginPage.this, forgest_password.class );
+                startActivity(intent);
 
             }
         });

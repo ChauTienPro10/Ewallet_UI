@@ -100,7 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:padding="8dp"
-        android:text="Or use fingerprint to login"
+        android:text="forgest password?"
         android:textAlignment="center"
         android:textColor="@color/purple"
         android:textSize="14sp" />
