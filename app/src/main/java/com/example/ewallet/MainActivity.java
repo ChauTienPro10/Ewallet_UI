@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         //Contact list
         initRecyclerView();
         toDeposit=findViewById(R.id.DepositImg);
+       // di den trang nap tien
         toDeposit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         });
         mToProfile=findViewById(R.id.toProfile);
         sendMoney = findViewById(R.id.imageSend);
+        //di den trang giao dich
         sendMoney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         scanqr=findViewById(R.id.scanQR);
         getMoney=findViewById(R.id.get_money);
         btn_Transaction = findViewById(R.id.btn_Transaction);
+        // di den trang thong tin ca nhan
         mToProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        getMoney.setOnClickListener(new View.OnClickListener() {
+        getMoney.setOnClickListener(new View.OnClickListener() { // di den tran tao ma QR
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this, GenerateQrCode.class );
@@ -134,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void initRecyclerView() {
+    private void initRecyclerView() { // khoi tao danh sach nguoi dung goi y
         ArrayList<ContactsDomain> items=new ArrayList<>();
         items.add(new ContactsDomain("David","user_1"));
         items.add(new ContactsDomain("Alice","user_2"));
@@ -145,69 +148,47 @@ public class MainActivity extends AppCompatActivity {
         adapterContact=new ContactsAdapter(items);
         recyclerViewConatact.setAdapter(adapterContact);
     }
-    private void openFormDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter Data");
-        // Inflate the layout for the dialog
-        View view = LayoutInflater.from(this).inflate(R.layout.dialog_qr_form, null);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final EditText etName = view.findViewById(R.id.et_name);
-        builder.setView(view);
-        builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String name = etName.getText().toString();
-                Toast.makeText(MainActivity.this, "Entered name: " + name, Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
 
 
-//    xu ly ma qr tai day
+
+//    xu ly ket qua ma qr tai day
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Phương thức này được gọi khi kết quả từ hoạt động khác được trả về.
+        // requestCode là mã định danh của hoạt động được gọi.
+        // resultCode là mã kết quả của hoạt động (RESULT_OK hoặc RESULT_CANCELED).
+        // data là Intent chứa dữ liệu được trả về từ hoạt động.
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        // Giải nén kết quả từ Intent để lấy thông tin quét mã vạch.
         if (result != null) {
+            // Nếu có kết quả trả về
             if (result.getContents() == null) {
+                // Nếu không có nội dung quét được
                 Toast.makeText(this, "Scan cancelled", Toast.LENGTH_LONG).show();
             } else {
+                // Nếu có nội dung quét được
 
-                Log.d("chauduong", "onActivityResult: "+ result.getContents());
                 String[] parts = result.getContents().split("\n");
+                // Tách nội dung quét thành các phần tử (tên, số điện thoại, số tiền)
                 String name = parts[0];
                 String phone = parts[1];
                 String amountString = parts[2];
+                // Gán các giá trị tương ứng vào biến
                 Intent intent=new Intent(MainActivity.this, InforTranfer.class );
+                // Tạo một Intent mới để chuyển sang hoạt động InforTranfer
                 intent.putExtra("name", name);
                 intent.putExtra("phone",phone);
                 intent.putExtra("amountExtra",amountString);
+                // Truyền các giá trị tương ứng vào Intent
                 startActivity(intent);
-//                ApiService apiService = ApiService.ApiUtils.getApiService(this);
-//                apiService.sendQrData(result.getContents()).enqueue(new Callback<ResponseBody>() {
-//                    @Override
-//                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                        Toast.makeText(MainActivity.this, "send success !"+response.body(), Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                        Toast.makeText(MainActivity.this, "incorrect!"+t.toString(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+                // Khởi chạy hoạt động InforTranfer
+
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-    private void getMember(){
+    private void getMember(){ // nhan thong tin ca nhan
         ApiService apiService=ApiService.ApiUtils.getApiService(MainActivity.this);
         apiService.getBalance().enqueue(new Callback<String>() {
             @Override

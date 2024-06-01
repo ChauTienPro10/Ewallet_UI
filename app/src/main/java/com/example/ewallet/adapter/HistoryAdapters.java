@@ -49,7 +49,7 @@ public class HistoryAdapters extends RecyclerView.Adapter<HistoryAdapters.viewho
         String amountString = amount.toString();
         holder.contentTxt.setText(items.get(position).getContent());
         holder.timeTxt.setText("Date"+items.get(position).getTime());
-        holder.amountTxt.setText("-"+amountString+"$");
+        holder.amountTxt.setText(amountString+" vnd");
         holder.pic_2.setImageResource(items.get(position).getPicPath());
 
 

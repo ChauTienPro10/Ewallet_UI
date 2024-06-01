@@ -75,13 +75,13 @@ public class LoginPage extends AppCompatActivity {
 
         signupText.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { //di den trang dang ky
                 Intent intent=new Intent(LoginPage.this, SignUpPage.class );
                 startActivity(intent);
             }
         });
 
-        mForgest.setOnClickListener(new View.OnClickListener() {
+        mForgest.setOnClickListener(new View.OnClickListener() { // di den xu ly quen mat khau
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(LoginPage.this, forgest_password.class );
@@ -91,7 +91,7 @@ public class LoginPage extends AppCompatActivity {
         });
 
     }
-    public void callApiLogin(String username, String password) {
+    public void callApiLogin(String username, String password) { // goi APi dang nhap
 
         LoginRequest loginRequest = new LoginRequest(username, password);
         ApiService apiService = ApiService.ApiUtils.getApiService(this);
@@ -101,6 +101,7 @@ public class LoginPage extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     LoginResponse loginResponse=response.body();
+                    // Luu thong tin can thiet vao SharedPreferences
                     SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.clear();
