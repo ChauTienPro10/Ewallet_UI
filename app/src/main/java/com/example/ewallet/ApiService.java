@@ -100,6 +100,8 @@ public interface ApiService {
     Call<ResponseBody> authen_changepassword(@Body JsonObject js);
 
 
+
+    // cau hinh retrofit de goi API
     public class ApiUtils {
 
         public static ApiService getApiService(Context context) {
@@ -149,7 +151,7 @@ public interface ApiService {
                     .create();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("https://172.16.1.131:9005")
+                    .baseUrl("https://192.168.73.32:9005")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();

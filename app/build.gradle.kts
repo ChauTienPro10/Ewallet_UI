@@ -66,6 +66,7 @@ dependencies {
     // QR scan
     implementation ("com.journeyapps:zxing-android-embedded:4.3.0@aar")
     implementation ("com.google.zxing:core:3.4.1")
+    // van tay sinh trac hoc
     implementation ("com.google.android.gms:play-services-vision:20.1.3")
     implementation ("androidx.biometric:biometric:1.1.0")
 

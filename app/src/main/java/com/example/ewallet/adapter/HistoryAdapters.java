@@ -52,6 +52,8 @@ public class HistoryAdapters extends RecyclerView.Adapter<HistoryAdapters.viewho
         holder.contentTxt.setText(items.get(position).getContent());
         holder.timeTxt.setText("Date" + items.get(position).getTime());
         holder.amountTxt.setText("-" + amountString + "$");
+        holder.timeTxt.setText("Date"+items.get(position).getTime());
+        holder.amountTxt.setText(amountString+" vnd");
         holder.pic_2.setImageResource(items.get(position).getPicPath());
 
         // Set click listener on the layout
