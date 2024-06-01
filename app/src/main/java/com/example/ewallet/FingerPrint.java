@@ -8,52 +8,53 @@ import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
-import java.util.function.Consumer;
 
 public class FingerPrint {
+    // Biometric prompt and prompt info
     BiometricPrompt biometricPrompt;
+    BiometricPrompt.PromptInfo promptInfo;
 
-    androidx.biometric.BiometricPrompt.PromptInfo promptInfo;
+    // Activity context and executor for running tasks on the main thread
     AppCompatActivity activity;
     Executor executor;
 
-    boolean authen=false;
+    // Authentication state
+    boolean authen = false;
 
+    // Constructor initializes the activity and executor
     public FingerPrint(AppCompatActivity activity) {
         this.activity = activity;
-        executor= ContextCompat.getMainExecutor(this.activity);
-
+        executor = ContextCompat.getMainExecutor(this.activity);
     }
 
-    public Boolean can_authen(){
-        androidx.biometric.BiometricManager biometricManager= BiometricManager.from(activity);
-        switch(biometricManager.canAuthenticate()){
+    // Method to check if biometric authentication is available and can be used
+    public Boolean can_authen() {
+        BiometricManager biometricManager = BiometricManager.from(activity);
+        switch (biometricManager.canAuthenticate()) {
             case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
-               return false;
-
+                return false;
             case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
                 return false;
-
             case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
-                return  false;
-
+                return false;
             case BiometricManager.BIOMETRIC_SUCCESS:
                 return true;
-
-            default:return false;
+            default:
+                return false;
         }
     }
 
-    public  void Authenticate(AuthenticationCallback callback){
-        if(!this.can_authen()){
+    // Method to start the biometric authentication process
+    public void Authenticate(AuthenticationCallback callback) {
+        // If authentication is not possible, call the failure callback and return
+        if (!this.can_authen()) {
             callback.onAuthenticationFailure();
-            return ;
+            return;
         }
 
-        biometricPrompt=new BiometricPrompt(this.activity, this.executor, new BiometricPrompt.AuthenticationCallback() {
+        // Create a new biometric prompt with authentication callback handlers
+        biometricPrompt = new BiometricPrompt(this.activity, this.executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
@@ -72,21 +73,22 @@ public class FingerPrint {
                 callback.onAuthenticationFailure();
             }
         });
+
+        // Build and display the biometric prompt
         biometricPrompt.authenticate(new BiometricPrompt.PromptInfo.Builder()
                 .setTitle("Authenticate")
-                .setSubtitle("please scan your fingerprint")
-                .setNegativeButtonText("cancel")
+                .setSubtitle("Please scan your fingerprint")
+                .setNegativeButtonText("Cancel")
                 .build());
     }
 
-    public void setAuthenticate(boolean bool){
-        this.authen=bool;
+    // Setter for authentication state
+    public void setAuthenticate(boolean bool) {
+        this.authen = bool;
     }
-    public boolean getAuthenticate(){
+
+    // Getter for authentication state
+    public boolean getAuthenticate() {
         return this.authen;
     }
-
-
-
-
 }

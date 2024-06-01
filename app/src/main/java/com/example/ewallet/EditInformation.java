@@ -14,30 +14,34 @@ import com.google.android.material.tabs.TabLayout;
 
 public class EditInformation extends AppCompatActivity {
 
+    // Declare UI components
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ConstraintLayout btnBack;
-//    androidx.constraintlayout.widget.ConstraintLayout mToEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_information);
 
+        // Initialize UI elements
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
-//        mToEdit.findViewById(R.id.toEditpage);
 
+        // Create and set up the adapter for ViewPager
+        ViewPagerAdapterInformation viewPagerAdapterInformation = new ViewPagerAdapterInformation(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPager.setAdapter(viewPagerAdapterInformation); // Set adapter to ViewPager
 
-        ViewPagerAdapterInformation viewPagerAdapterInformation = new ViewPagerAdapterInformation(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT );
-        viewPager.setAdapter(viewPagerAdapterInformation);
+        // Connect TabLayout with ViewPager
         tabLayout.setupWithViewPager(viewPager);
 
+        // Set OnClickListener for the back button
         btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditInformation.this,ProfilePage.class);
+                // Navigate back to ProfilePage activity when back button is clicked
+                Intent intent = new Intent(EditInformation.this, ProfilePage.class);
                 startActivity(intent);
             }
         });

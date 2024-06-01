@@ -33,44 +33,32 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WithdrawFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class WithdrawFragment extends Fragment implements pindialogAdapter.PinDialogListener{
+public class WithdrawFragment extends Fragment implements pindialogAdapter.PinDialogListener {
+    // Declare UI elements
     private EditText mAmount;
     private TextView mIdcard;
     private TextView mName;
     private TextView mbalance;
-
     private EditText mWithdawInput;
     private Button mSubmit;
+
+    // Dialog for entering PIN
     pindialogAdapter dialogFragment = new pindialogAdapter();
+
+    // Decimal format for amount input
     final DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    // Fragment arguments
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
+    // Constructor
     public WithdrawFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment WithdrawFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+    // Factory method to create a new instance of this fragment
     public static WithdrawFragment newInstance(String param1, String param2) {
         WithdrawFragment fragment = new WithdrawFragment();
         Bundle args = new Bundle();
@@ -80,69 +68,79 @@ public class WithdrawFragment extends Fragment implements pindialogAdapter.PinDi
         return fragment;
     }
 
+    // Called when the fragment is created
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Retrieve arguments passed to the fragment
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
+    // Called to create the view hierarchy associated with the fragment
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_withdraw, container, false);
-        mWithdawInput=view.findViewById(R.id.withdraw);
-        mSubmit=view.findViewById(R.id.button_withdraw);
-        mbalance=view.findViewById(R.id.textView12);
-        mIdcard=view.findViewById(R.id.textView10);
-        mName=view.findViewById(R.id.textView20);
+
+        // Initialize UI elements
+        mWithdawInput = view.findViewById(R.id.withdraw);
+        mSubmit = view.findViewById(R.id.button_withdraw);
+        mbalance = view.findViewById(R.id.textView12);
+        mIdcard = view.findViewById(R.id.textView10);
+        mName = view.findViewById(R.id.textView20);
+
+        // Initialize card details
         init();
+
+        // Set click listener for the submit button
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mWithdawInput.getText().toString().equals("")){
+                // Check if the amount input is not empty
+                if (!mWithdawInput.getText().toString().equals("")) {
+                    // Show PIN dialog
                     showPinDialog();
-                }
-                else{
+                } else {
+                    // Highlight the amount input if it's empty
                     GradientDrawable borderDrawable = new GradientDrawable();
-                    borderDrawable.setStroke(2, Color.RED); // Đặt độ dày và màu sắc cho border
-                    borderDrawable.setColor(Color.WHITE); // Đặt màu nền cho EditText
+                    borderDrawable.setStroke(2, Color.RED); // Set border thickness and color
+                    borderDrawable.setColor(Color.WHITE); // Set background color
                     mWithdawInput.setBackground(borderDrawable);
                     mWithdawInput.setHint("Please enter amount");
-
                 }
             }
         });
+
+        // Add text watcher to format amount input
         mWithdawInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                // Remove text watcher to avoid infinite loop
                 mWithdawInput.removeTextChangedListener(this);
 
                 try {
+                    // Parse and format the input
                     String originalString = s.toString().replaceAll(",", "");
-
                     double value = decimalFormat.parse(originalString).doubleValue();
-
-                    String formattedString = decimalFormat.format(value).replaceAll("\\.",",");
+                    String formattedString = decimalFormat.format(value).replaceAll("\\.", ",");
                     mWithdawInput.setText(formattedString);
                     mWithdawInput.setSelection(formattedString.length());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
+                // Add text watcher back
                 mWithdawInput.addTextChangedListener(this);
             }
         });
@@ -150,86 +148,113 @@ public class WithdrawFragment extends Fragment implements pindialogAdapter.PinDi
         return view;
     }
 
+    // Handle PIN entered in dialog
     @Override
     public void onPinEntered(String pin) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("pincode", pin);
-        ApiService apiService=ApiService.ApiUtils.getApiService(WithdrawFragment.this.requireContext());
+
+        // Authenticate PIN
+        ApiService apiService = ApiService.ApiUtils.getApiService(WithdrawFragment.this.requireContext());
         apiService.authenPin(jsonObject).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if(response.body()==true){
-                    setWithdraw(apiService,pin);
-                }
-                else{
-                    Toast.makeText(WithdrawFragment.this.requireContext(), "Failure!" , Toast.LENGTH_SHORT).show();
+                if (response.body() == true) {
+                    // Proceed with withdrawal if PIN is correct
+                    setWithdraw(apiService, pin);
+                } else {
+                    // Display failure message if PIN is incorrect
+                    Toast.makeText(WithdrawFragment.this.requireContext(), "Failure!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
-
+                // Handle failure
             }
         });
     }
 
+    // Handle successful authentication
     @Override
     public void onAuthentication() {
+        // Fetch PIN from API
         getPincode();
+        // Dismiss PIN dialog
         dialogFragment.dismiss();
-        Toast.makeText(WithdrawFragment.this.requireContext(), "authenticate success !", Toast.LENGTH_SHORT).show();
+        // Display success message
+        Toast.makeText(WithdrawFragment.this.requireContext(), "Authentication success!", Toast.LENGTH_SHORT).show();
     }
-    private void showPinDialog() {
 
+    // Show PIN dialog
+    private void showPinDialog() {
+        // Set this fragment as the target fragment for the PIN dialog
         dialogFragment.setTargetFragment(this, 0);
+        // Show the PIN dialog
         dialogFragment.show(getFragmentManager(), "pin_dialog");
     }
 
-    private void setWithdraw(ApiService apiService,String pin){
+    // Process withdrawal
+    private void setWithdraw(ApiService apiService, String pin) {
+        // Show progress dialog
         ProgressDialog progressDialog = new ProgressDialog(WithdrawFragment.this.requireContext());
         progressDialog.setMessage("Processing...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
+
+        // Prepare withdrawal request
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("amount", mWithdawInput.getText().toString());
         jsonObject.addProperty("pin", pin);
+
+        // Perform withdrawal request
         apiService.withdrawSer(jsonObject).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                String responString;
+                String responseString;
                 try {
-                    responString = response.body().string();
-                    if(responString.contains("OK")){
-                        Toast.makeText(WithdrawFragment.this.requireContext(), responString , Toast.LENGTH_SHORT).show();
+                    // Process response
+                    responseString = response.body().string();
+                    if (responseString.contains("OK")) {
+                        // Show success message and navigate to transaction page
+                        Toast.makeText(WithdrawFragment.this.requireContext(), responseString, Toast.LENGTH_SHORT).show();
                         mWithdawInput.setText("");
-                        Intent intent=new Intent(WithdrawFragment.this.requireContext(), TransactionPage.class );
+                        Intent intent = new Intent(WithdrawFragment.this.requireContext(), TransactionPage.class);
                         startActivity(intent);
-                    }
-                    else{
-                        Toast.makeText(WithdrawFragment.this.requireContext(), responString , Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Show error message
+                        Toast.makeText(WithdrawFragment.this.requireContext(), responseString, Toast.LENGTH_SHORT).show();
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+                // Dismiss progress dialog
                 progressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                // Handle failure
+                // Dismiss progress dialog
                 progressDialog.dismiss();
             }
         });
     }
 
-    private void getPincode(){
-
-        ApiService apiService=ApiService.ApiUtils.getApiService(WithdrawFragment.this.requireContext());
+    // Fetch PIN code from API
+    private void getPincode() {
+        // Get API service instance
+        ApiService apiService = ApiService.ApiUtils.getApiService(WithdrawFragment.this.requireContext());
+        // Make API call to get PIN
         apiService.getPin().enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    String pin=response.body().string();
-                    if(!pin.equals("can't authentication")){
+                    // Retrieve PIN from response
+                    String pin = response.body().string();
+                    // Check if PIN retrieval was successful
+                    if (!pin.equals("can't authentication")) {
+                        // Proceed with PIN authentication
                         onPinEntered(pin);
                     }
                 } catch (IOException e) {
@@ -239,45 +264,54 @@ public class WithdrawFragment extends Fragment implements pindialogAdapter.PinDi
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                // Handle failure
             }
         });
-
     }
 
-    private void init(){
+    // Initialize card details
+    private void init() {
+        // Show progress dialog
         ProgressDialog progressDialog = new ProgressDialog(WithdrawFragment.this.requireContext());
         progressDialog.setMessage("waiting...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
-        ApiService apiService=ApiService.ApiUtils.getApiService(WithdrawFragment.this.requireContext());
+
+        // Get API service instance
+        ApiService apiService = ApiService.ApiUtils.getApiService(WithdrawFragment.this.requireContext());
+        // Fetch card details from API
         apiService.getCard().enqueue(new Callback<Card>() {
             @Override
             public void onResponse(Call<Card> call, Response<Card> response) {
-                Card card=response.body();
-                if(card!=null){
-
+                // Process response
+                Card card = response.body();
+                if (card != null) {
+                    // Update UI with card details
                     mIdcard.setText(addSpaceEveryFourCharacters(card.getCard_number()));
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-                    mName.setText(sharedPreferences.getString("fullName",""));
+                    mName.setText(sharedPreferences.getString("fullName", ""));
                     mbalance.setText(card.getBalance().toString());
                 }
+                // Dismiss progress dialog
                 progressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<Card> call, Throwable t) {
-
+                // Handle failure
+                // Dismiss progress dialog
+                progressDialog.dismiss();
             }
         });
     }
-    public  String addSpaceEveryFourCharacters(String input) {
+
+    // Utility method to add spaces every four characters to a string
+    public String addSpaceEveryFourCharacters(String input) {
         StringBuilder builder = new StringBuilder();
         int count = 0;
-
         for (int i = 0; i < input.length(); i++) {
             if (count == 4) {
-                builder.append(' ');
+                builder.append(' '); // Add space after every four characters
                 count = 0;
             }
             builder.append(input.charAt(i));
@@ -286,5 +320,4 @@ public class WithdrawFragment extends Fragment implements pindialogAdapter.PinDi
 
         return builder.toString();
     }
-
 }

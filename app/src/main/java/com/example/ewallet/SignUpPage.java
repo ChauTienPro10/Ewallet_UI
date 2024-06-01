@@ -30,32 +30,28 @@ import retrofit2.Response;
 
 public class SignUpPage extends AppCompatActivity {
 
+    // CountryCodePicker for selecting country code
     CountryCodePicker countryCodePicker;
 
-
-    EditText fullNameEditText, emailEditText, usernameEditText, passwordEditText, firstNameEditText,lNameEditText;
+    // Declare UI elements
+    EditText fullNameEditText, emailEditText, usernameEditText, passwordEditText, firstNameEditText, lNameEditText;
     Button signUpButton;
-    TextView loginText, signUpText;
+    TextView loginText;
     EditText phoneEditText;
     EditText confirmPass;
     private ProgressBar progressBar;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_page);
 
-        //ccp
+        // Initialize CountryCodePicker
         countryCodePicker=findViewById(R.id.contryCodePicker);
         countryCodePicker.setAutoDetectedCountry(true);
-        String DefaultCountry = countryCodePicker.getDefaultCountryName();
-        String DefaultCountCode = countryCodePicker.getDefaultCountryName();
-        String CountryCode = countryCodePicker.getDefaultCountryName();
-        String CountryName = countryCodePicker.getDefaultCountryName();
 
-
-
-
+        // Initialize UI elements
         firstNameEditText = findViewById(R.id.firstNameEditText);
         lNameEditText = findViewById(R.id.lNameEditText);
         emailEditText = findViewById(R.id.emailEditText);
@@ -68,9 +64,9 @@ public class SignUpPage extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
 
-
+        // Set click listener for sign up button
         signUpButton.setOnClickListener(v -> {
-            // Lấy dữ liệu từ EditText
+            // Retrieve data from EditText fields
             String firstName = firstNameEditText.getText().toString();
             String lastName = lNameEditText.getText().toString();
             String email = emailEditText.getText().toString();
@@ -78,67 +74,73 @@ public class SignUpPage extends AppCompatActivity {
             String password = passwordEditText.getText().toString();
             String country=countryCodePicker.getSelectedCountryName();
             String phone= phoneEditText.getText().toString();
+
+            // Check if all fields are filled
             if(firstName.equals("")||lastName.equals("")||email.equals("")||username.equals("")
-            || password.equals("")|| phone.equals("")){
+                    || password.equals("")|| phone.equals("")){
                 Toast.makeText(SignUpPage.this, "Please fill enough information! ", Toast.LENGTH_SHORT).show();
             }
             else{
+                // Check if password matches the confirmation password
                 if(!password.equals(confirmPass.getText().toString())){
-                    Toast.makeText(SignUpPage.this, "password is incorrect !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpPage.this, "Password is incorrect!", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     progressBar.setVisibility(View.VISIBLE);
+                    // Create a new Member object with the provided data
                     Member newMem=new Member(firstName,lastName,email,country,phone,username,password,0);
+                    // Call the signup method to register the member
                     signup(newMem);
                 }
             }
-
-
         });
 
+        // Set click listener for login text
         TextView loginText = findViewById(R.id.loginTextView);
         loginText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Chuyển về trang LoginPage khi nhấn vào "Already have an account? SignUp Now"
+                // Navigate to LoginPage when "Already have an account? Sign Up Now" is clicked
                 Intent intent = new Intent(SignUpPage.this, LoginPage.class);
                 startActivity(intent);
             }
         });
     }
 
+    // Method to register a new member
     private void signup(Member member){
+        // Initialize ApiService
         ApiService apiService = ApiService.ApiUtils.getApiService(SignUpPage.this);
+        // Make API call to register the member
         apiService.register(member).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     try {
+                        // Handle successful response
                         String textResponse=response.body().string();
                         Toast.makeText(SignUpPage.this,textResponse , Toast.LENGTH_SHORT).show();
                         if(textResponse.equals("you are regis an new account")){
+                            // Navigate to LoginPage if registration is successful
                             Intent intent = new Intent(SignUpPage.this, LoginPage.class);
-
                             startActivity(intent);
                         }
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                     progressBar.setVisibility(View.GONE);
-
-
                 } else {
+                    // Handle unsuccessful response
                     Toast.makeText(SignUpPage.this, "Information is incorrect!", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }
-
             }
+
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                // Handle API call failure
                 Toast.makeText(SignUpPage.this, "API call failure", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-
 }

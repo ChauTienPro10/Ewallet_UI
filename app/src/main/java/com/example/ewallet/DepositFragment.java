@@ -22,7 +22,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.ewallet.adapter.pindialogAdapter;
 import com.google.gson.JsonObject;
 
@@ -36,13 +35,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DepositFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class DepositFragment extends Fragment implements pindialogAdapter.PinDialogListener{
 
+public class DepositFragment extends Fragment implements pindialogAdapter.PinDialogListener {
+
+    // Declare UI elements
     private EditText inputtAmount;
     private TextView midcard;
     private TextView mName;
@@ -50,28 +46,18 @@ public class DepositFragment extends Fragment implements pindialogAdapter.PinDia
     pindialogAdapter dialogFragment = new pindialogAdapter();
     private Button deposit;
     final DecimalFormat decimalFormat = new DecimalFormat("#,###");
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+    // Parameters for fragment initialization
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
+    // Required empty public constructor
     public DepositFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DepositFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+    // Method to create a new instance of the fragment
     public static DepositFragment newInstance(String param1, String param2) {
         DepositFragment fragment = new DepositFragment();
         Bundle args = new Bundle();
@@ -85,77 +71,68 @@ public class DepositFragment extends Fragment implements pindialogAdapter.PinDia
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_deposit, container, false);
-//    }
-
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_deposit, container, false);
 
-        deposit=view.findViewById(R.id.deposit_button);
-        inputtAmount=view.findViewById(R.id.amount_text);
-        midcard=view.findViewById(R.id.textView10);
-        mName=view.findViewById(R.id.textView20);
-        mbalane=view.findViewById(R.id.textView12);
-        init();
+        // Initialize UI elements
+        deposit = view.findViewById(R.id.deposit_button);
+        inputtAmount = view.findViewById(R.id.amount_text);
+        midcard = view.findViewById(R.id.textView10);
+        mName = view.findViewById(R.id.textView20);
+        mbalane = view.findViewById(R.id.textView12);
+
+        // Set up button click listener
         deposit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!inputtAmount.getText().toString().equals("")){
+                // Check if amount is entered
+                if (!inputtAmount.getText().toString().equals("")) {
                     showPinDialog();
-                }
-                else{
+                } else {
+                    // If amount is not entered, show error
                     GradientDrawable borderDrawable = new GradientDrawable();
-                    borderDrawable.setStroke(2, Color.RED); // Đặt độ dày và màu sắc cho border
-                    borderDrawable.setColor(Color.WHITE); // Đặt màu nền cho EditText
+                    borderDrawable.setStroke(2, Color.RED); // Set border thickness and color
+                    borderDrawable.setColor(Color.WHITE); // Set background color for EditText
                     inputtAmount.setBackground(borderDrawable);
                     inputtAmount.setHint("Please enter amount");
-
                 }
-
             }
         });
 
+        // Add text change listener to format amount input
         inputtAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 inputtAmount.removeTextChangedListener(this);
-
                 try {
+                    // Remove formatting and parse input to double
                     String originalString = s.toString().replaceAll(",", "");
-
                     double value = decimalFormat.parse(originalString).doubleValue();
 
-                    String formattedString = decimalFormat.format(value).replaceAll("\\.",",");
+                    // Format the value with commas and set it back to EditText
+                    String formattedString = decimalFormat.format(value).replaceAll("\\.", ",");
                     inputtAmount.setText(formattedString);
                     inputtAmount.setSelection(formattedString.length());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
                 inputtAmount.addTextChangedListener(this);
             }
         });
@@ -164,93 +141,105 @@ public class DepositFragment extends Fragment implements pindialogAdapter.PinDia
     }
 
 
-    private void setDeposit(ApiService apiService,String pin){
+    // Method to initiate deposit process
+    private void setDeposit(ApiService apiService, String pin) {
+        // Show progress dialog
         ProgressDialog progressDialog = new ProgressDialog(DepositFragment.this.requireContext());
         progressDialog.setMessage("Processing...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
+
+        // Prepare JSON object with deposit details
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("amount", inputtAmount.getText().toString());
         jsonObject.addProperty("pin", pin);
+
+        // Make API call to deposit amount
         apiService.depositSer(jsonObject).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 String responString;
                 try {
                     responString = response.body().string();
-                    if(responString.contains("OK")){
-                        Toast.makeText(DepositFragment.this.requireContext(), responString , Toast.LENGTH_SHORT).show();
+                    if (responString.contains("OK")) {
+                        // If deposit is successful, show success message and navigate to transaction page
+                        Toast.makeText(DepositFragment.this.requireContext(), responString, Toast.LENGTH_SHORT).show();
                         inputtAmount.setText("");
-                        Intent intent=new Intent(DepositFragment.this.requireContext(), TransactionPage.class );
+                        Intent intent = new Intent(DepositFragment.this.requireContext(), TransactionPage.class);
                         startActivity(intent);
-                    }
-                    else{
-                        Toast.makeText(DepositFragment.this.requireContext(), responString , Toast.LENGTH_SHORT).show();
+                    } else {
+                        // If deposit fails, show error message
+                        Toast.makeText(DepositFragment.this.requireContext(), responString, Toast.LENGTH_SHORT).show();
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+                // Dismiss progress dialog
                 progressDialog.dismiss();
-
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                // Dismiss progress dialog in case of failure
                 progressDialog.dismiss();
             }
-
         });
-
-
     }
 
+    // Method called when PIN is entered
     @Override
     public void onPinEntered(String pin) {
-        Log.d("pincode", "onPinEntered: "+pin);
+        Log.d("pincode", "onPinEntered: " + pin);
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("pincode", pin);
-        ApiService apiService=ApiService.ApiUtils.getApiService(DepositFragment.this.requireContext());
+        ApiService apiService = ApiService.ApiUtils.getApiService(DepositFragment.this.requireContext());
+        // Authenticate PIN with API
         apiService.authenPin(jsonObject).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if(response.body()==true){
-                    setDeposit(apiService,pin);
-                }
-                else{
-                    Toast.makeText(DepositFragment.this.requireContext(), "that bai" , Toast.LENGTH_SHORT).show();
+                if (response.body() == true) {
+                    // If PIN authentication is successful, initiate deposit process
+                    setDeposit(apiService, pin);
+                } else {
+                    // If PIN authentication fails, show error message
+                    Toast.makeText(DepositFragment.this.requireContext(), "that bai", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
-
+                // Handle failure scenario
             }
         });
     }
 
+    // Method called after successful authentication
     @Override
     public void onAuthentication() {
+        // Get PIN code after successful authentication
         getPincode();
+        // Dismiss PIN dialog
         dialogFragment.dismiss();
+        // Show success message
         Toast.makeText(DepositFragment.this.requireContext(), "authenticate success !", Toast.LENGTH_SHORT).show();
     }
 
-
+    // Method to show PIN dialog
     private void showPinDialog() {
-
         dialogFragment.setTargetFragment(this, 0);
         dialogFragment.show(getFragmentManager(), "pin_dialog");
     }
-//    nhan ma pin sau khi xac thuc van tay thanh cong
-    private void getPincode(){
 
-        ApiService apiService=ApiService.ApiUtils.getApiService(DepositFragment.this.requireContext());
+    // Method to get PIN code after successful authentication
+    private void getPincode() {
+        ApiService apiService = ApiService.ApiUtils.getApiService(DepositFragment.this.requireContext());
         apiService.getPin().enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    String pin=response.body().string();
-                    if(!pin.equals("can't authentication")){
+                    String pin = response.body().string();
+                    if (!pin.equals("can't authentication")) {
+                        // If PIN is retrieved successfully, proceed with PIN entered callback
                         onPinEntered(pin);
                     }
                 } catch (IOException e) {
@@ -260,26 +249,27 @@ public class DepositFragment extends Fragment implements pindialogAdapter.PinDia
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                // Handle failure scenario
             }
         });
-
     }
-    private void init(){
+
+    // Method to initialize UI elements and fetch card details
+    private void init() {
         ProgressDialog progressDialog = new ProgressDialog(DepositFragment.this.requireContext());
         progressDialog.setMessage("waiting...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
-        ApiService apiService=ApiService.ApiUtils.getApiService(DepositFragment.this.requireContext());
+        ApiService apiService = ApiService.ApiUtils.getApiService(DepositFragment.this.requireContext());
         apiService.getCard().enqueue(new Callback<Card>() {
             @Override
             public void onResponse(Call<Card> call, Response<Card> response) {
-                Card card=response.body();
-                if(card!=null){
-
+                Card card = response.body();
+                if (card != null) {
+                    // Update UI with card details
                     midcard.setText(addSpaceEveryFourCharacters(card.getCard_number()));
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-                    mName.setText(sharedPreferences.getString("fullName",""));
+                    mName.setText(sharedPreferences.getString("fullName", ""));
                     mbalane.setText(card.getBalance().toString());
                 }
                 progressDialog.dismiss();
@@ -287,12 +277,13 @@ public class DepositFragment extends Fragment implements pindialogAdapter.PinDia
 
             @Override
             public void onFailure(Call<Card> call, Throwable t) {
-
+                // Handle failure scenario
             }
         });
     }
 
-    public  String addSpaceEveryFourCharacters(String input) {
+    // Method to add space every four characters in a string
+    public String addSpaceEveryFourCharacters(String input) {
         StringBuilder builder = new StringBuilder();
         int count = 0;
 
@@ -307,5 +298,4 @@ public class DepositFragment extends Fragment implements pindialogAdapter.PinDia
 
         return builder.toString();
     }
-
 }

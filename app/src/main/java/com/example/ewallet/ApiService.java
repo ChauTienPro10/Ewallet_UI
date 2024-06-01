@@ -99,26 +99,6 @@ public interface ApiService {
     @POST("/profile/authenCode_change_pass")
     Call<ResponseBody> authen_changepassword(@Body JsonObject js);
 
-//    class ApiUtils {
-//        public static ApiService getApiService(Context context) {
-//            SharedPreferences sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-//            OkHttpClient client = new OkHttpClient.Builder()
-//                    .addInterceptor(new AuthInterceptor(sharedPreferences.getString("jwt", "")))
-//                    .build();
-//            Gson gson = new GsonBuilder()
-//                    .setDateFormat("yyyy-MM-dd HH:mm:ss")
-//                    .setLenient()
-//                    .create();
-//
-//            Retrofit retrofit = new Retrofit.Builder()
-//                    .baseUrl("https://172.16.3.72:9005")
-//                    .addConverterFactory(GsonConverterFactory.create(gson))
-//                    .client(client)
-//                    .build();
-//
-//            return retrofit.create(ApiService.class);
-//        }
-//    }
 
     public class ApiUtils {
 

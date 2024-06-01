@@ -36,24 +36,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class pindialogAdapter extends DialogFragment {
 
-
+    // Declare UI components
     private TextView mTofingerPrint;
     View view1, view2, view3, view4, view5, view6;
-    String passCode ="";
-    String num_01,num_02,num_03,num_04,num_05,num_06;
+    String passCode = "";
+    String num_01, num_02, num_03, num_04, num_05, num_06;
 
-
-
-
+    // Interface to communicate PIN input and authentication events back to the parent activity or fragment
     public interface PinDialogListener {
-        void onPinEntered(String pin);
-        void onAuthentication();
+        void onPinEntered(String pin); // Called when the user enters a PIN
+
+        void onAuthentication(); // Called when fingerprint authentication is successful
     }
 
     private pindialogAdapter.PinDialogListener mListener;
 
+    // Attaching the listener to the parent activity or target fragment
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -69,28 +70,32 @@ public class pindialogAdapter extends DialogFragment {
             }
         }
     }
+
+    // Creating the dialog and setting up UI elements
     @SuppressLint("MissingInflatedId")
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        // Create an AlertDialog builder
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
+        // Inflate the custom layout for the dialog
         @SuppressLint("InflateParams") View dialogView = inflater.inflate(R.layout.pincode, null);
         ImageView closeBottomSheet;
         ConstraintLayout btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_9, btn_0, btn_X;
-//        xac thuc van tay
-        mTofingerPrint=dialogView.findViewById(R.id.toFingerprint);
 
-
+        // Set up the fingerprint authentication button
+        mTofingerPrint = dialogView.findViewById(R.id.toFingerprint);
         mTofingerPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Initialize fingerprint authentication
                 FingerPrint fingerPrint = new FingerPrint((AppCompatActivity) pindialogAdapter.this.requireActivity());
-                AuthenticationCallback authenticationCallback=new AuthenticationCallback() {
+                AuthenticationCallback authenticationCallback = new AuthenticationCallback() {
                     @Override
                     public void onAuthenticationSuccess() {
+                        // Notify listener on successful authentication
                         mListener.onAuthentication();
-
                     }
 
                     @Override
@@ -98,20 +103,23 @@ public class pindialogAdapter extends DialogFragment {
                         Toast.makeText(pindialogAdapter.this.requireContext(), "authenticate failure !", Toast.LENGTH_SHORT).show();
                     }
                 };
+                // Start fingerprint authentication
                 fingerPrint.Authenticate(authenticationCallback);
             }
         });
-//        ket thuc xac thuc van tay
 
+        // Set up the close button for the dialog
         ArrayList<String> numbers_list = new ArrayList<>();
         closeBottomSheet = dialogView.findViewById(R.id.closeBottomSheet);
         closeBottomSheet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // Dismiss the dialog when the close button is clicked
+                dismiss();
             }
         });
 
+        // Initialize the views for displaying entered PIN digits
         view1 = dialogView.findViewById(R.id.view1);
         view2 = dialogView.findViewById(R.id.view2);
         view3 = dialogView.findViewById(R.id.view3);
@@ -119,6 +127,7 @@ public class pindialogAdapter extends DialogFragment {
         view5 = dialogView.findViewById(R.id.view5);
         view6 = dialogView.findViewById(R.id.view6);
 
+        // Initialize the buttons for entering PIN digits
         btn_1 = dialogView.findViewById(R.id.btn_1);
         btn_2 = dialogView.findViewById(R.id.btn_2);
         btn_3 = dialogView.findViewById(R.id.btn_3);
@@ -131,123 +140,155 @@ public class pindialogAdapter extends DialogFragment {
         btn_0 = dialogView.findViewById(R.id.btn_0);
         btn_X = dialogView.findViewById(R.id.btn_X);
 
+
+        // Set OnClickListener for button 1
         btn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Add "1" to numbers_list
                 numbers_list.add("1");
+                // Call passNumber method with numbers_list as parameter
                 passNumber(numbers_list);
             }
         });
+        // Set OnClickListener for button 2
         btn_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Add "2" to numbers_list
                 numbers_list.add("2");
+                // Call passNumber method with numbers_list as parameter
                 passNumber(numbers_list);
             }
         });
+        // Set OnClickListener for button 3
         btn_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Add "3" to numbers_list
                 numbers_list.add("3");
+                // Call passNumber method with numbers_list as parameter
                 passNumber(numbers_list);
             }
         });
-
-
+        // Set OnClickListener for button 4
         btn_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Add "4" to numbers_list
                 numbers_list.add("4");
+                // Call passNumber method with numbers_list as parameter
                 passNumber(numbers_list);
             }
         });
-
+        // Set OnClickListener for button 5
         btn_5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Add "5" to numbers_list
                 numbers_list.add("5");
+                // Call passNumber method with numbers_list as parameter
                 passNumber(numbers_list);
             }
         });
-
+        // Set OnClickListener for button 6
         btn_6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Add "6" to numbers_list
                 numbers_list.add("6");
+                // Call passNumber method with numbers_list as parameter
                 passNumber(numbers_list);
             }
         });
+        // Set OnClickListener for button 7
         btn_7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Add "7" to numbers_list
                 numbers_list.add("7");
+                // Call passNumber method with numbers_list as parameter
                 passNumber(numbers_list);
             }
         });
+        // Set OnClickListener for button 8
         btn_8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Add "8" to numbers_list
                 numbers_list.add("8");
+                // Call passNumber method with numbers_list as parameter
                 passNumber(numbers_list);
             }
         });
+        // Set OnClickListener for button 9
         btn_9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Add "9" to numbers_list
                 numbers_list.add("9");
+                // Call passNumber method with numbers_list as parameter
                 passNumber(numbers_list);
             }
         });
+        // Set OnClickListener for button 0
         btn_0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Add "0" to numbers_list
                 numbers_list.add("0");
+                // Call passNumber method with numbers_list as parameter
                 passNumber(numbers_list);
             }
         });
+        // Clear the numbers_list when button X is clicked
         btn_X.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Clear the numbers_list
                 numbers_list.clear();
+                // Call passNumber method with empty numbers_list
                 passNumber(numbers_list);
             }
         });
 
-
-
+        // Set up the AlertDialog
         builder.setView(dialogView)
                 .setTitle("Enter PIN")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        // Build the PIN string from numbers_list
                         StringBuilder sb = new StringBuilder();
                         for (String number : numbers_list) {
                             sb.append(number);
                         }
                         String pin = sb.toString();
+                        // Call onPinEntered method of the mListener with the PIN
                         mListener.onPinEntered(pin);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        // Cancel the dialog if "Cancel" button is clicked
                         dialog.cancel();
                     }
                 });
+
+        // Create and return the AlertDialog
         AlertDialog dialog = builder.create();
 
-        // Đặt màu nền cho dialog
+        // Set background color for the dialog
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         return dialog;
     }
 
-
-
-
-
-
+    //Updates the visual representation of entered numbers and constructs a passcode string.
     private void passNumber(ArrayList<String> numbers_list) {
+        // Check if the numbers_list is empty
         if (numbers_list.size() == 0) {
+            // If the numbers_list is empty, set the background of all views to gray
             view1.setBackgroundResource(R.drawable.bg_view_gray_digits);
             view2.setBackgroundResource(R.drawable.bg_view_gray_digits);
             view3.setBackgroundResource(R.drawable.bg_view_gray_digits);
@@ -255,38 +296,45 @@ public class pindialogAdapter extends DialogFragment {
             view5.setBackgroundResource(R.drawable.bg_view_gray_digits);
             view6.setBackgroundResource(R.drawable.bg_view_gray_digits);
         } else {
+            // If numbers_list is not empty, set backgrounds based on the size of the list
             switch (numbers_list.size()) {
                 case 1:
-                    num_01= numbers_list.get(0);
+                    // If one number is entered, update the corresponding view and store the number
+                    num_01 = numbers_list.get(0);
                     view1.setBackgroundResource(R.drawable.bg_view_digits);
                     break;
                 case 2:
-                    num_02= numbers_list.get(1);
+                    // If two numbers are entered, update the corresponding view and store the number
+                    num_02 = numbers_list.get(1);
                     view2.setBackgroundResource(R.drawable.bg_view_digits);
                     break;
                 case 3:
-                    num_03= numbers_list.get(2);
+                    // If three numbers are entered, update the corresponding view and store the number
+                    num_03 = numbers_list.get(2);
                     view3.setBackgroundResource(R.drawable.bg_view_digits);
                     break;
                 case 4:
-                    num_04= numbers_list.get(3);
+                    // If four numbers are entered, update the corresponding view and store the number
+                    num_04 = numbers_list.get(3);
                     view4.setBackgroundResource(R.drawable.bg_view_digits);
                     break;
                 case 5:
-                    num_05= numbers_list.get(4);
+                    // If five numbers are entered, update the corresponding view and store the number
+                    num_05 = numbers_list.get(4);
                     view5.setBackgroundResource(R.drawable.bg_view_digits);
                     break;
                 case 6:
-                    num_06= numbers_list.get(5);
+                    // If six numbers are entered, update the corresponding view and concatenate all numbers to form passCode
+                    num_06 = numbers_list.get(5);
                     view6.setBackgroundResource(R.drawable.bg_view_digits);
 
-                    passCode = num_01+num_02+num_03+num_04+num_05+num_06;
-                    Log.d("PassCode",passCode);
+                    // Concatenate all numbers to form the passCode
+                    passCode = num_01 + num_02 + num_03 + num_04 + num_05 + num_06;
+
+                    // Log the passCode for debugging purposes
+                    Log.d("PassCode", passCode);
                     break;
             }
         }
-
     }
-
-
 }

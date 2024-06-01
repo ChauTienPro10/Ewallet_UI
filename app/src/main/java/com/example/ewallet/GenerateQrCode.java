@@ -26,39 +26,45 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class GenerateQrCode extends AppCompatActivity {
-    ImageView imageView;
-    final DecimalFormat decimalFormat = new DecimalFormat("#,###");
+    // Declare UI components
+    private ImageView imageView;
+    private final DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_qr_code);
 
-        EditText editText_amount =findViewById(R.id.number_text);
+        // Initialize UI elements
+        EditText editText_amount = findViewById(R.id.number_text);
         Button submit = findViewById(R.id.generateButton);
         imageView = findViewById(R.id.idIVQRCode);
 
-
+        // Add a TextWatcher to format the amount input
         editText_amount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                // No action needed before text is changed
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                // No action needed during the text change
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                // Remove TextWatcher to avoid infinite loop
                 editText_amount.removeTextChangedListener(this);
 
                 try {
+                    // Get the input string without commas
                     String originalString = s.toString().replaceAll(",", "");
 
+                    // Parse the value to double
                     double value = decimalFormat.parse(originalString).doubleValue();
 
+                    // Format the value and set it back to EditText
                     String formattedString = decimalFormat.format(value);
                     editText_amount.setText(formattedString);
                     editText_amount.setSelection(formattedString.length());
@@ -66,40 +72,55 @@ public class GenerateQrCode extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                // Re-add TextWatcher after formatting is done
                 editText_amount.addTextChangedListener(this);
             }
         });
 
+        // Set a click listener on the submit button to generate the QR code
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String amount =editText_amount.getText().toString();
+                // Get the amount entered by the user
+                String amount = editText_amount.getText().toString();
+
+                // Create a JSON object with the amount
                 JsonObject json = new JsonObject();
                 json.addProperty("amount", amount);
-                ApiService apiService = ApiService.ApiUtils.getApiService(GenerateQrCode.this);
-                apiService.createQR(json).enqueue(new Callback<ResponseBody>(){
 
+                // Get the API service instance
+                ApiService apiService = ApiService.ApiUtils.getApiService(GenerateQrCode.this);
+
+                // Make an asynchronous call to create the QR code
+                apiService.createQR(json).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        String responseBody;
                         try {
-                            responseBody = response.body().string();
+                            // Get the response body as a string
+                            String responseBody = response.body().string();
+
+                            // Decode the Base64 string to byte array
                             byte[] imageBytes = Base64.decode(responseBody, Base64.DEFAULT);
+
+                            // Convert byte array to Bitmap
                             Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+
+                            // Set the Bitmap to ImageView
                             imageView.setImageBitmap(bitmap);
+
+                            // Show success toast
+                            Toast.makeText(GenerateQrCode.this, "Success", Toast.LENGTH_SHORT).show();
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                        Toast.makeText(GenerateQrCode.this, "Succsess" , Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(GenerateQrCode.this, "incorrect!", Toast.LENGTH_SHORT).show();
+                        // Show failure toast
+                        Toast.makeText(GenerateQrCode.this, "Incorrect!", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
             }
         });
     }

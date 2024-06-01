@@ -36,210 +36,231 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ETH_Wallet extends AppCompatActivity implements pindialogAdapter.PinDialogListener {
+
+    // Declare UI components
     ConstraintLayout btn_back_eth;
     TextView mAddress;
     private TextView mTotal;
     TextView mName;
     private Button mLink;
+
+    // Dialog fragment for PIN entry
     pindialogAdapter dialogFragment = new pindialogAdapter();
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eth_wallet);
+
+        // Shared Preferences for storing and retrieving user data
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        mTotal=findViewById(R.id.textView48);
-        mLink=findViewById(R.id.linkButton);
-        mName=findViewById(R.id.textName);
+
+        // Initialize UI components
+        mTotal = findViewById(R.id.textView48);
+        mLink = findViewById(R.id.linkButton);
+        mName = findViewById(R.id.textName);
+
+        // Set the full name from SharedPreferences
         mName.setText(sharedPreferences.getString("fullName", ""));
-        btn_back_eth=findViewById(R.id.btn_back_eth);
-        mAddress=findViewById(R.id.check);
+        btn_back_eth = findViewById(R.id.btn_back_eth);
+        mAddress = findViewById(R.id.check);
+
+        // Set back button action
         btn_back_eth.setOnClickListener(v -> startActivity(new Intent(ETH_Wallet.this, MainActivity.class)));
-        if(!sharedPreferences.getString("AddETH", "").equals("")){
-            mAddress.setText(sharedPreferences.getString("AddETH", "").substring(0,10)+"...");
 
-        }
-        else{
+        // Check if Ethereum address is already stored
+        if (!sharedPreferences.getString("AddETH", "").equals("")) {
+            // Display a shortened version of the Ethereum address
+            mAddress.setText(sharedPreferences.getString("AddETH", "").substring(0, 10) + "...");
+        } else {
+            // Show PIN dialog if no Ethereum address is stored
             showPinDialog();
-
         }
-        mLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mAddress.getText().toString().equals("not link")){
-                    Intent intent = new Intent(ETH_Wallet.this, LinkAcount.class);
-                    startActivity(intent);
-                }
-                else{
-                    openDialog(Gravity.CENTER);
-                }
 
-
-
+        // Link button click listener
+        mLink.setOnClickListener(v -> {
+            if (mAddress.getText().toString().equals("not link")) {
+                // Start LinkAcount activity if not linked
+                Intent intent = new Intent(ETH_Wallet.this, LinkAcount.class);
+                startActivity(intent);
+            } else {
+                // Show notification dialog if already linked
+                openDialog(Gravity.CENTER);
             }
         });
-
     }
 
-
-    
-    private void getInfETH(){
+    // Method to retrieve Ethereum wallet info from the server
+    private void getInfETH() {
         ProgressDialog progressDialog = new ProgressDialog(ETH_Wallet.this);
         progressDialog.setMessage("Processing...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
-        ApiService apiService=ApiService.ApiUtils.getApiService(ETH_Wallet.this);
+
+        // Create an instance of ApiService
+        ApiService apiService = ApiService.ApiUtils.getApiService(ETH_Wallet.this);
+
+        // Make an asynchronous request to get Ethereum wallet info
         apiService.getInfEth().enqueue(new Callback<EtherWallet>() {
             @Override
             public void onResponse(Call<EtherWallet> call, Response<EtherWallet> response) {
-                EtherWallet etherwallet=response.body();
-                if (etherwallet!=null){
+                EtherWallet etherwallet = response.body();
+                if (etherwallet != null) {
+                    // Save Ethereum address to SharedPreferences
                     SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("AddETH",etherwallet.getAddress().substring(0,10)+"...");
+                    editor.putString("AddETH", etherwallet.getAddress().substring(0, 10) + "...");
                     editor.apply();
+
+                    // Notify user of success and update UI
                     Toast.makeText(ETH_Wallet.this, "success", Toast.LENGTH_SHORT).show();
-                    mAddress.setText(sharedPreferences.getString("AddETH", "").substring(0,10)+"...");
+                    mAddress.setText(sharedPreferences.getString("AddETH", "").substring(0, 10) + "...");
+
+                    // Fetch wallet balance
                     getbalance(apiService);
-                    progressDialog.dismiss();
                 }
                 progressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<EtherWallet> call, Throwable t) {
-
+                // Handle failure
+                progressDialog.dismiss();
             }
         });
     }
 
+    // Callback method for PIN entry dialog
     @Override
     public void onPinEntered(String pin) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("pincode", pin);
-        ApiService apiService=ApiService.ApiUtils.getApiService(ETH_Wallet.this);
+
+        // Create an instance of ApiService
+        ApiService apiService = ApiService.ApiUtils.getApiService(ETH_Wallet.this);
+
+        // Make an asynchronous request to authenticate PIN
         apiService.authenPin(jsonObject).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-
-                if(response.body()==true){
+                if (response.body() == true) {
+                    // Fetch Ethereum wallet info if authentication is successful
                     getInfETH();
-                }
-                else{
-                    Toast.makeText(ETH_Wallet.this, "Authen failure" , Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(ETH_Wallet.this, MainActivity.class );
+                } else {
+                    // Notify user of authentication failure and navigate back to main activity
+                    Toast.makeText(ETH_Wallet.this, "Authen failure", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ETH_Wallet.this, MainActivity.class);
                     startActivity(intent);
                 }
             }
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
-
+                // Handle failure
             }
         });
     }
 
+    // Callback method for successful authentication
     @Override
     public void onAuthentication() {
+        // Fetch PIN code and dismiss the dialog
         getPincode();
         dialogFragment.dismiss();
     }
+
+    // Method to show PIN entry dialog
     private void showPinDialog() {
-        try{
+        try {
             dialogFragment.show(getSupportFragmentManager(), "pin_dialog");
-        }
-        catch (Exception e){
-            Log.d("dialogTien", "showPinDialog: "+e.toString());
+        } catch (Exception e) {
+            Log.d("dialogTien", "showPinDialog: " + e.toString());
         }
     }
 
-    private void getPincode(){
+    // Method to retrieve PIN code from the server
+    private void getPincode() {
         ProgressDialog progressDialog_getPin = new ProgressDialog(ETH_Wallet.this);
         progressDialog_getPin.setMessage("Processing...");
         progressDialog_getPin.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog_getPin.show();
-        ApiService apiService=ApiService.ApiUtils.getApiService(ETH_Wallet.this);
+
+        // Create an instance of ApiService
+        ApiService apiService = ApiService.ApiUtils.getApiService(ETH_Wallet.this);
+
+        // Make an asynchronous request to get PIN
         apiService.getPin().enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    String pin=response.body().string();
-                    if(!pin.equals("can't authentication")){
+                    String pin = response.body().string();
+                    if (!pin.equals("can't authentication")) {
+                        // Authenticate PIN if retrieval is successful
                         onPinEntered(pin);
-                        progressDialog_getPin.dismiss();
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
-
                 }
+                progressDialog_getPin.dismiss();
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                // Handle failure
                 progressDialog_getPin.dismiss();
             }
         });
-
     }
 
-
-    private void getbalance(ApiService apiService){
-
-
+    // Method to get wallet balance (implementation needed)
+    private void getbalance(ApiService apiService) {
+        // Implement this method to get balance
     }
 
-
+    // Method to show a notification dialog
     public void openDialog(int gravity) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.activity_dialog_notificaton);
 
         Window window = dialog.getWindow();
-        if(window == null) {
+        if (window == null) {
             return;
         }
 
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        WindowManager.LayoutParams windownAtribute = window.getAttributes();
-        windownAtribute.gravity = gravity;
-        window.setAttributes(windownAtribute);
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity = gravity;
+        window.setAttributes(windowAttributes);
 
-        if(Gravity.CENTER == gravity) {
-            dialog.setCancelable(true);
+        // Set dialog cancelable based on gravity
+        dialog.setCancelable(Gravity.CENTER == gravity);
 
-        } else {
-            dialog.setCancelable(false);
-        }
-        TextView mTitle, mContent;
-        mTitle=dialog.findViewById(R.id.title);
+        // Initialize dialog UI components
+        TextView mTitle = dialog.findViewById(R.id.title);
         mTitle.setText("Notify");
-        mContent=dialog.findViewById(R.id.content);
-        mContent.setText("You was linked to ETH");
+        TextView mContent = dialog.findViewById(R.id.content);
+        mContent.setText("You were linked to ETH");
         Button cancel = dialog.findViewById(R.id.btn_cancel);
         Button confirm = dialog.findViewById(R.id.btn_confirm);
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+        // Set cancel button action
+        cancel.setOnClickListener(v -> dialog.dismiss());
 
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                goLink();
-                dialog.dismiss();
-
-            }
+        // Set confirm button action
+        confirm.setOnClickListener(v -> {
+            goLink();
+            dialog.dismiss();
         });
 
         dialog.show();
     }
-    private void goLink(){
 
+    // Method to handle link confirmation (implementation needed)
+    private void goLink() {
+        // Implement this method to handle link confirmation
     }
 }

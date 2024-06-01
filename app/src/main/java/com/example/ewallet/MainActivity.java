@@ -36,66 +36,90 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+    // Declare UI elements
     private RecyclerView.Adapter adapterContact;
     private RecyclerView recyclerViewConatact;
     private ConstraintLayout btn_Transaction;
-    private ImageView getMoney,mtoOpenCard;
+    private ImageView getMoney, mtoOpenCard;
     private ImageView toDeposit;
     private TextView mName;
     TextView mBalance;
     private ConstraintLayout sendMoney;
     FloatingActionButton scanqr;
-    LinearLayout mToProfile,btn_history;
+    LinearLayout mToProfile, btn_history;
     Gson gson = new Gson();
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mName=findViewById(R.id.nameMember);
-        mBalance=findViewById(R.id.textView);
-        mtoOpenCard=findViewById(R.id.toOpencard);
+
+        // Initialize UI elements
+        mName = findViewById(R.id.nameMember);
+        mBalance = findViewById(R.id.textView);
+        mtoOpenCard = findViewById(R.id.toOpencard);
+        sendMoney = findViewById(R.id.imageSend);
+        toDeposit = findViewById(R.id.DepositImg);
+        mToProfile = findViewById(R.id.toProfile);
+        getMoney = findViewById(R.id.get_money);
+        btn_Transaction = findViewById(R.id.btn_Transaction);
+        scanqr = findViewById(R.id.scanQR);
+        btn_history = findViewById(R.id.btnHistory);
+
+        // Set click listeners
+        // Open opencard activity
         mtoOpenCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, opencard.class );
+                Intent intent = new Intent(MainActivity.this, opencard.class);
                 startActivity(intent);
             }
         });
-        //button history transaction
-        btn_history=findViewById(R.id.btnHistory);
-        btn_history.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,HistoryTransactionPage.class)));
 
-        // Test Auth
+        // Open history transaction activity
+        btn_history.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, HistoryTransactionPage.class)));
+
+        // Retrieve user data from SharedPreferences and display
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         mName.setText(sharedPreferences.getString("fullName", ""));
-        getMember();
-        // Test ETH
+        getMember(); // Call method to get member information
+
+        // Open ETH wallet activity
         LinearLayout testETH = findViewById(R.id.testETH);
         testETH.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, ETH_Wallet.class)));
 
-        //Contact list
+        // Initialize RecyclerView for contacts
         initRecyclerView();
-        toDeposit=findViewById(R.id.DepositImg);
+
+        // Deposit money
         toDeposit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, TransactionPage.class );
+                Intent intent = new Intent(MainActivity.this, TransactionPage.class);
                 startActivity(intent);
             }
         });
-        mToProfile=findViewById(R.id.toProfile);
-        sendMoney = findViewById(R.id.imageSend);
+
+        // Send money
         sendMoney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,TranferMoney.class);
+                Intent intent = new Intent(MainActivity.this, TranferMoney.class);
                 startActivity(intent);
             }
         });
-        scanqr=findViewById(R.id.scanQR);
-        getMoney=findViewById(R.id.get_money);
-        btn_Transaction = findViewById(R.id.btn_Transaction);
+
+        // Generate QR code
+        getMoney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, GenerateQrCode.class);
+                startActivity(intent);
+            }
+        });
+
+        // Navigate to profile page
         mToProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,121 +127,126 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        getMoney.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, GenerateQrCode.class );
-                startActivity(intent);
-            }
-        });
+
+        // Navigate to transaction page
         btn_Transaction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Chuyển đến TransactionPageActivity
-                Intent intent = new Intent(MainActivity.this,TransactionPage.class);
+                Intent intent = new Intent(MainActivity.this, TransactionPage.class);
                 startActivity(intent);
             }
         });
+
+        // Scan QR code
         scanqr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // Initialize IntentIntegrator for scanning
                 IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
-                integrator.setPrompt("Scan a barcode");
-                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
-                integrator.setCameraId(0); // Use a specific camera of the device
-                integrator.setOrientationLocked(true);
-                integrator.setBeepEnabled(true);
-                integrator.setCaptureActivity(ScanQR.class);
-                integrator.initiateScan();
-
+                integrator.setPrompt("Scan a barcode"); // Set prompt message
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE); // Set barcode format
+                integrator.setCameraId(0); // Use rear camera
+                integrator.setOrientationLocked(true); // Lock orientation
+                integrator.setBeepEnabled(true); // Enable beep sound on scan
+                integrator.setCaptureActivity(ScanQR.class); // Set custom capture activity
+                integrator.initiateScan(); // Start scanning
             }
         });
     }
+
+    // Method to initialize the RecyclerView for displaying contacts
     private void initRecyclerView() {
-        ArrayList<ContactsDomain> items=new ArrayList<>();
-        items.add(new ContactsDomain("David","user_1"));
-        items.add(new ContactsDomain("Alice","user_2"));
-        items.add(new ContactsDomain("Rose","user_3"));
-        items.add(new ContactsDomain("Sara","user_4"));
-        recyclerViewConatact=findViewById(R.id.viewList);
-        recyclerViewConatact.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        adapterContact=new ContactsAdapter(items);
+        // Create a list of sample contacts
+        ArrayList<ContactsDomain> items = new ArrayList<>();
+        items.add(new ContactsDomain("David", "user_1"));
+        items.add(new ContactsDomain("Alice", "user_2"));
+        items.add(new ContactsDomain("Rose", "user_3"));
+        items.add(new ContactsDomain("Sara", "user_4"));
+
+        // Find the RecyclerView in the layout and set its layout manager and adapter
+        recyclerViewConatact = findViewById(R.id.viewList);
+        recyclerViewConatact.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        adapterContact = new ContactsAdapter(items); // Create an adapter with the contact list
         recyclerViewConatact.setAdapter(adapterContact);
     }
+
+    // Method to open a dialog for entering data
     private void openFormDialog() {
+        // Create a dialog builder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter Data");
+        builder.setTitle("Enter Data"); // Set dialog title
+
         // Inflate the layout for the dialog
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_qr_form, null);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final EditText etName = view.findViewById(R.id.et_name);
-        builder.setView(view);
+        final EditText etName = view.findViewById(R.id.et_name); // Find the EditText in the layout
+        builder.setView(view); // Set the inflated view to the dialog builder
+
+        // Set up positive and negative buttons for the dialog
         builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String name = etName.getText().toString();
-                Toast.makeText(MainActivity.this, "Entered name: " + name, Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
+                String name = etName.getText().toString(); // Get the entered name
+                Toast.makeText(MainActivity.this, "Entered name: " + name, Toast.LENGTH_SHORT).show(); // Show a toast with the entered name
+                dialog.dismiss(); // Dismiss the dialog
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+                dialog.dismiss(); // Dismiss the dialog if canceled
             }
         });
+
+        // Create and show the dialog
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
-
-//    xu ly ma qr tai day
+    // Method to handle the result of QR code scanning
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Parse the result using IntentIntegrator
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
             if (result.getContents() == null) {
+                // Show a toast if scan was canceled
                 Toast.makeText(this, "Scan cancelled", Toast.LENGTH_LONG).show();
             } else {
-
-                Log.d("chauduong", "onActivityResult: "+ result.getContents());
+                // Extract data from the scanned QR code
                 String[] parts = result.getContents().split("\n");
                 String name = parts[0];
                 String phone = parts[1];
                 String amountString = parts[2];
-                Intent intent=new Intent(MainActivity.this, InforTranfer.class );
+
+                // Start InforTranfer activity and pass the extracted data
+                Intent intent = new Intent(MainActivity.this, InforTranfer.class);
                 intent.putExtra("name", name);
-                intent.putExtra("phone",phone);
-                intent.putExtra("amountExtra",amountString);
+                intent.putExtra("phone", phone);
+                intent.putExtra("amountExtra", amountString);
                 startActivity(intent);
-//                ApiService apiService = ApiService.ApiUtils.getApiService(this);
-//                apiService.sendQrData(result.getContents()).enqueue(new Callback<ResponseBody>() {
-//                    @Override
-//                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                        Toast.makeText(MainActivity.this, "send success !"+response.body(), Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                        Toast.makeText(MainActivity.this, "incorrect!"+t.toString(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-    private void getMember(){
-        ApiService apiService=ApiService.ApiUtils.getApiService(MainActivity.this);
+
+    // Method to retrieve member information from the API
+    private void getMember() {
+        // Create an instance of ApiService to interact with the API
+        ApiService apiService = ApiService.ApiUtils.getApiService(MainActivity.this);
+        // Make an asynchronous call to get the member's balance
         apiService.getBalance().enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
+                // Handle successful response
                 String responseBody;
                 responseBody = response.body();
-                mBalance.setText(responseBody);
+                mBalance.setText(responseBody); // Set member's balance on the UI
             }
+
             @Override
             public void onFailure(Call<String> call, Throwable t) {
+                // Handle failure
             }
         });
     }
